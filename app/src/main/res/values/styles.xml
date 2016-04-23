@@ -121,5 +121,33 @@
         <item name="android:paddingLeft">@dimen/keyline</item>
     </style>
 
+    <style name="AdapterView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:drawSelectorOnTop">true</item>
+    </style>
+
+    <style name="AdapterView.NoDivider">
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+        <item name="android:dividerPadding">0dp</item>
+    </style>
+
+    <style name="AdapterView.NoDivider.NoSelector">
+        <item name="android:listSelector">#0000</item>
+    </style>
+
+    <style name="AdapterItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/keyline</item>
+        <item name="android:paddingRight">@dimen/keyline</item>
+        <item name="android:paddingTop">@dimen/space_normal</item>
+        <item name="android:paddingBottom">@dimen/space_normal</item>
+
+    </style>
+
 
 </resources>

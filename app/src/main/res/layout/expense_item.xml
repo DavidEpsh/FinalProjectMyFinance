@@ -28,7 +28,6 @@
 
             <TextView
                 android:id="@+id/weekdayTextView"
-                style="@style/Text.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -39,7 +38,6 @@
 
             <TextView
                 android:id="@+id/dayTextView"
-                style="@style/Text.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -64,7 +62,6 @@
 
             <TextView
                 android:id="@+id/titleTextView"
-                style="@style/Text.Body2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -74,7 +71,6 @@
 
             <TextView
                 android:id="@+id/amountTextView"
-                style="@style/Text.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -90,7 +86,6 @@
 
             <TextView
                 android:id="@+id/subtitleTextView"
-                style="@style/Text.Caption"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -99,7 +94,6 @@
 
             <TextView
                 android:id="@+id/accountTextView"
-                style="@style/Text.Caption"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"

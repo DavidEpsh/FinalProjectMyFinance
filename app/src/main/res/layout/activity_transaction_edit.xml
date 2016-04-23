@@ -242,6 +242,57 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/addImageContainerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+
+                android:elevation="@dimen/elevation_sub_header"
+                android:orientation="vertical"
+                tools:ignore="UnusedAttribute">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_large"
+                    android:animateLayoutChanges="true"
+                    android:paddingLeft="@dimen/keyline"
+                    android:paddingRight="@dimen/keyline">
+
+                    <ImageView
+                        android:id="@+id/addImageView"
+                        style="@style/ImageView.Form"
+                        android:src="@drawable/ic_menu_camera"
+                        android:scaleType="centerInside"
+                        android:adjustViewBounds="true"
+                        tools:ignore="RtlHardcoded" />
+
+                    <Button
+                        android:id="@+id/addImageButton"
+                        style="@style/Button.Flat.Select"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Add image from camera or gallery"
+                        android:inputType="textCapSentences|textMultiLine"
+                        android:minHeight="@dimen/recommended_touch_size" />
+
+                </LinearLayout>
+
+                <View
+                    style="@style/Divider.Thick"
+                    android:layout_marginLeft="@dimen/keyline_content"
+                    tools:ignore="RtlHardcoded" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -266,7 +317,7 @@
                         style="@style/CheckBox.Field"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/confirmed" />
+                        android:text="@string/monthly_expense" />
                 </LinearLayout>
 
             </LinearLayout>
