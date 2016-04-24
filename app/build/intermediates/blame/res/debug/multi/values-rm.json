@@ -1,0 +1,836 @@
+[
+    {
+        "outputFile": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\values-rm\\values-rm.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endLine": 5,
+                    "endColumn": 14,
+                    "endOffset": 332
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 229,
+                        "endLine": 9,
+                        "endColumn": 14,
+                        "endOffset": 456
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 337,
+                    "endLine": 9,
+                    "endColumn": 14,
+                    "endOffset": 568
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 461,
+                        "endLine": 13,
+                        "endColumn": 14,
+                        "endOffset": 692
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 573,
+                    "endLine": 13,
+                    "endColumn": 14,
+                    "endOffset": 811
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 697,
+                        "endLine": 17,
+                        "endColumn": 14,
+                        "endOffset": 935
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 816,
+                    "endLine": 17,
+                    "endColumn": 14,
+                    "endOffset": 1057
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 940,
+                        "endLine": 21,
+                        "endColumn": 14,
+                        "endOffset": 1181
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1062,
+                    "endLine": 21,
+                    "endColumn": 14,
+                    "endOffset": 1290
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 1186,
+                        "endLine": 25,
+                        "endColumn": 14,
+                        "endOffset": 1414
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 1295,
+                    "endLine": 25,
+                    "endColumn": 14,
+                    "endOffset": 1533
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1419,
+                        "endLine": 29,
+                        "endColumn": 14,
+                        "endOffset": 1657
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 1538,
+                    "endLine": 29,
+                    "endColumn": 14,
+                    "endOffset": 1783
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 30,
+                        "startColumn": 4,
+                        "startOffset": 1662,
+                        "endLine": 33,
+                        "endColumn": 14,
+                        "endOffset": 1907
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 1788,
+                    "endLine": 33,
+                    "endColumn": 14,
+                    "endOffset": 2036
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 34,
+                        "startColumn": 4,
+                        "startOffset": 1912,
+                        "endLine": 37,
+                        "endColumn": 14,
+                        "endOffset": 2160
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 34,
+                    "startColumn": 4,
+                    "startOffset": 2041,
+                    "endLine": 37,
+                    "endColumn": 14,
+                    "endOffset": 2261
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 38,
+                        "startColumn": 4,
+                        "startOffset": 2165,
+                        "endLine": 41,
+                        "endColumn": 14,
+                        "endOffset": 2385
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 38,
+                    "startColumn": 4,
+                    "startOffset": 2266,
+                    "endLine": 41,
+                    "endColumn": 14,
+                    "endOffset": 2489
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 42,
+                        "startColumn": 4,
+                        "startOffset": 2390,
+                        "endLine": 45,
+                        "endColumn": 14,
+                        "endOffset": 2613
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 42,
+                    "startColumn": 4,
+                    "startOffset": 2494,
+                    "endLine": 45,
+                    "endColumn": 14,
+                    "endOffset": 2726
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 46,
+                        "startColumn": 4,
+                        "startOffset": 2618,
+                        "endLine": 49,
+                        "endColumn": 14,
+                        "endOffset": 2850
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 46,
+                    "startColumn": 4,
+                    "startOffset": 2731,
+                    "endLine": 49,
+                    "endColumn": 14,
+                    "endOffset": 2965
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 50,
+                        "startColumn": 4,
+                        "startOffset": 2855,
+                        "endLine": 53,
+                        "endColumn": 14,
+                        "endOffset": 3089
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 50,
+                    "startColumn": 4,
+                    "startOffset": 2970,
+                    "endLine": 53,
+                    "endColumn": 14,
+                    "endOffset": 3190
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 54,
+                        "startColumn": 4,
+                        "startOffset": 3094,
+                        "endLine": 57,
+                        "endColumn": 14,
+                        "endOffset": 3314
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 54,
+                    "startColumn": 4,
+                    "startOffset": 3195,
+                    "endLine": 57,
+                    "endColumn": 14,
+                    "endOffset": 3426
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 58,
+                        "startColumn": 4,
+                        "startOffset": 3319,
+                        "endLine": 61,
+                        "endColumn": 14,
+                        "endOffset": 3550
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 58,
+                    "startColumn": 4,
+                    "startOffset": 3431,
+                    "endLine": 61,
+                    "endColumn": 14,
+                    "endOffset": 3670
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 62,
+                        "startColumn": 4,
+                        "startOffset": 3555,
+                        "endLine": 65,
+                        "endColumn": 14,
+                        "endOffset": 3794
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 62,
+                    "startColumn": 4,
+                    "startOffset": 3675,
+                    "endLine": 65,
+                    "endColumn": 14,
+                    "endOffset": 3916
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 66,
+                        "startColumn": 4,
+                        "startOffset": 3799,
+                        "endLine": 69,
+                        "endColumn": 14,
+                        "endOffset": 4040
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 66,
+                    "startColumn": 4,
+                    "startOffset": 3921,
+                    "endColumn": 48,
+                    "endOffset": 3965
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 73,
+                        "startColumn": 4,
+                        "startOffset": 4180,
+                        "endColumn": 48,
+                        "endOffset": 4224
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 67,
+                    "startColumn": 4,
+                    "startOffset": 3970,
+                    "endColumn": 112,
+                    "endOffset": 4078
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 77,
+                        "startColumn": 4,
+                        "startOffset": 4352,
+                        "endColumn": 112,
+                        "endOffset": 4460
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 68,
+                    "startColumn": 4,
+                    "startOffset": 4083,
+                    "endColumn": 110,
+                    "endOffset": 4189
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 78,
+                        "startColumn": 4,
+                        "startOffset": 4465,
+                        "endColumn": 110,
+                        "endOffset": 4571
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 69,
+                    "startColumn": 4,
+                    "startOffset": 4194,
+                    "endColumn": 136,
+                    "endOffset": 4326
+                },
+                "from": {
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 79,
+                        "startColumn": 4,
+                        "startOffset": 4576,
+                        "endColumn": 136,
+                        "endOffset": 4708
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\values-rm\\values-rm.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endLine": 5,
+                    "endColumn": 14,
+                    "endOffset": 332
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 229,
+                        "endLine": 9,
+                        "endColumn": 14,
+                        "endOffset": 456
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 337,
+                    "endLine": 9,
+                    "endColumn": 14,
+                    "endOffset": 568
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 461,
+                        "endLine": 13,
+                        "endColumn": 14,
+                        "endOffset": 692
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 573,
+                    "endLine": 13,
+                    "endColumn": 14,
+                    "endOffset": 811
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 697,
+                        "endLine": 17,
+                        "endColumn": 14,
+                        "endOffset": 935
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 816,
+                    "endLine": 17,
+                    "endColumn": 14,
+                    "endOffset": 1057
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 940,
+                        "endLine": 21,
+                        "endColumn": 14,
+                        "endOffset": 1181
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1062,
+                    "endLine": 21,
+                    "endColumn": 14,
+                    "endOffset": 1290
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 1186,
+                        "endLine": 25,
+                        "endColumn": 14,
+                        "endOffset": 1414
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 1295,
+                    "endLine": 25,
+                    "endColumn": 14,
+                    "endOffset": 1533
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 26,
+                        "startColumn": 4,
+                        "startOffset": 1419,
+                        "endLine": 29,
+                        "endColumn": 14,
+                        "endOffset": 1657
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 1538,
+                    "endLine": 29,
+                    "endColumn": 14,
+                    "endOffset": 1783
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 30,
+                        "startColumn": 4,
+                        "startOffset": 1662,
+                        "endLine": 33,
+                        "endColumn": 14,
+                        "endOffset": 1907
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 1788,
+                    "endLine": 33,
+                    "endColumn": 14,
+                    "endOffset": 2036
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 34,
+                        "startColumn": 4,
+                        "startOffset": 1912,
+                        "endLine": 37,
+                        "endColumn": 14,
+                        "endOffset": 2160
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 34,
+                    "startColumn": 4,
+                    "startOffset": 2041,
+                    "endLine": 37,
+                    "endColumn": 14,
+                    "endOffset": 2261
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 38,
+                        "startColumn": 4,
+                        "startOffset": 2165,
+                        "endLine": 41,
+                        "endColumn": 14,
+                        "endOffset": 2385
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 38,
+                    "startColumn": 4,
+                    "startOffset": 2266,
+                    "endLine": 41,
+                    "endColumn": 14,
+                    "endOffset": 2489
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 42,
+                        "startColumn": 4,
+                        "startOffset": 2390,
+                        "endLine": 45,
+                        "endColumn": 14,
+                        "endOffset": 2613
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 42,
+                    "startColumn": 4,
+                    "startOffset": 2494,
+                    "endLine": 45,
+                    "endColumn": 14,
+                    "endOffset": 2726
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 46,
+                        "startColumn": 4,
+                        "startOffset": 2618,
+                        "endLine": 49,
+                        "endColumn": 14,
+                        "endOffset": 2850
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 46,
+                    "startColumn": 4,
+                    "startOffset": 2731,
+                    "endLine": 49,
+                    "endColumn": 14,
+                    "endOffset": 2965
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 50,
+                        "startColumn": 4,
+                        "startOffset": 2855,
+                        "endLine": 53,
+                        "endColumn": 14,
+                        "endOffset": 3089
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 50,
+                    "startColumn": 4,
+                    "startOffset": 2970,
+                    "endLine": 53,
+                    "endColumn": 14,
+                    "endOffset": 3190
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 54,
+                        "startColumn": 4,
+                        "startOffset": 3094,
+                        "endLine": 57,
+                        "endColumn": 14,
+                        "endOffset": 3314
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 54,
+                    "startColumn": 4,
+                    "startOffset": 3195,
+                    "endLine": 57,
+                    "endColumn": 14,
+                    "endOffset": 3426
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 58,
+                        "startColumn": 4,
+                        "startOffset": 3319,
+                        "endLine": 61,
+                        "endColumn": 14,
+                        "endOffset": 3550
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 58,
+                    "startColumn": 4,
+                    "startOffset": 3431,
+                    "endLine": 61,
+                    "endColumn": 14,
+                    "endOffset": 3670
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 62,
+                        "startColumn": 4,
+                        "startOffset": 3555,
+                        "endLine": 65,
+                        "endColumn": 14,
+                        "endOffset": 3794
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 62,
+                    "startColumn": 4,
+                    "startOffset": 3675,
+                    "endLine": 65,
+                    "endColumn": 14,
+                    "endOffset": 3916
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 66,
+                        "startColumn": 4,
+                        "startOffset": 3799,
+                        "endLine": 69,
+                        "endColumn": 14,
+                        "endOffset": 4040
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 66,
+                    "startColumn": 4,
+                    "startOffset": 3921,
+                    "endColumn": 48,
+                    "endOffset": 3965
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 73,
+                        "startColumn": 4,
+                        "startOffset": 4180,
+                        "endColumn": 48,
+                        "endOffset": 4224
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 67,
+                    "startColumn": 4,
+                    "startOffset": 3970,
+                    "endColumn": 112,
+                    "endOffset": 4078
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 77,
+                        "startColumn": 4,
+                        "startOffset": 4352,
+                        "endColumn": 112,
+                        "endOffset": 4460
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 68,
+                    "startColumn": 4,
+                    "startOffset": 4083,
+                    "endColumn": 110,
+                    "endOffset": 4189
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 78,
+                        "startColumn": 4,
+                        "startOffset": 4465,
+                        "endColumn": 110,
+                        "endOffset": 4571
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 69,
+                    "startColumn": 4,
+                    "startOffset": 4194,
+                    "endColumn": 136,
+                    "endOffset": 4326
+                },
+                "from": {
+                    "file": "C:\\Users\\davide.GINGER-IL\\FinalProject\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-rm\\values.xml",
+                    "position": {
+                        "startLine": 79,
+                        "startColumn": 4,
+                        "startOffset": 4576,
+                        "endColumn": 136,
+                        "endOffset": 4708
+                    }
+                }
+            }
+        ]
+    }
+]
