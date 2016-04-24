@@ -69,7 +69,7 @@
                         android:layout_height="@dimen/action_bar_size_2x">
 
                         <EditText
-                            android:id="@+id/amountButton"
+                            android:id="@+id/amountEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -171,8 +171,8 @@
                         tools:ignore="RtlHardcoded"
                         tools:tint="?android:textColorSecondary" />
 
-                    <TextView
-                        android:id="@+id/categoryButton"
+                    <Spinner
+                        android:id="@+id/categorySpinner"
                         style="@style/Button.Flat.Select"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -313,7 +313,7 @@
                     tools:ignore="RtlHardcoded,RtlSymmetry">
 
                     <CheckBox
-                        android:id="@+id/confirmedCheckBox"
+                        android:id="@+id/repeatingCheckBox"
                         style="@style/CheckBox.Field"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

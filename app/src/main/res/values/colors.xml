@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#388E3C</color>
     <color name="primary_light">#C8E6C9</color>
     <color name="accent">#8BC34A</color>
+    <color name="black">#000000</color>
 
 
     <!-- When changing this, you need to change <item name="backgroundColor">#f0f0f0</item> in theme-->

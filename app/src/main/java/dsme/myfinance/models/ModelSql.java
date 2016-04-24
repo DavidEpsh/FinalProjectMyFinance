@@ -25,7 +25,7 @@ public class ModelSql implements Model.ModelInterface {
     }
 
     @Override
-    public Expense getExpense(String id) {
+    public Expense getExpense(long id) {
         return  ExpenseSql.getExpense(dbHelper, id);
     }
 

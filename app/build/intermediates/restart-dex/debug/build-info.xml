@@ -4,39 +4,29 @@
     api-level="22"
     density="xxxhdpi"
     format="7"
-    timestamp="1810323775061186" >
+    timestamp="17048248645840" >
 
     <task
         name="javac"
-        duration="432" />
+        duration="0" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="41" />
+        duration="0" />
     <task
         name="verifier"
-        duration="4" />
+        duration="0" />
 
     <artifact
-        location="C:\Users\David\Final Project\FinalProjectMyFinance\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_3\classes.dex"
-        type="DEX" />
+        location="C:\Users\David\Final Project\FinalProjectMyFinance\app\build\outputs\apk\app-debug.apk"
+        type="MAIN" />
 
-    <build timestamp="1809994872741299" >
+    <build timestamp="17048248645840" >
         <artifact
             location="C:\Users\David\Final Project\FinalProjectMyFinance\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
-    </build>
-    <build timestamp="1810107964742187" >
-        <artifact
-            location="C:\Users\David\Final Project\FinalProjectMyFinance\app\build\intermediates\res\resources-debug.ap_"
-            type="RESOURCES" />
-    </build>
-    <build timestamp="1810323775061186" >
-        <artifact
-            location="C:\Users\David\Final Project\FinalProjectMyFinance\app\build\intermediates\transforms\dex\debug\folders\1000\5\slice_3\classes.dex"
-            type="DEX" />
     </build>
 
 </instant-run>

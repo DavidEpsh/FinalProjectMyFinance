@@ -31,8 +31,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="-3dp"
-                android:textColor="?android:textColorPrimaryInverse"
+                android:layout_marginBottom="1dp"
+                android:textColor="@color/black"
+                android:textSize="13sp"
                 tools:text="wed"
                 tools:textColor="?android:textColorPrimary" />
 
@@ -41,8 +42,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="-3dp"
-                android:textColor="?android:textColorPrimaryInverse"
+                android:layout_marginBottom="0dp"
+                android:textColor="@color/black"
+                android:textSize="10sp"
                 tools:text="16"
                 tools:textColor="?android:textColorPrimary" />
 
@@ -89,20 +91,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textSize="10sp"
+                android:layout_gravity="bottom"
                 android:textColor="?android:textColorSecondary"
                 tools:text="Linkin Park concert" />
-
-            <TextView
-                android:id="@+id/accountTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginLeft="@dimen/space_normal"
-                android:ellipsize="end"
-                android:singleLine="true"
-                tools:ignore="RtlHardcoded"
-                tools:text="Cash" />
-
         </LinearLayout>
 
     </LinearLayout>

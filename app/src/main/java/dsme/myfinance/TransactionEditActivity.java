@@ -3,7 +3,6 @@ package dsme.myfinance;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,48 +10,37 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
-
-import com.kbeanie.imagechooser.api.ChooserType;
-import com.kbeanie.imagechooser.api.ChosenImage;
-import com.kbeanie.imagechooser.api.ChosenImages;
-import com.kbeanie.imagechooser.api.ImageChooserListener;
 
 import java.io.File;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import dsme.myfinance.models.Expense;
+import dsme.myfinance.models.Model;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
 
 public class TransactionEditActivity extends AppCompatActivity {
 
-    private static final int REQUEST_AMOUNT = 1;
-    private static final int REQUEST_ACCOUNT_FROM = 2;
-    private static final int REQUEST_ACCOUNT_TO = 3;
-    private static final int REQUEST_CATEGORY = 4;
-    private static final int REQUEST_TAGS = 5;
-    private static final int REQUEST_DATE = 6;
-    private static final int REQUEST_TIME = 7;
-    private static final int REQUEST_EXCHANGE_RATE = 8;
-    private static final int REQUEST_AMOUNT_TO = 9;
-
-    private static final String STATE_TRANSACTION_EDIT_DATA = "STATE_TRANSACTION_EDIT_DATA";
-
-    private static final boolean LOG_AUTO_COMPLETE = true;
-
-
     private Button saveButton;
     private Button dateButton;
     private Button timeButton;
     private Button imageButton;
+    private Spinner categoryButton;
+    private EditText expenseAmount;
+    private CheckBox isRepeating;
     private ImageView imageView;
-
+    private TextView noteTextView;
+    String imagePath;
     GregorianCalendar cal;
-    private boolean isUpdated = false;
 
 
     @Override
@@ -65,6 +53,10 @@ public class TransactionEditActivity extends AppCompatActivity {
         timeButton = (Button) findViewById(R.id.timeButton);
         imageButton = (Button) findViewById(R.id.addImageButton);
         imageView = (ImageView) findViewById(R.id.addImageView);
+        isRepeating = (CheckBox) findViewById(R.id.repeatingCheckBox);
+        expenseAmount = (EditText) findViewById(R.id.amountEditText);
+        categoryButton = (Spinner) findViewById(R.id.categorySpinner);
+        noteTextView = (EditText) findViewById(R.id.noteAutoCompleteTextView);
         setCalender();
 
         EasyImage.configuration(this).setImagesFolderName("My Finance");
@@ -72,6 +64,13 @@ public class TransactionEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EasyImage.openChooserWithGallery(TransactionEditActivity.this, "Please Choose image source", 1);
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveExpense();
             }
         });
 
@@ -117,6 +116,32 @@ public class TransactionEditActivity extends AppCompatActivity {
     }
 
 
+    public void saveExpense(){
+        Expense mExpense;
+        int repeating;
+
+        long timestamp = GregorianCalendar.getInstance().getTimeInMillis();
+        long date = cal.getTimeInMillis();
+
+        if(isRepeating.isChecked()){
+            repeating = 1;
+        }else { repeating = 0;};
+
+        mExpense = new Expense(timestamp,
+                saveButton.getText().toString(),
+                date,
+                repeating,
+                imagePath,
+                Float.valueOf(expenseAmount.getText().toString()),
+                "test", //categoryButton.toString(),
+                noteTextView.getText().toString());
+
+        Model.instance().addExpense(mExpense);
+//        Intent returnIntent = new Intent();
+//        returnIntent.putExtra("result", MainActivity.RESULT_ADD_EXPENSE);
+//        setResult(this.RESULT_OK, returnIntent);
+        finish();
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -130,7 +155,7 @@ public class TransactionEditActivity extends AppCompatActivity {
             @Override
             public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
                 Bitmap imageBitmap = null;
-
+                imagePath = imageFile.getPath();
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 options.inSampleSize = 15;
                 imageBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath(), options);

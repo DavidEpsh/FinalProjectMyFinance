@@ -10,12 +10,14 @@ public class Expense{
     int isSaved = 1;
     String note;
     long timestamp;
+    long date;
     String userName;
 
-    public Expense(String name, int isRepeating, long timestamp, String expenseImage, float amount, String category, String note){
+    public Expense(long timestamp, String name, long date, int isRepeating,  String expenseImage, float amount, String category, String note){
         this.expenseName = name;
         this.isRepeatingExpense = isRepeating;
         this.timestamp = timestamp;
+        this.date = date;
         this.note = note;
 
         if(expenseImage != null) {
@@ -34,6 +36,10 @@ public class Expense{
     public long getTimestamp(){ return timestamp;}
 
     public void setTimestamp(long timestamp){ this.timestamp = timestamp; }
+
+    public long getDate(){ return date;}
+
+    public void setDate(long date){ this.date = date; }
 
     public int isRepeatingExpenseBool() {
         return isRepeatingExpense;
@@ -55,7 +61,7 @@ public class Expense{
         this.expenseImage = expenseImage;
     }
 
-    public double getExpenseAmount(){
+    public float getExpenseAmount(){
         return this.expenseAmount;
     }
 

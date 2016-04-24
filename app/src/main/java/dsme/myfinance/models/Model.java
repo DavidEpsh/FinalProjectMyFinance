@@ -21,7 +21,7 @@ public class Model {
     interface ModelInterface{
         public void addExpense(Expense expense);
         public void deleteExpense(String expense);
-        public Expense getExpense(String id);
+        public Expense getExpense(long id);
         public List<Expense> getExpenses();
         public List<Expense> getExpensesByCategory(String category, String fromDate, String toDate);
         public Double getSumByCategory(String category, String fromDate, String toDate);
@@ -49,8 +49,12 @@ public class Model {
         return instance;
     }
 
-    public Expense getExpense(String id){
+    public Expense getExpense(long id){
         return modelImpl.getExpense(id);
+    }
+
+    public void addExpense(Expense expense){
+        modelImpl.addExpense(expense);
     }
 
     public List<Expense> getExpenses(){
