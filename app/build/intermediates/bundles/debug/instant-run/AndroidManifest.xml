@@ -18,7 +18,7 @@
         android:required="true" />
 
     <application
-        name="dsme.myfinance.models.InitCustomApp"
+        name="dsme.myfinance.utils.InitCustomApp"
         android:name="com.android.tools.fd.runtime.BootstrapApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

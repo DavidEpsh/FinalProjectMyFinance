@@ -150,5 +150,6 @@
     <string name="c_salary">Salary</string>
     <string name="expense_amount">Expense Amount</string>
     <string name="time">Time</string>
+    <string name="description">Description</string>
 
 </resources>

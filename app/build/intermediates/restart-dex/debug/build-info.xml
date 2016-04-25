@@ -4,7 +4,7 @@
     api-level="22"
     density="xxxhdpi"
     format="7"
-    timestamp="17048248645840" >
+    timestamp="16298281955429" >
 
     <task
         name="javac"
@@ -20,13 +20,18 @@
         duration="0" />
 
     <artifact
-        location="C:\Users\David\Final Project\FinalProjectMyFinance\app\build\outputs\apk\app-debug.apk"
-        type="MAIN" />
+        location="C:\Users\davide.GINGER-IL\FinalProject\FinalProjectMyFinance\app\build\intermediates\res\resources-debug.ap_"
+        type="RESOURCES" />
 
-    <build timestamp="17048248645840" >
+    <build timestamp="16258909761149" >
         <artifact
-            location="C:\Users\David\Final Project\FinalProjectMyFinance\app\build\outputs\apk\app-debug.apk"
+            location="C:\Users\davide.GINGER-IL\FinalProject\FinalProjectMyFinance\app\build\outputs\apk\app-debug.apk"
             type="MAIN" />
+    </build>
+    <build timestamp="16298281955429" >
+        <artifact
+            location="C:\Users\davide.GINGER-IL\FinalProject\FinalProjectMyFinance\app\build\intermediates\res\resources-debug.ap_"
+            type="RESOURCES" />
     </build>
 
 </instant-run>

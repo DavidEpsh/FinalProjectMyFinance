@@ -104,6 +104,48 @@
                     android:paddingRight="@dimen/keyline">
 
                     <ImageView
+                        android:id="@+id/descriptionImageView"
+                        style="@style/ImageView.Form"
+                        android:src="@drawable/ic_note_add_black"
+                        tools:ignore="RtlHardcoded" />
+
+                    <EditText
+                        android:id="@+id/descriptionEditText"
+                        style="@style/Button.Flat.Select"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="@string/description"
+                        android:inputType="textCapSentences"
+                        android:minHeight="@dimen/recommended_touch_size" />
+
+                </LinearLayout>
+
+                <View
+                    style="@style/Divider.Thick"
+                    android:layout_marginLeft="@dimen/keyline_content"
+                    tools:ignore="RtlHardcoded" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+
+                android:elevation="@dimen/elevation_sub_header"
+                android:orientation="vertical"
+                tools:ignore="UnusedAttribute">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_large"
+                    android:animateLayoutChanges="true"
+                    android:paddingLeft="@dimen/keyline"
+                    android:paddingRight="@dimen/keyline">
+
+                    <ImageView
                         android:id="@+id/dateTimeImageView"
                         style="@style/ImageView.Form"
                         android:src="@drawable/ic_date_range_black_48dp"

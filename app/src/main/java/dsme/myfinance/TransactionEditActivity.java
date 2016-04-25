@@ -39,6 +39,7 @@ public class TransactionEditActivity extends AppCompatActivity {
     private CheckBox isRepeating;
     private ImageView imageView;
     private TextView noteTextView;
+    private EditText descriptionEditText;
     String imagePath;
     GregorianCalendar cal;
 
@@ -48,6 +49,7 @@ public class TransactionEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_edit);
 
+        descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
         saveButton = (Button) findViewById(R.id.saveButton);
         dateButton = (Button) findViewById(R.id.dateButton);
         timeButton = (Button) findViewById(R.id.timeButton);
@@ -128,7 +130,7 @@ public class TransactionEditActivity extends AppCompatActivity {
         }else { repeating = 0;};
 
         mExpense = new Expense(timestamp,
-                saveButton.getText().toString(),
+                descriptionEditText.getText().toString(),
                 date,
                 repeating,
                 imagePath,
