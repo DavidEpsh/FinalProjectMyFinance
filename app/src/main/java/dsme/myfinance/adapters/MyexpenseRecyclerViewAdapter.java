@@ -39,7 +39,7 @@ public class MyexpenseRecyclerViewAdapter extends RecyclerView.Adapter<Myexpense
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mWeekDay.setText("wed");
-        holder.mDescription.setText("testtest");
+        holder.mDescription.setText(holder.mItem.getExpenseName());
         holder.mDay.setText("1");
         holder.mAmount.setText(Float.toString(mValues.get(position).getExpenseAmount()));
         holder.mCategory.setText("test");

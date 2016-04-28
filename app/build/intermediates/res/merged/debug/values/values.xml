@@ -402,7 +402,7 @@
     <dimen name="abc_text_size_title_material">20sp</dimen>
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
     <dimen name="account_balance_graph_height">128dp</dimen>
-    <dimen name="action_bar_size_2x">112dp</dimen>
+    <dimen name="action_bar_size_2x">100dp</dimen>
     <dimen name="action_bar_size_3x">168dp</dimen>
     <dimen name="action_item">24dp</dimen>
     <dimen name="action_item_padding">2dp</dimen>
@@ -661,6 +661,7 @@
     <string name="decimal_separator">Decimal separator</string>
     <string name="decimals_count">Decimals count</string>
     <string name="delete">Delete</string>
+    <string name="description">Description</string>
     <string name="done">Done</string>
     <string name="dot">Dot</string>
     <string name="edit">Edit</string>

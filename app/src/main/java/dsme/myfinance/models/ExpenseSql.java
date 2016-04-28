@@ -239,6 +239,7 @@ public class ExpenseSql {
                 allCategories.add(category);
             } while (cursor.moveToNext());
         }
+
         return allCategories;
     }
 
