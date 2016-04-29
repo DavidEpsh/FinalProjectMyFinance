@@ -17,11 +17,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Set;
+
 import dsme.myfinance.fragments.ExpenseListFragment;
 import dsme.myfinance.utils.DateUtils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    final static String PREFS_CATEGORIES = "CATEGORIES";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

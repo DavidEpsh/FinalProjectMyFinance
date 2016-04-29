@@ -76,4 +76,11 @@ public class ExpenseListFragment extends Fragment {
         super.onDetach();
         //mListener = null;
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+
+    }
 }

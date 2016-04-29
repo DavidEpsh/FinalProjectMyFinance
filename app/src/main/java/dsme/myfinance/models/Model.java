@@ -26,6 +26,8 @@ public class Model {
         public List<Expense> getExpensesByCategory(String category, String fromDate, String toDate);
         public Double getSumByCategory(String category, String fromDate, String toDate);
         public List<String> getCategories();
+        public void addCategory(String category);
+        public List<String> getAllCategories();
         public void updateOrAddExpense(Expense expense);
         public void batchUpdateExpenses(List<Expense> expenses, BatchUpdateListener listener);
         public String getExistingUsersSheet(String id, String userName);
@@ -72,6 +74,14 @@ public class Model {
 
     public List<String> getCategories(){
         return modelImpl.getCategories();
+    }
+
+    public void addCategory(String category){
+        modelImpl.addCategory(category);
+    }
+
+    public List<String> getAllCategories(){
+        return modelImpl.getAllCategories();
     }
 
     public List<Expense> getExpensesByCategory(String category, String fromDate, String toDate){

@@ -9,6 +9,8 @@ import java.util.List;
 
 public class ExpenseSql {
     private static final String TABLE = "EXPENSES";
+    private static final String TABLE_CATEGORIES = "CATEGORIES";
+    private static final String CATEGORY_ENTRY = "CATEGORY";
     private static final String NAME = "NAME";
     private static final String CATEGORY = "CATEGORY";
     private static final String IMAGE_PATH = "IMAGE_PATH";
@@ -261,6 +263,42 @@ public class ExpenseSql {
         return null;
     }
 
+    public static void addCategory(ModelSql.MyOpenHelper dbHelper, String category) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(CATEGORY_ENTRY, category);
+
+        db.insert(TABLE_CATEGORIES, null, values);
+    }
+
+    public static List<String> getAllCategories(ModelSql.MyOpenHelper dbHelper) {
+        List<String> data = new ArrayList<String>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_CATEGORIES;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (!(cursor.getCount() <= 0)) {
+            if (cursor.moveToFirst()) {
+                int id_category = cursor.getColumnIndex(CATEGORY_ENTRY);
+
+                do {
+                    String category = cursor.getString(id_category);
+                    data.add(category);
+                } while (cursor.moveToNext());
+            }
+            return data;
+        }else{
+            addCategory(dbHelper, "Travel");
+            addCategory(dbHelper, "Transportation");
+            addCategory(dbHelper, "Food");
+            addCategory(dbHelper, "Bills");
+
+            return getAllCategories(dbHelper);
+        }
+    }
+
     public static void create(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE + " (" +
                 TIMESTAMP + " LONG PRIMARY KEY," +
@@ -272,6 +310,9 @@ public class ExpenseSql {
                 NOTE + " TEXT, " +
                 IS_SAVED + " INTEGER, " +
                 EXPENSE_AMOUNT + " FLOAT" + ")");
+
+        db.execSQL("CREATE TABLE " + TABLE_CATEGORIES + " (" +
+                CATEGORY_ENTRY + " TEXT PRIMARY KEY" + ")");
     }
 
     public static void drop(SQLiteDatabase db) {

@@ -106,6 +106,7 @@ MERGED from [com.github.jkwiecien:EasyImage:1.2.1] C:\Users\David\Final Project\
 MERGED from [com.android.support:appcompat-v7:23.1.1] C:\Users\David\Final Project\FinalProjectMyFinance\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:support-v4:23.1.1] C:\Users\David\Final Project\FinalProjectMyFinance\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.1.1\AndroidManifest.xml:20:5-43
 MERGED from [com.github.lecho:hellocharts-android:v1.5.8] C:\Users\David\Final Project\FinalProjectMyFinance\app\build\intermediates\exploded-aar\com.github.lecho\hellocharts-android\v1.5.8\AndroidManifest.xml:7:5-9:41
+MERGED from [com.pixplicity.easyprefs:library:1.8.1] C:\Users\David\Final Project\FinalProjectMyFinance\app\build\intermediates\exploded-aar\com.pixplicity.easyprefs\library\1.8.1\AndroidManifest.xml:8:5-10:41
 	android:targetSdkVersion
 		INJECTED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml

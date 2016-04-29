@@ -660,6 +660,7 @@
     <string name="day">Day</string>
     <string name="decimal_separator">Decimal separator</string>
     <string name="decimals_count">Decimals count</string>
+    <string name="define_easypreferences"/>
     <string name="delete">Delete</string>
     <string name="description">Description</string>
     <string name="done">Done</string>
@@ -694,6 +695,16 @@
     <string name="l_please_enter_currency_code">Please enter currency code</string>
     <string name="l_refresh_rates_daily">Refresh rates every day</string>
     <string name="last_updated">Last updated</string>
+    <string name="library_easypreferences_author">Pixplicity</string>
+    <string name="library_easypreferences_authorWebsite">http://pixplicity.com</string>
+    <string name="library_easypreferences_classPath">com.pixplicity.easyprefs.library</string>
+    <string name="library_easypreferences_isOpenSource">true</string>
+    <string name="library_easypreferences_libraryDescription">A small library containing a wrapper/helper for the Shared Preferences of Android</string>
+    <string name="library_easypreferences_libraryName">EasyPreferences</string>
+    <string name="library_easypreferences_libraryVersion">3.2.1</string>
+    <string name="library_easypreferences_libraryWebsite">https://github.com/Pixplicity/EasyPreferences</string>
+    <string name="library_easypreferences_licenseId">apache_2_0</string>
+    <string name="library_easypreferences_repositoryLink">https://github.com/Pixplicity/EasyPreferences</string>
     <string name="lock">Lock</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>

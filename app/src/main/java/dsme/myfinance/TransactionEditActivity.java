@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -31,6 +32,7 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 public class TransactionEditActivity extends AppCompatActivity {
 
     private Button saveButton;
+    private Button cancelButton;
     private Button dateButton;
     private Button timeButton;
     private Button imageButton;
@@ -51,6 +53,7 @@ public class TransactionEditActivity extends AppCompatActivity {
 
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
         saveButton = (Button) findViewById(R.id.saveButton);
+        cancelButton = (Button) findViewById(R.id.cancelButton);
         dateButton = (Button) findViewById(R.id.dateButton);
         timeButton = (Button) findViewById(R.id.timeButton);
         imageButton = (Button) findViewById(R.id.addImageButton);
@@ -59,7 +62,9 @@ public class TransactionEditActivity extends AppCompatActivity {
         expenseAmount = (EditText) findViewById(R.id.amountEditText);
         categoryButton = (Spinner) findViewById(R.id.categorySpinner);
         noteTextView = (EditText) findViewById(R.id.noteAutoCompleteTextView);
+
         setCalender();
+        initializeSpinner();
 
         EasyImage.configuration(this).setImagesFolderName("My Finance");
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +78,12 @@ public class TransactionEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveExpense();
+            }
+        });
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -144,6 +155,13 @@ public class TransactionEditActivity extends AppCompatActivity {
 //        setResult(this.RESULT_OK, returnIntent);
         finish();
     }
+
+    public void initializeSpinner(){
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Model.instance().getAllCategories());
+        spinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        categoryButton.setAdapter(spinnerAdapter);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -21,6 +21,7 @@ android {
 
 repositories {
     maven { url "https://jitpack.io" }
+    maven { url "http://dl.bintray.com/pixplicity/maven" }
 }
 
 dependencies {
@@ -35,4 +36,5 @@ dependencies {
     compile 'com.kbeanie:image-chooser-library:1.5.8@aar'
     compile 'com.github.jkwiecien:EasyImage:1.2.1'
     compile 'com.github.lecho:hellocharts-android:v1.5.8'
+    compile 'com.pixplicity.easyprefs:library:1.8.1@aar'
 }

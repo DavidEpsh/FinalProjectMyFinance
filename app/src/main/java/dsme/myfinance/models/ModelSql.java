@@ -55,6 +55,15 @@ public class ModelSql implements Model.ModelInterface {
     }
 
     @Override
+    public List<String> getAllCategories() {
+        return ExpenseSql.getAllCategories(dbHelper);
+    }
+    @Override
+    public void addCategory(String category){
+        ExpenseSql.addCategory(dbHelper, category);
+    }
+
+    @Override
     public List<Expense> getExpensesByCategory(String category,String fromDate, String toDate) {
         return ExpenseSql.getExpensesByCategory(dbHelper, category, fromDate, toDate);
     }
