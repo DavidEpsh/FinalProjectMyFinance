@@ -1,12 +1,14 @@
 package dsme.myfinance;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,16 +19,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.Set;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.util.ArrayList;
 
 import dsme.myfinance.fragments.ExpenseListFragment;
-import dsme.myfinance.utils.DateUtils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     final static public String PREFS_CATEGORIES = "CATEGORIES";
     final static public String EXPENSE_ID = "EXPENSE_ID";
+
+    private PieChart mPieChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +62,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        createPieChart();
+
     }
 
     @Override
@@ -117,5 +130,63 @@ public class MainActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
+    }
+
+    public void createPieChart(){
+        mPieChart = (PieChart) findViewById(R.id.pieChart);
+        mPieChart.setDescription("");
+
+//        Typeface tf = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
+//
+//        mPieChart.setCenterTextTypeface(tf);
+//        mPieChart.setCenterText(generateCenterText());
+//        mPieChart.setCenterTextSize(10f);
+//        mPieChart.setCenterTextTypeface(tf);
+
+        // radius of the center hole in percent of maximum radius
+        mPieChart.setHoleRadius(3f);
+        mPieChart.setTransparentCircleRadius(0f);
+
+        Legend l = mPieChart.getLegend();
+        l.setEnabled(false);
+        //mPieChart.value
+        //l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+
+        mPieChart.setData(generatePieData());
+
+    }
+
+
+
+    protected PieData generatePieData() {
+
+        int count = 4;
+
+        ArrayList<Entry> entries1 = new ArrayList<Entry>();
+        ArrayList<String> xVals = new ArrayList<String>();
+
+//        xVals.add("Quarter 1");
+//        xVals.add("Quarter 2");
+//        xVals.add("Quarter 3");
+//        xVals.add("Quarter 4");
+
+        for(int i = 0; i < count; i++) {
+            xVals.add("entry" + (i+1));
+
+            entries1.add(new Entry((float) (Math.random() * 60) + 40, i));
+        }
+
+        PieDataSet ds1 = new PieDataSet(entries1, "Expenses");
+        ds1.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        ds1.setSliceSpace(2f);
+        ds1.setValueTextColor(Color.BLACK);
+        ds1.setDrawValues(false);
+        ds1.setValueTextSize(12f);
+
+
+        PieData d = new PieData(xVals, ds1);
+        //d.setValueTypeface(tf);
+
+        return d;
     }
 }
