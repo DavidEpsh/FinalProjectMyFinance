@@ -1,5 +1,6 @@
 package dsme.myfinance.adapters;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +10,17 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 //import dsme.myfinance.fragments.ExpenseListFragment.OnListFragmentInteractionListener;
+import dsme.myfinance.MainActivity;
 import dsme.myfinance.R;
+import dsme.myfinance.TransactionEditActivity;
 import dsme.myfinance.models.Expense;
+import dsme.myfinance.utils.DateUtils;
 
 import java.util.List;
 
 public class MyexpenseRecyclerViewAdapter extends RecyclerView.Adapter<MyexpenseRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Expense> mValues;
+    private List<Expense> mValues;
 //    private final OnListFragmentInteractionListener mListener;
 //
 //    public MyexpenseRecyclerViewAdapter(List<Expense> items, OnListFragmentInteractionListener listener) {
@@ -26,6 +30,10 @@ public class MyexpenseRecyclerViewAdapter extends RecyclerView.Adapter<Myexpense
 
     public MyexpenseRecyclerViewAdapter(List<Expense> items) {
         mValues = items;
+    }
+
+    public void setData(List<Expense> items) {
+        this.mValues = items;
     }
 
     @Override
@@ -38,22 +46,20 @@ public class MyexpenseRecyclerViewAdapter extends RecyclerView.Adapter<Myexpense
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mWeekDay.setText("wed");
+        holder.mWeekDay.setText(DateUtils.getNameOfDay(holder.mItem.getDate()));
         holder.mDescription.setText(holder.mItem.getExpenseName());
-        holder.mDay.setText("1");
+        holder.mDay.setText(Integer.toString(DateUtils.getNumOfDayInMonth(holder.mItem.getDate())));
         holder.mAmount.setText(Float.toString(mValues.get(position).getExpenseAmount()));
-        holder.mCategory.setText("test");
+        holder.mCategory.setText(holder.mItem.getCategory());
 
-//        holder.mView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (null != mListener) {
-//                    // Notify the active callbacks interface (the activity, if the
-//                    // fragment is attached to one) that an item has been selected.
-//                    //mListener.onListFragmentInteraction(holder.mItem);
-//                }
-//            }
-//        });
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), TransactionEditActivity.class);
+                intent.putExtra(MainActivity.EXPENSE_ID, holder.mItem.getTimestamp());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

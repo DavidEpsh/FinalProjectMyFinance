@@ -25,7 +25,8 @@ import dsme.myfinance.utils.DateUtils;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    final static String PREFS_CATEGORIES = "CATEGORIES";
+    final static public String PREFS_CATEGORIES = "CATEGORIES";
+    final static public String EXPENSE_ID = "EXPENSE_ID";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -23,11 +23,8 @@ public class ExpenseListFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
+    RecyclerView recyclerView;
 
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
     public ExpenseListFragment() {
     }
 
@@ -58,7 +55,7 @@ public class ExpenseListFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -81,6 +78,8 @@ public class ExpenseListFragment extends Fragment {
     public void onResume(){
         super.onResume();
 
-
+        List<Expense> items = Model.instance().getExpenses();
+        ((MyexpenseRecyclerViewAdapter) recyclerView.getAdapter()).setData(items);
+        recyclerView.getAdapter().notifyDataSetChanged();
     }
 }

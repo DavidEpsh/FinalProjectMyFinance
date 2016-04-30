@@ -3,12 +3,15 @@ package dsme.myfinance;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -20,8 +23,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import dsme.myfinance.models.Expense;
 import dsme.myfinance.models.Model;
@@ -42,8 +47,10 @@ public class TransactionEditActivity extends AppCompatActivity {
     private ImageView imageView;
     private TextView noteTextView;
     private EditText descriptionEditText;
+    private Expense mExpense;
     String imagePath;
     GregorianCalendar cal;
+    long id = 0;
 
 
     @Override
@@ -63,8 +70,41 @@ public class TransactionEditActivity extends AppCompatActivity {
         categoryButton = (Spinner) findViewById(R.id.categorySpinner);
         noteTextView = (EditText) findViewById(R.id.noteAutoCompleteTextView);
 
-        setCalender();
         initializeSpinner();
+
+        if(getIntent() != null) { // This handles the case were the user opened an existing expense
+            long expenseId = (getIntent().getLongExtra(MainActivity.EXPENSE_ID, 0));
+
+            if (expenseId != 0) {
+                mExpense = Model.instance().getExpense(expenseId);
+                id = mExpense.getTimestamp();
+                expenseAmount.setText(Float.toString(mExpense.getExpenseAmount()));
+                descriptionEditText.setText(mExpense.getExpenseName());
+                noteTextView.setText(mExpense.getNote());
+
+                cal = new GregorianCalendar();
+                cal.setTimeInMillis(mExpense.getDate());
+
+                if (mExpense.getIsRepeatingExpense() == 1) {
+                    isRepeating.setChecked(true);
+                }
+
+                List<String> categories = (ArrayList) Model.instance().getAllCategories();
+                categoryButton.setSelection(categories.indexOf(mExpense.getCategory()));
+
+                if (mExpense.getExpenseImage() != null) {
+                    setImage(mExpense.getExpenseImage());
+                }
+
+                setCalender(false);
+
+            } else {
+                setCalender(true);
+            }
+        }else{
+            setCalender(true);
+        }
+
 
         EasyImage.configuration(this).setImagesFolderName("My Finance");
         imageButton.setOnClickListener(new View.OnClickListener() {
@@ -89,10 +129,20 @@ public class TransactionEditActivity extends AppCompatActivity {
 
     }
 
-    private void setCalender(){
-        cal = new GregorianCalendar();
+    private void setCalender(boolean setNewCalendar){
+
+        if(setNewCalendar) {
+            cal = new GregorianCalendar();
+        }
+
         dateButton.setText(cal.get(Calendar.DAY_OF_MONTH) + "/" + (cal.get(Calendar.MONTH)+1) + "/" + cal.get(Calendar.YEAR));
-        timeButton.setText(cal.get(Calendar.HOUR_OF_DAY)+ ":" + cal.get(Calendar.MINUTE));
+        int minute = cal.get(Calendar.MINUTE);
+
+        if(minute >= 0 && minute <= 10){
+            timeButton.setText(cal.get(Calendar.HOUR_OF_DAY)+ ":" + "0" + minute);
+        }else {
+            timeButton.setText(cal.get(Calendar.HOUR_OF_DAY) + ":" + minute);
+        }
 
         final DatePickerDialog datePicker = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener(){
             @Override
@@ -132,8 +182,14 @@ public class TransactionEditActivity extends AppCompatActivity {
     public void saveExpense(){
         Expense mExpense;
         int repeating;
+        long timestamp;
 
-        long timestamp = GregorianCalendar.getInstance().getTimeInMillis();
+        if (id > 0) {
+            timestamp = id;
+        }else{
+            timestamp = GregorianCalendar.getInstance().getTimeInMillis();
+        }
+
         long date = cal.getTimeInMillis();
 
         if(isRepeating.isChecked()){
@@ -146,7 +202,7 @@ public class TransactionEditActivity extends AppCompatActivity {
                 repeating,
                 imagePath,
                 Float.valueOf(expenseAmount.getText().toString()),
-                "test", //categoryButton.toString(),
+                categoryButton.getSelectedItem().toString(),
                 noteTextView.getText().toString());
 
         Model.instance().addExpense(mExpense);
@@ -157,9 +213,49 @@ public class TransactionEditActivity extends AppCompatActivity {
     }
 
     public void initializeSpinner(){
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Model.instance().getAllCategories());
+        final List<String> categories = Model.instance().getAllCategories();
+        categories.add("Add Category");
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
         spinnerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         categoryButton.setAdapter(spinnerAdapter);
+
+        categoryButton.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(position == categories.size()-1){
+                    buildAlertDialog();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    public void buildAlertDialog(){
+        final EditText txtUserName = new EditText(this);
+        txtUserName.setHint("Enter Category Name");
+
+        new AlertDialog.Builder(this)
+                .setTitle("Add a new category")
+                .setView(txtUserName)
+                .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                        Model.instance().addCategory(txtUserName.getText().toString());
+                        ((ArrayAdapter) categoryButton.getAdapter()).clear();
+                        final List<String> categories = Model.instance().getAllCategories();
+                        categories.add("Add Category");
+                        ((ArrayAdapter) categoryButton.getAdapter()).addAll(categories);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                    }
+                })
+                .show();
     }
 
     @Override
@@ -174,16 +270,21 @@ public class TransactionEditActivity extends AppCompatActivity {
 
             @Override
             public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
-                Bitmap imageBitmap = null;
                 imagePath = imageFile.getPath();
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize = 15;
-                imageBitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath(), options);
-                imageView.setImageBitmap(imageBitmap);
-                imageView.setScaleX(3);
-                imageView.setScaleY(3);
-                imageView.setRotation(90);
+                setImage(imagePath);
+
             }
         });
+    }
+
+    public void setImage(String imagePath){
+        Bitmap imageBitmap = null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 15;
+        imageBitmap = BitmapFactory.decodeFile(imagePath, options);
+        imageView.setImageBitmap(imageBitmap);
+        imageView.setScaleX(3);
+        imageView.setScaleY(3);
+        imageView.setRotation(90);
     }
 }
