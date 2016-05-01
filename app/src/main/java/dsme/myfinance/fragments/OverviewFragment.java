@@ -145,17 +145,17 @@ public class OverviewFragment extends Fragment {
         int currentYear = GregorianCalendar.getInstance().get(Calendar.YEAR);
         long[] monthRange;
 
-        for (int i = 1 + currentMonth; i <= 12 + currentMonth; i++) {
+        for (int i = currentMonth; i < 12 + currentMonth; i++) {
             if(i <= 12){
-                months.add(DateUtils.getMonthNameShort(i));
+                months.add(DateUtils.getMonthNameShort(i+1));
                 monthRange = DateUtils.getMonthDateRange(i, currentYear - 1);
                 float temp = Model.instance().getSumByMonth(monthRange[0], monthRange[1]);
-                e1.add(new Entry(Model.instance().getSumByMonth(monthRange[0], monthRange[1]), i-currentMonth-1));
+                e1.add(new Entry(Model.instance().getSumByMonth(monthRange[0], monthRange[1]), i-currentMonth));
             }else{
-                months.add(DateUtils.getMonthNameShort(i - 12));
+                months.add(DateUtils.getMonthNameShort(i - 12 + 1));
                 monthRange = DateUtils.getMonthDateRange(i - 12, currentYear);
                 float temp = Model.instance().getSumByMonth(monthRange[0], monthRange[1]);
-                e1.add(new Entry(Model.instance().getSumByMonth(monthRange[0], monthRange[1]), i-currentMonth-1));
+                e1.add(new Entry(Model.instance().getSumByMonth(monthRange[0], monthRange[1]), i-currentMonth));
             }
         }
 
