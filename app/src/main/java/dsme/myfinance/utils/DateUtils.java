@@ -32,19 +32,20 @@ public class DateUtils {
         long startOfMonth, endOfMonth;
 
         cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.clear(Calendar.MINUTE);
-        cal.clear(Calendar.SECOND);
-        cal.clear(Calendar.MILLISECOND);
-        cal.clear(Calendar.DAY_OF_MONTH);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
         cal.set(Calendar.MONTH, month);
         cal.set(Calendar.YEAR, year);
 
         startOfMonth = cal.getTimeInMillis();
 
+        cal.set(Calendar.MONTH, month);
         cal.set(Calendar.DAY_OF_MONTH,cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-        cal.set(Calendar.MINUTE, 59);
-        cal.set(Calendar.HOUR_OF_DAY, 23);
+        cal.set(Calendar.MINUTE, cal.getActualMaximum(Calendar.MINUTE));
+        cal.set(Calendar.HOUR_OF_DAY, cal.getActualMaximum(Calendar.HOUR_OF_DAY));
         endOfMonth = cal.getTimeInMillis();
+
 
         return (new long[]{startOfMonth,endOfMonth});
     }

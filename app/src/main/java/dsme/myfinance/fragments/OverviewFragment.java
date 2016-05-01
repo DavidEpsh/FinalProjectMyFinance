@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import dsme.myfinance.R;
 import dsme.myfinance.models.Model;
@@ -24,6 +25,8 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,6 +38,12 @@ public class OverviewFragment extends Fragment {
     PieChart mPieChart;
     LineChart mLineChart;
     View mView;
+    ArrayList<Entry> entries1;
+    ArrayList<String> xVals;
+    List<String> categories;
+    ArrayList<Entry> e1;
+    ArrayList<String> months;
+    boolean shouldUpdateDataSets = false;
 
     public OverviewFragment() {
         // Required empty public constructor
@@ -58,6 +67,13 @@ public class OverviewFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_overview, container, false);
+
+        TextView monthName = (TextView) mView.findViewById(R.id.overviewCurrentMonthName);
+        TextView monthSum = (TextView) mView.findViewById(R.id.overviewCurrentMonthSum);
+
+        monthName.setText(DateUtils.getMonthName(GregorianCalendar.getInstance().get(Calendar.MONTH)));
+        monthSum.setText(Float.toString(Model.instance().getSumByMonth(DateUtils.getStartOfMonth(),0))+ "$");
+
         createPieChart();
 
         return mView;
@@ -67,6 +83,24 @@ public class OverviewFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        if(shouldUpdateDataSets) {
+            generatePieDataSet();
+            mPieChart.notifyDataSetChanged();
+            mPieChart.invalidate();
+            //mPieChart.animateY(1200);
+            shouldUpdateDataSets = false;
+
+            generateLineDataSet();
+            mLineChart.notifyDataSetChanged();
+            mLineChart.invalidate();
+        }
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        shouldUpdateDataSets = true;
     }
 
     public void createPieChart(){
@@ -82,14 +116,12 @@ public class OverviewFragment extends Fragment {
         Legend l1 = mLineChart.getLegend();
         l1.setEnabled(false);
 
-
 //        Typeface tf = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
 //
 //        mPieChart.setCenterTextTypeface(tf);
 //        mPieChart.setCenterText(generateCenterText());
 //        mPieChart.setCenterTextSize(10f);
 //        mPieChart.setCenterTextTypeface(tf);
-
         // radius of the center hole in percent of maximum radius
         mPieChart.setHoleRadius(3f);
         mPieChart.setTransparentCircleRadius(0f);
@@ -103,25 +135,13 @@ public class OverviewFragment extends Fragment {
 
     }
 
-
     protected PieData generatePieData() {
+        entries1 = new ArrayList<>();
+        xVals = new ArrayList<String>();
 
-        int count = 4;
+        categories = Model.instance().getCategories();
 
-        ArrayList<Entry> entries1 = new ArrayList<Entry>();
-        ArrayList<String> xVals = new ArrayList<String>();
-
-        List<String> categories = Model.instance().getCategories();
-
-//        xVals.add("Quarter 1");
-//        xVals.add("Quarter 2");
-//        xVals.add("Quarter 3");
-//        xVals.add("Quarter 4");
-
-        for(int i = 0; i < categories.size(); i++) {
-            xVals.add(categories.get(i));
-            entries1.add(new Entry(Model.instance().getSumByCategory(categories.get(i),DateUtils.getStartOfMonth(),0), i));
-        }
+        generatePieDataSet();
 
         PieDataSet ds1 = new PieDataSet(entries1, "Expenses");
         ds1.setColors(ColorTemplate.VORDIPLOM_COLORS);
@@ -138,26 +158,10 @@ public class OverviewFragment extends Fragment {
     }
 
     private LineData generateDataLine() {
+        e1 = new ArrayList<>();
+        months = new ArrayList<>();
 
-        ArrayList<Entry> e1 = new ArrayList<>();
-        ArrayList<String> months = new ArrayList<>();
-        int currentMonth = GregorianCalendar.getInstance().get(Calendar.MONTH);
-        int currentYear = GregorianCalendar.getInstance().get(Calendar.YEAR);
-        long[] monthRange;
-
-        for (int i = currentMonth; i < 12 + currentMonth; i++) {
-            if(i <= 12){
-                months.add(DateUtils.getMonthNameShort(i+1));
-                monthRange = DateUtils.getMonthDateRange(i, currentYear - 1);
-                float temp = Model.instance().getSumByMonth(monthRange[0], monthRange[1]);
-                e1.add(new Entry(Model.instance().getSumByMonth(monthRange[0], monthRange[1]), i-currentMonth));
-            }else{
-                months.add(DateUtils.getMonthNameShort(i - 12 + 1));
-                monthRange = DateUtils.getMonthDateRange(i - 12, currentYear);
-                float temp = Model.instance().getSumByMonth(monthRange[0], monthRange[1]);
-                e1.add(new Entry(Model.instance().getSumByMonth(monthRange[0], monthRange[1]), i-currentMonth));
-            }
-        }
+        generateLineDataSet();
 
         LineDataSet d1 = new LineDataSet(e1, "New DataSet " + ", (1)");
         d1.setLineWidth(2.5f);
@@ -165,11 +169,39 @@ public class OverviewFragment extends Fragment {
         d1.setHighLightColor(Color.rgb(244, 117, 117));
         d1.setDrawValues(false);
 
-        ArrayList<ILineDataSet> sets = new ArrayList<ILineDataSet>();
-        sets.add(d1);
-
         LineData cd = new LineData(months, d1);
         return cd;
+    }
+
+    public void generatePieDataSet(){
+        xVals.clear();
+        entries1.clear();
+        categories = Model.instance().getCategories();
+
+        for(int i = 0; i < categories.size(); i++) {
+            xVals.add(categories.get(i));
+            entries1.add(new Entry(Model.instance().getSumByCategory(categories.get(i),DateUtils.getStartOfMonth(),0), i));
+        }
+    }
+
+    public void generateLineDataSet(){
+        int currentMonth = GregorianCalendar.getInstance().get(Calendar.MONTH);
+        int currentYear = GregorianCalendar.getInstance().get(Calendar.YEAR);
+        long[] monthRange;
+        months.clear();
+        e1.clear();
+
+        for (int i = currentMonth; i <= 12 + currentMonth; i++) {
+            if(i < 12){
+                months.add(DateUtils.getMonthNameShort(i+1));
+                monthRange = DateUtils.getMonthDateRange(i, currentYear - 1);
+                e1.add(new Entry(Model.instance().getSumByMonth(monthRange[0], monthRange[1]), i-currentMonth));
+            }else{
+                months.add(DateUtils.getMonthNameShort(i - 12 + 1));
+                monthRange = DateUtils.getMonthDateRange(i - 12, currentYear);
+                e1.add(new Entry(Model.instance().getSumByMonth(monthRange[0], monthRange[1]), i-currentMonth));
+            }
+        }
     }
 
 }
