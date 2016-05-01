@@ -230,7 +230,7 @@ public class ExpenseSql {
 
         String query = "SELECT DISTINCT " + CATEGORY +
                 " FROM " + TABLE +
-                " AND " + IS_SAVED + " = " + " 1 ";
+                " WHERE " + IS_SAVED + " = " + " 1 ";
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
@@ -245,22 +245,46 @@ public class ExpenseSql {
         return allCategories;
     }
 
-    public static Double getSumByCategory(ModelSql.MyOpenHelper dbHelper, String selectedCategory, String fromDate, String toDate) {
+    public static float getSumByCategory(ModelSql.MyOpenHelper dbHelper, String selectedCategory, long fromDate, long toDate) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         Cursor cursor;
         String query = "SELECT SUM(" + EXPENSE_AMOUNT + ")" + " FROM " + TABLE +
                 " WHERE " + CATEGORY + " = " + "'" + selectedCategory + "'" +
                 " AND " + DATE + " > " + "'" + fromDate + "'" +
-                " AND " + NOTE + " = " + //"'"  + ParseUser.getCurrentUser().getUsername() + "'" +
                 " AND " + IS_SAVED + " = " + " 1 ";
 
         cursor = db.rawQuery(query, null);
 
         if(cursor.moveToFirst()) {
-            return cursor.getDouble(0);
+            return cursor.getFloat(0);
         }
-        return null;
+        return 0;
+    }
+
+    public static float getSumByMonth(ModelSql.MyOpenHelper dbHelper, long fromDate, long toDate) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String query;
+        Cursor cursor;
+
+        if (toDate > 0 ) {
+            query = "SELECT SUM(" + EXPENSE_AMOUNT + ")" + " FROM " + TABLE +
+                    " WHERE " + DATE + " > " + "'" + fromDate + "'" +
+                    " AND " + DATE + " < " + "'" + toDate + "'" +
+                    " AND " + IS_SAVED + " = " + " 1 ";
+        }else {
+            query = "SELECT SUM(" + EXPENSE_AMOUNT + ")" + " FROM " + TABLE +
+                    " WHERE " + DATE + " > " + "'" + fromDate + "'" +
+                    " AND " + IS_SAVED + " = " + " 1 ";
+        }
+
+        cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            return cursor.getFloat(0);
+        }else {
+            return 0;
+        }
     }
 
     public static void addCategory(ModelSql.MyOpenHelper dbHelper, String category) {

@@ -1,5 +1,6 @@
 package dsme.myfinance.utils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -40,7 +41,7 @@ public class DateUtils {
 
         startOfMonth = cal.getTimeInMillis();
 
-        cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+        cal.set(Calendar.DAY_OF_MONTH,cal.getActualMaximum(Calendar.DAY_OF_MONTH));
         cal.set(Calendar.MINUTE, 59);
         cal.set(Calendar.HOUR_OF_DAY, 23);
         endOfMonth = cal.getTimeInMillis();
@@ -69,6 +70,89 @@ public class DateUtils {
                 return "Fri";
             case 7:
                 return "Sat";
+            default:
+                return "";
+        }
+    }
+
+    public static ArrayList<String> getMonths() {
+
+        ArrayList<String> m = new ArrayList<String>();
+        m.add("Jan");
+        m.add("Feb");
+        m.add("Mar");
+        m.add("Apr");
+        m.add("May");
+        m.add("Jun");
+        m.add("Jul");
+        m.add("Aug");
+        m.add("Sep");
+        m.add("Okt");
+        m.add("Nov");
+        m.add("Dec");
+
+        return m;
+    }
+
+    public static String getMonthName(int month) {
+
+        switch (month){
+            case 1:
+                return "January";
+            case 2:
+                return "February";
+            case 3:
+                return "March";
+            case 4:
+                return "April";
+            case 5:
+                return "May";
+            case 6:
+                return "June";
+            case 7:
+                return "July";
+            case 8:
+                return "August";
+            case 9:
+                return "September";
+            case 10:
+                return "October";
+            case 11:
+                return "November";
+            case 12:
+                return "December";
+            default:
+                return "Monthly";
+        }
+    }
+
+    public static String getMonthNameShort(int month) {
+
+        switch (month){
+            case 1:
+                return "Jan";
+            case 2:
+                return "Feb";
+            case 3:
+                return "Mar";
+            case 4:
+                return "Apr";
+            case 5:
+                return "May";
+            case 6:
+                return "Jun";
+            case 7:
+                return "Jul";
+            case 8:
+                return "Aug";
+            case 9:
+                return "Sep";
+            case 10:
+                return "Oct";
+            case 11:
+                return "Nov";
+            case 12:
+                return "Dec";
             default:
                 return "";
         }

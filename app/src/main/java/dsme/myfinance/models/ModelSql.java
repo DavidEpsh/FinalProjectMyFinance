@@ -69,8 +69,13 @@ public class ModelSql implements Model.ModelInterface {
     }
 
     @Override
-    public Double getSumByCategory(String category,String fromDate, String toDate) {
+    public float getSumByCategory(String category, long fromDate, long toDate) {
         return ExpenseSql.getSumByCategory(dbHelper, category, fromDate, toDate);
+    }
+
+    @Override
+    public float getSumByMonth(long fromDate, long toDate) {
+        return ExpenseSql.getSumByMonth(dbHelper, fromDate, toDate);
     }
 
     @Override

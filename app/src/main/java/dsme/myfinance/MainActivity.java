@@ -29,6 +29,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 
 import dsme.myfinance.fragments.ExpenseListFragment;
+import dsme.myfinance.fragments.OverviewFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        createPieChart();
+        openFragment(new OverviewFragment());
 
     }
 
@@ -130,63 +131,5 @@ public class MainActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
-    }
-
-    public void createPieChart(){
-        mPieChart = (PieChart) findViewById(R.id.pieChart);
-        mPieChart.setDescription("");
-
-//        Typeface tf = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
-//
-//        mPieChart.setCenterTextTypeface(tf);
-//        mPieChart.setCenterText(generateCenterText());
-//        mPieChart.setCenterTextSize(10f);
-//        mPieChart.setCenterTextTypeface(tf);
-
-        // radius of the center hole in percent of maximum radius
-        mPieChart.setHoleRadius(3f);
-        mPieChart.setTransparentCircleRadius(0f);
-
-        Legend l = mPieChart.getLegend();
-        l.setEnabled(false);
-        //mPieChart.value
-        //l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
-
-        mPieChart.setData(generatePieData());
-
-    }
-
-
-
-    protected PieData generatePieData() {
-
-        int count = 4;
-
-        ArrayList<Entry> entries1 = new ArrayList<Entry>();
-        ArrayList<String> xVals = new ArrayList<String>();
-
-//        xVals.add("Quarter 1");
-//        xVals.add("Quarter 2");
-//        xVals.add("Quarter 3");
-//        xVals.add("Quarter 4");
-
-        for(int i = 0; i < count; i++) {
-            xVals.add("entry" + (i+1));
-
-            entries1.add(new Entry((float) (Math.random() * 60) + 40, i));
-        }
-
-        PieDataSet ds1 = new PieDataSet(entries1, "Expenses");
-        ds1.setColors(ColorTemplate.VORDIPLOM_COLORS);
-        ds1.setSliceSpace(2f);
-        ds1.setValueTextColor(Color.BLACK);
-        ds1.setDrawValues(false);
-        ds1.setValueTextSize(12f);
-
-
-        PieData d = new PieData(xVals, ds1);
-        //d.setValueTypeface(tf);
-
-        return d;
     }
 }

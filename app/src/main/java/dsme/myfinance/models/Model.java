@@ -24,7 +24,8 @@ public class Model {
         public Expense getExpense(long id);
         public List<Expense> getExpenses();
         public List<Expense> getExpensesByCategory(String category, String fromDate, String toDate);
-        public Double getSumByCategory(String category, String fromDate, String toDate);
+        public float getSumByCategory(String category, long fromDate, long toDate);
+        public float getSumByMonth(long fromDate, long toDate);
         public List<String> getCategories();
         public void addCategory(String category);
         public List<String> getAllCategories();
@@ -88,8 +89,12 @@ public class Model {
         return modelImpl.getExpensesByCategory(category, fromDate, toDate);
     }
 
-    public Double getSumByCategory(String category, String fromDate, String toDate){
+    public float getSumByCategory(String category, long fromDate, long toDate){
         return modelImpl.getSumByCategory(category, fromDate, toDate);
+    }
+
+    public float getSumByMonth(long fromDate, long toDate){
+        return modelImpl.getSumByMonth(fromDate, toDate);
     }
 
     public interface ChangeTimeListener{
