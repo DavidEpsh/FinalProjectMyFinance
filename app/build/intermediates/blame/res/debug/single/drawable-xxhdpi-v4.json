@@ -72,6 +72,10 @@
         "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\23.0.0\\res\\drawable-xxhdpi\\ic_media_route_on_1_mono_dark.png"
     },
     {
+        "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_keyboard_arrow_left.png",
+        "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\src\\main\\res\\drawable-xxhdpi\\ic_keyboard_arrow_left.png"
+    },
+    {
         "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_work_black.png",
         "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\src\\main\\res\\drawable-xxhdpi\\ic_work_black.png"
     },
@@ -138,6 +142,10 @@
     {
         "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\common_plus_signin_btn_icon_dark_focused.9.png",
         "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.4.0\\res\\drawable-xxhdpi\\common_plus_signin_btn_icon_dark_focused.9.png"
+    },
+    {
+        "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_keyboard_arrow_right.png",
+        "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\src\\main\\res\\drawable-xxhdpi\\ic_keyboard_arrow_right.png"
     },
     {
         "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_cast_on_light.png",

@@ -10,8 +10,8 @@ public class DateUtils {
         GregorianCalendar cal = new GregorianCalendar();
 
         cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.clear(Calendar.MINUTE);
-        cal.clear(Calendar.SECOND);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
         cal.clear(Calendar.MILLISECOND);
         return cal.getTimeInMillis();
     }
@@ -20,10 +20,10 @@ public class DateUtils {
         GregorianCalendar cal = new GregorianCalendar();
 
         cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.clear(Calendar.MINUTE);
+        cal.set(Calendar.MINUTE, 0);
         cal.clear(Calendar.SECOND);
         cal.clear(Calendar.MILLISECOND);
-        cal.clear(Calendar.DAY_OF_MONTH);
+        cal.set(Calendar.DAY_OF_MONTH, 1);
         return cal.getTimeInMillis();
     }
 

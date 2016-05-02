@@ -64,8 +64,12 @@ public class ModelSql implements Model.ModelInterface {
     }
 
     @Override
-    public List<Expense> getExpensesByCategory(String category,String fromDate, String toDate) {
+    public List<Expense> getExpensesByCategory(String category, long fromDate, long toDate) {
         return ExpenseSql.getExpensesByCategory(dbHelper, category, fromDate, toDate);
+    }
+
+    public List<Expense> getExpensesByMonth(long fromDate, long toDate) {
+        return ExpenseSql.getExpensesByMonth(dbHelper, fromDate, toDate);
     }
 
     @Override

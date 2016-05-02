@@ -23,7 +23,8 @@ public class Model {
         public void deleteExpense(String expense);
         public Expense getExpense(long id);
         public List<Expense> getExpenses();
-        public List<Expense> getExpensesByCategory(String category, String fromDate, String toDate);
+        public List<Expense> getExpensesByCategory(String category, long fromDate, long toDate);
+        public List<Expense> getExpensesByMonth(long fromDate, long toDate);
         public float getSumByCategory(String category, long fromDate, long toDate);
         public float getSumByMonth(long fromDate, long toDate);
         public List<String> getCategories();
@@ -85,8 +86,12 @@ public class Model {
         return modelImpl.getAllCategories();
     }
 
-    public List<Expense> getExpensesByCategory(String category, String fromDate, String toDate){
+    public List<Expense> getExpensesByCategory(String category, long fromDate, long toDate){
         return modelImpl.getExpensesByCategory(category, fromDate, toDate);
+    }
+
+    public List<Expense> getExpensesByMonth(long fromDate, long toDate){
+        return modelImpl.getExpensesByMonth(fromDate, toDate);
     }
 
     public float getSumByCategory(String category, long fromDate, long toDate){

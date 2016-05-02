@@ -71,7 +71,7 @@ public class OverviewFragment extends Fragment {
         TextView monthName = (TextView) mView.findViewById(R.id.overviewCurrentMonthName);
         TextView monthSum = (TextView) mView.findViewById(R.id.overviewCurrentMonthSum);
 
-        monthName.setText(DateUtils.getMonthName(GregorianCalendar.getInstance().get(Calendar.MONTH)));
+        monthName.setText(DateUtils.getMonthName(GregorianCalendar.getInstance().get(Calendar.MONTH)+1));
         monthSum.setText(Float.toString(Model.instance().getSumByMonth(DateUtils.getStartOfMonth(),0))+ "$");
 
         createPieChart();
@@ -177,10 +177,11 @@ public class OverviewFragment extends Fragment {
         xVals.clear();
         entries1.clear();
         categories = Model.instance().getCategories();
+        long startOfMonth = DateUtils.getStartOfMonth();
 
         for(int i = 0; i < categories.size(); i++) {
             xVals.add(categories.get(i));
-            entries1.add(new Entry(Model.instance().getSumByCategory(categories.get(i),DateUtils.getStartOfMonth(),0), i));
+            entries1.add(new Entry(Model.instance().getSumByCategory(categories.get(i), startOfMonth,0), i));
         }
     }
 

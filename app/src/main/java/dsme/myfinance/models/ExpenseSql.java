@@ -122,7 +122,8 @@ public class ExpenseSql {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         String query = "SELECT * FROM " + TABLE +
-                " WHERE " + IS_SAVED + " = " + " 1 ";
+                " WHERE " + IS_SAVED + " = " + " 1 " +
+                " ORDER BY " + DATE + " DESC";;
         Cursor cursor = db.rawQuery(query, null);
 
         if (!(cursor.getCount() <= 0)) {
@@ -155,32 +156,29 @@ public class ExpenseSql {
         return data;
     }
 
-    public static List<Expense> getExpensesByCategory(ModelSql.MyOpenHelper dbHelper, String selectedCategory,String fromDate, String toDate) {
+    public static List<Expense> getExpensesByCategory(ModelSql.MyOpenHelper dbHelper, String selectedCategory,long fromDate, long toDate) {
         List<Expense> data = new LinkedList<Expense>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor;
 
-        if(selectedCategory == null && fromDate == null && toDate == null){
+        if(selectedCategory == null && fromDate == 0 && toDate == 0){
             String query = "SELECT * FROM " + TABLE +
                     " AND " + IS_SAVED + " = " + " 1 " +
-                    " AND " + NOTE + " = " + //"'" + ParseUser.getCurrentUser().getUsername() + "'" +
                     " ORDER BY " + DATE + " DESC ";
 
             cursor = db.rawQuery(query, null);
 
-        }else if(selectedCategory == null && toDate == null){
+        }else if(selectedCategory == null && toDate == 0){
             String query = "SELECT * FROM " + TABLE +
-                    " WHERE " + TIMESTAMP + " > " + "'" + fromDate + "'" +
+                    " WHERE " + DATE + " > " + "'" + fromDate + "'" +
                     " AND " + IS_SAVED + " = " + " 1 " +
-                    " AND " + NOTE + " = " + //"'" + ParseUser.getCurrentUser().getUsername() + "'" +
                     " ORDER BY " + DATE +" DESC ";
 
             cursor = db.rawQuery(query, null);
 
-        }else if(fromDate == null && toDate == null) {
+        }else if(fromDate == 0 && toDate == 0) {
             String query = "SELECT * FROM " + TABLE +
                     " WHERE " + CATEGORY + " = " + "'" + selectedCategory + "'" +
-                    " AND " + NOTE + " = " + //"'" + ParseUser.getCurrentUser().getUsername() + "'" +
                     " AND " + IS_SAVED + " = " + " 1 ";
 
             cursor = db.rawQuery(query, null);
@@ -188,37 +186,92 @@ public class ExpenseSql {
         }else {
             String query = "SELECT * FROM " + TABLE +
                     " WHERE " + CATEGORY + " = " + "'" + selectedCategory + "'" +
-                    " AND " + TIMESTAMP + " > " + "'" + fromDate + "'" +
+                    " AND " + DATE + " > " + "'" + fromDate + "'" +
                     " AND " + IS_SAVED + " = " + " 1 " +
-                    " AND " + NOTE + " = " + //"'" + ParseUser.getCurrentUser().getUsername() + "'" +
                     " ORDER BY " + DATE +" DESC ";
 
             cursor = db.rawQuery(query, null);
         }
 
-        if (cursor.moveToFirst()) {
-            int id_index = cursor.getColumnIndex(TIMESTAMP);
-            int date_index = cursor.getColumnIndex(DATE);
-            int name_index = cursor.getColumnIndex(NAME);
-            int category_index = cursor.getColumnIndex(CATEGORY);
-            int repeating_index = cursor.getColumnIndex(REPEATING);
-            int image_path_index = cursor.getColumnIndex(IMAGE_PATH);
-            int amount_index = cursor.getColumnIndex(EXPENSE_AMOUNT);
-            int note_index = cursor.getColumnIndex(NOTE);
+        if (!(cursor.getCount() <= 0)) {
+            if (cursor.moveToFirst()) {
+                int id_index = cursor.getColumnIndex(TIMESTAMP);
+                int date_index = cursor.getColumnIndex(DATE);
+                int name_index = cursor.getColumnIndex(NAME);
+                int category_index = cursor.getColumnIndex(CATEGORY);
+                int repeating_index = cursor.getColumnIndex(REPEATING);
+                int image_path_index = cursor.getColumnIndex(IMAGE_PATH);
+                int amount_index = cursor.getColumnIndex(EXPENSE_AMOUNT);
+                int note_index = cursor.getColumnIndex(NOTE);
 
-            do {
-                long timeStamp = cursor.getLong(id_index);
-                long date = cursor.getLong(date_index);
-                String expenseName = cursor.getString(name_index);
-                String category = cursor.getString(category_index);
-                String imagePath = cursor.getString(image_path_index);
-                int repeating = cursor.getInt(repeating_index);
-                float amount = cursor.getFloat(amount_index);
-                String note = cursor.getString(note_index);
+                do {
+                    long timeStamp = cursor.getLong(id_index);
+                    long date = cursor.getLong(date_index);
+                    String expenseName = cursor.getString(name_index);
+                    String category = cursor.getString(category_index);
+                    String imagePath = cursor.getString(image_path_index);
+                    int repeating = cursor.getInt(repeating_index);
+                    float amount = cursor.getFloat(amount_index);
+                    String note = cursor.getString(note_index);
 
-                Expense expense = new Expense(timeStamp, expenseName, date, repeating, imagePath, amount, category, note);
-                data.add(expense);
-            } while (cursor.moveToNext());
+                    Expense expense = new Expense(timeStamp, expenseName, date, repeating, imagePath, amount, category, note);
+                    data.add(expense);
+                } while (cursor.moveToNext());
+            }
+        }
+
+        return data;
+    }
+
+    public static List<Expense> getExpensesByMonth(ModelSql.MyOpenHelper dbHelper, long fromDate, long toDate) {
+        List<Expense> data = new LinkedList<Expense>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor;
+        String query;
+
+        if(toDate == 0){
+            query = "SELECT * FROM " + TABLE +
+                    " WHERE " + DATE + " > " + "'" + fromDate + "'" +
+                    " AND " + IS_SAVED + " = " + " 1 " +
+                    " ORDER BY " + DATE + " DESC ";
+
+            cursor = db.rawQuery(query, null);
+
+        }else {
+            query = "SELECT * FROM " + TABLE +
+                    " WHERE " + DATE + " > " + "'" + fromDate + "'" +
+                    " AND " + DATE + " < " + "'" + toDate + "'" +
+                    " AND " + IS_SAVED + " = " + " 1 " +
+                    " ORDER BY " + DATE + " DESC ";
+
+            cursor = db.rawQuery(query, null);
+        }
+
+        if (!(cursor.getCount() <= 0)) {
+            if (cursor.moveToFirst()) {
+                int id_index = cursor.getColumnIndex(TIMESTAMP);
+                int date_index = cursor.getColumnIndex(DATE);
+                int name_index = cursor.getColumnIndex(NAME);
+                int category_index = cursor.getColumnIndex(CATEGORY);
+                int repeating_index = cursor.getColumnIndex(REPEATING);
+                int image_path_index = cursor.getColumnIndex(IMAGE_PATH);
+                int amount_index = cursor.getColumnIndex(EXPENSE_AMOUNT);
+                int note_index = cursor.getColumnIndex(NOTE);
+
+                do {
+                    long timeStamp = cursor.getLong(id_index);
+                    long date = cursor.getLong(date_index);
+                    String expenseName = cursor.getString(name_index);
+                    String category = cursor.getString(category_index);
+                    String imagePath = cursor.getString(image_path_index);
+                    int repeating = cursor.getInt(repeating_index);
+                    float amount = cursor.getFloat(amount_index);
+                    String note = cursor.getString(note_index);
+
+                    Expense expense = new Expense(timeStamp, expenseName, date, repeating, imagePath, amount, category, note);
+                    data.add(expense);
+                } while (cursor.moveToNext());
+            }
         }
 
         return data;
@@ -258,8 +311,9 @@ public class ExpenseSql {
 
         if(cursor.moveToFirst()) {
             return cursor.getFloat(0);
+        }else {
+            return 0;
         }
-        return 0;
     }
 
     public static float getSumByMonth(ModelSql.MyOpenHelper dbHelper, long fromDate, long toDate) {
@@ -275,7 +329,7 @@ public class ExpenseSql {
         }else {
             query = "SELECT SUM(" + EXPENSE_AMOUNT + ")" + " FROM " + TABLE +
                     " WHERE " + DATE + " > " + "'" + fromDate + "'" +
-                    " AND " + IS_SAVED + " = " + " 1 ";
+                    " AND " + IS_SAVED + " = " + " 1";
         }
 
         cursor = db.rawQuery(query, null);
@@ -300,7 +354,8 @@ public class ExpenseSql {
         List<String> data = new ArrayList<String>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String query = "SELECT * FROM " + TABLE_CATEGORIES;
+        String query = "SELECT * FROM " + TABLE_CATEGORIES
+                + " ORDER BY " + CATEGORY_ENTRY + " COLLATE NOCASE";
         Cursor cursor = db.rawQuery(query, null);
 
         if (!(cursor.getCount() <= 0)) {
