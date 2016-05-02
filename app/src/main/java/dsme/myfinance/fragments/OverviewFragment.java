@@ -22,7 +22,9 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.w3c.dom.Text;
@@ -76,6 +78,22 @@ public class OverviewFragment extends Fragment {
 
         createPieChart();
 
+        mLineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+                int dif = 13 - e.getXIndex(); // there are 13 entries in the linechart
+
+                Fragment frag = new ExpenseListFragment();
+
+
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
+
         return mView;
     }
 
@@ -84,15 +102,7 @@ public class OverviewFragment extends Fragment {
         super.onResume();
 
         if(shouldUpdateDataSets) {
-            generatePieDataSet();
-            mPieChart.notifyDataSetChanged();
-            mPieChart.invalidate();
-            //mPieChart.animateY(1200);
-            shouldUpdateDataSets = false;
-
-            generateLineDataSet();
-            mLineChart.notifyDataSetChanged();
-            mLineChart.invalidate();
+            refreshCharts();
         }
 
     }
@@ -205,4 +215,22 @@ public class OverviewFragment extends Fragment {
         }
     }
 
+    private void openFragment(final Fragment fragment){
+                getActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentOverview, fragment)
+                .commit();
+    }
+
+    private void refreshCharts(){
+        generatePieDataSet();
+        mPieChart.notifyDataSetChanged();
+        mPieChart.invalidate();
+        //mPieChart.animateY(1200);
+        shouldUpdateDataSets = false;
+
+        generateLineDataSet();
+        mLineChart.notifyDataSetChanged();
+        mLineChart.invalidate();
+    }
 }
