@@ -53,11 +53,10 @@ public class ExpenseListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setHasOptionsMenu(true);
-
         if (getArguments() != null) {
             month = getArguments().getInt(CURRENT_MONTH);
             year = getArguments().getInt(CURRENT_YEAR);
+
         }
     }
 
@@ -66,6 +65,7 @@ public class ExpenseListFragment extends Fragment {
                              Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_expense_list, container, false);
         View mRecyclerView = mView.findViewById(R.id.list);
+
         buttonPreviousMonth = (ImageButton) mView.findViewById(R.id.buttonPreviousMonth);
         buttonNextMonth = (ImageButton) mView.findViewById(R.id.buttonNextMonth);
         monthShownTextView = (TextView) mView.findViewById(R.id.textViewMonthShown);
@@ -99,7 +99,7 @@ public class ExpenseListFragment extends Fragment {
                     month++;
                 }
 
-                if (month == Calendar.getInstance().get(Calendar.MONTH)){
+                if (month == Calendar.getInstance().get(Calendar.MONTH) && year == Calendar.getInstance().get(Calendar.YEAR)){
                     buttonNextMonth.setVisibility(View.INVISIBLE);
                     buttonNextMonth.setEnabled(false);
                 }
@@ -119,6 +119,7 @@ public class ExpenseListFragment extends Fragment {
             if(month != -1) {
                 long[] dateRange = DateUtils.getMonthDateRange(month, year);
                 items = Model.instance().getExpensesByMonth(dateRange[0], dateRange[1]);
+                monthShownTextView.setText(DateUtils.getMonthName(month+ 1));
             }else{
                 buttonNextMonth.setVisibility(View.INVISIBLE);
                 buttonNextMonth.setEnabled(false);

@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity
     final static public String PREFS_CATEGORIES = "CATEGORIES";
     final static public String EXPENSE_ID = "EXPENSE_ID";
 
-    private PieChart mPieChart;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,8 +104,8 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_overview) {
+            openFragment(new OverviewFragment());
         } else if (id == R.id.nav_expense_list) {
             openFragment(new ExpenseListFragment());
 

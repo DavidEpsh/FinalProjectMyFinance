@@ -81,10 +81,18 @@ public class OverviewFragment extends Fragment {
         mLineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-                int dif = 13 - e.getXIndex(); // there are 13 entries in the linechart
+                int dif = 12 - e.getXIndex(); // there are 13 entries in the linechart
+                int selectedMonth, currMonth = Calendar.getInstance().get(Calendar.MONTH);
+                int currYear = Calendar.getInstance().get(Calendar.YEAR);
+                if(dif > currMonth){
+                    currYear--;
+                    selectedMonth = 12 - Math.abs(dif - currMonth);
+                }else{
+                    selectedMonth = currMonth - dif;
+                }
 
-                Fragment frag = new ExpenseListFragment();
-
+                Fragment frag = ExpenseListFragment.newInstance(selectedMonth, currYear);
+                openFragment(frag);
 
             }
 
@@ -218,7 +226,7 @@ public class OverviewFragment extends Fragment {
     private void openFragment(final Fragment fragment){
                 getActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fragmentOverview, fragment)
+                .replace(R.id.container, fragment)
                 .commit();
     }
 
