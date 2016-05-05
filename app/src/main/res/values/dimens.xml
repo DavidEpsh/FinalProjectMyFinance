@@ -35,6 +35,7 @@
 
     <dimen name="min_touch_size">32dp</dimen>
     <dimen name="recommended_touch_size">48dp</dimen>
+    <dimen name="scaled_send_button">36dp</dimen>
     <dimen name="big_touch_size">64dp</dimen>
 
     <dimen name="navigation_drawer_width">300dp</dimen>

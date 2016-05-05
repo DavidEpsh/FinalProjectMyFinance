@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/editButtonsContainerView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/recommended_touch_size"
+    android:orientation="horizontal"
+    tools:ignore="UnusedAttribute">
+
+    <EditText
+        android:id="@+id/etMessage"
+        android:layout_toLeftOf="@+id/btSend"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="10"
+        android:layout_alignBottom="@+id/btSend"
+        android:imeOptions="actionSend"/>
+    <ImageButton
+        android:id="@+id/btSend"
+        android:layout_width="@dimen/scaled_send_button"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingRight="10dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_send_black"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:textSize="18sp" >
+    </ImageButton>
+
+</LinearLayout>
