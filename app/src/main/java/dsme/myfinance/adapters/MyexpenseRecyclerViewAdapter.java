@@ -1,10 +1,14 @@
 package dsme.myfinance.adapters;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -14,6 +18,7 @@ import dsme.myfinance.MainActivity;
 import dsme.myfinance.R;
 import dsme.myfinance.TransactionEditActivity;
 import dsme.myfinance.models.Expense;
+import dsme.myfinance.models.Model;
 import dsme.myfinance.utils.DateUtils;
 
 import java.util.List;
@@ -21,6 +26,8 @@ import java.util.List;
 public class MyexpenseRecyclerViewAdapter extends RecyclerView.Adapter<MyexpenseRecyclerViewAdapter.ViewHolder> {
 
     private List<Expense> mValues;
+    private List<String> categories;
+    private int[] colors;
 //    private final OnListFragmentInteractionListener mListener;
 //
 //    public MyexpenseRecyclerViewAdapter(List<Expense> items, OnListFragmentInteractionListener listener) {
@@ -28,8 +35,10 @@ public class MyexpenseRecyclerViewAdapter extends RecyclerView.Adapter<Myexpense
 //        mListener = listener;
 //    }
 
-    public MyexpenseRecyclerViewAdapter(List<Expense> items) {
+    public MyexpenseRecyclerViewAdapter(int[] colors, List<Expense> items) {
         mValues = items;
+        this.colors = colors;
+        categories = Model.instance().getCategories();
     }
 
     public void setData(List<Expense> items) {
@@ -41,6 +50,7 @@ public class MyexpenseRecyclerViewAdapter extends RecyclerView.Adapter<Myexpense
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.expense_item, parent, false);
         return new ViewHolder(view);
+
     }
 
     @Override
@@ -51,7 +61,8 @@ public class MyexpenseRecyclerViewAdapter extends RecyclerView.Adapter<Myexpense
         holder.mDay.setText(Integer.toString(DateUtils.getNumOfDayInMonth(holder.mItem.getDate())));
         holder.mAmount.setText(Float.toString(mValues.get(position).getExpenseAmount()));
         holder.mCategory.setText(holder.mItem.getCategory());
-
+        GradientDrawable drawable = (GradientDrawable) holder.circle.getDrawable();
+        drawable.setColor(colors[categories.indexOf(holder.mItem.getCategory())]);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +87,7 @@ public class MyexpenseRecyclerViewAdapter extends RecyclerView.Adapter<Myexpense
         public final TextView mDescription;
         public final TextView mCategory;
         public final TextView mAmount;
+        public final ImageView circle;
 
 
         public ViewHolder(View view) {
@@ -86,6 +98,7 @@ public class MyexpenseRecyclerViewAdapter extends RecyclerView.Adapter<Myexpense
             mDescription = (TextView) mView.findViewById(R.id.titleTextView);
             mCategory = (TextView) mView.findViewById(R.id.subtitleTextView);
             mAmount= (TextView) mView.findViewById(R.id.amountTextView);
+            circle = (ImageView) mView.findViewById(R.id.colorImageView);
         }
 
 //        @Override

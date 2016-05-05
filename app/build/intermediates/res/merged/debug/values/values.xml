@@ -192,6 +192,24 @@
         <item>#37474f</item>
         <item>#263238</item>
     </array>
+    <array name="preloaded_colors">
+        <item>#66bb6a</item>
+        <item>#42a5f5</item>
+        <item>#afb42b</item>
+        <item>#ef5350</item>
+        <item>#ff8a80</item>
+        <item>#ab47bc</item>
+        <item>#8c9eff</item>
+        <item>#00bcd4</item>
+        <item>#ffff00</item>
+        <item>#18ffff</item>
+        <item>#f9a825</item>
+        <item>#ff80ab</item>
+        <item>#b388ff</item>
+        <item>#2196f3</item>
+        <item>#29b6f6</item>
+        <item>#e040fb</item>
+    </array>
     <array name="progress_bar_colors">
         <item>#cddc39</item>
     </array>

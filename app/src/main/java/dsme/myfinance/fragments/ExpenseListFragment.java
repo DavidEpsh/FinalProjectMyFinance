@@ -129,7 +129,8 @@ public class ExpenseListFragment extends Fragment {
                 long[] dateRange = DateUtils.getMonthDateRange(month, year);
                 items = Model.instance().getExpensesByMonth(dateRange[0], dateRange[1]);
             }
-            recyclerView.setAdapter(new MyexpenseRecyclerViewAdapter(items)); //, mListener));
+             int[] colors = context.getResources().getIntArray(R.array.preloaded_colors);
+            recyclerView.setAdapter(new MyexpenseRecyclerViewAdapter(colors ,items)); //, mListener));
         }
         return mView;
     }

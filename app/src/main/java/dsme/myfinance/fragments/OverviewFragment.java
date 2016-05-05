@@ -48,7 +48,6 @@ public class OverviewFragment extends Fragment {
     boolean shouldUpdateDataSets = false;
 
     public OverviewFragment() {
-        // Required empty public constructor
     }
 
     public static OverviewFragment newInstance(String param1, String param2) {
@@ -93,7 +92,6 @@ public class OverviewFragment extends Fragment {
 
                 Fragment frag = ExpenseListFragment.newInstance(selectedMonth, currYear);
                 openFragment(frag);
-
             }
 
             @Override
