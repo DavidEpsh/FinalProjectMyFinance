@@ -192,6 +192,10 @@
         <item>#37474f</item>
         <item>#263238</item>
     </array>
+    <array name="preload_colors_small">
+        <item>#42a5f5</item>
+        <item>#f9a825</item>
+    </array>
     <array name="preloaded_colors">
         <item>#66bb6a</item>
         <item>#42a5f5</item>
@@ -576,6 +580,7 @@
     <dimen name="progress_bar_height">3dp</dimen>
     <dimen name="recommended_touch_size">48dp</dimen>
     <dimen name="report_line_graph_width">2dp</dimen>
+    <dimen name="scaled_send_button">36dp</dimen>
     <dimen name="space_large">16dp</dimen>
     <dimen name="space_normal">8dp</dimen>
     <dimen name="space_small">4dp</dimen>
@@ -716,6 +721,7 @@
     <string name="accounts_two">Accounts</string>
     <string name="accounts_zero">Accounts</string>
     <string name="action_settings">Settings</string>
+    <string name="advisors">Advisors</string>
     <string name="app_name">MyFinance</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="auth_google_play_services_client_facebook_display_name">Facebook</string>
@@ -745,6 +751,7 @@
     <string name="categories_zero">Categories</string>
     <string name="change_log">Change log</string>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
+    <string name="chat">Chat</string>
     <string name="clear_and_restore">Clear and restore</string>
     <string name="close_left">Close left</string>
     <string name="close_navigation">Close navigation</string>
@@ -810,6 +817,7 @@
     <string name="exchange_rate">Exchange rate</string>
     <string name="expense">Expense</string>
     <string name="expense_amount">Expense Amount</string>
+    <string name="expense_list">Expense List</string>
     <string name="expenses">Expenses</string>
     <string name="export">Export</string>
     <string name="export_csv">Export CSV</string>

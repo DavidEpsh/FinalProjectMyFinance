@@ -378,6 +378,23 @@ public class ExpenseSql {
         }
     }
 
+    public static void addMessage(ModelSql.MyOpenHelper dbHelper, Expense expense) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(TIMESTAMP, expense.getTimestamp());
+        values.put(DATE, expense.getDate());
+        values.put(NAME, expense.getExpenseName());
+        values.put(CATEGORY, expense.getCategory());
+        values.put(REPEATING, expense.getIsRepeatingExpense());
+        values.put(IMAGE_PATH, expense.getExpenseImage());
+        values.put(EXPENSE_AMOUNT, expense.getExpenseAmount());
+        values.put(NOTE, expense.getNote());
+        values.put(IS_SAVED, 1);
+
+        db.insert(TABLE, null, values);
+    }
+
     public static void create(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE + " (" +
                 TIMESTAMP + " LONG PRIMARY KEY," +
@@ -392,9 +409,11 @@ public class ExpenseSql {
 
         db.execSQL("CREATE TABLE " + TABLE_CATEGORIES + " (" +
                 CATEGORY_ENTRY + " TEXT PRIMARY KEY" + ")");
+
     }
 
     public static void drop(SQLiteDatabase db) {
         db.execSQL("drop table " + TABLE + ";");
+        db.execSQL("drop table " + TABLE_CATEGORIES + ";");
     }
 }

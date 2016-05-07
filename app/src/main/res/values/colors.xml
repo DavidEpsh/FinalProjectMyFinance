@@ -7,11 +7,17 @@
     <color name="black">#000000</color>
 
 
+
     <!-- When changing this, you need to change <item name="backgroundColor">#f0f0f0</item> in theme-->
     <color name="window_background">#f0f0f0</color>
 
     <array name="progress_bar_colors">
         <item>#cddc39</item>
+    </array>
+
+    <array name="preload_colors_small">
+        <item>#42a5f5</item>
+        <item>#f9a825</item>
     </array>
 
     <array name="preloaded_colors">

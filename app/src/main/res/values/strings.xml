@@ -151,5 +151,8 @@
     <string name="expense_amount">Expense Amount</string>
     <string name="time">Time</string>
     <string name="description">Description</string>
+    <string name="advisors">Advisors</string>
+    <string name="chat">Chat</string>
+    <string name="expense_list">Expense List</string>
 
 </resources>

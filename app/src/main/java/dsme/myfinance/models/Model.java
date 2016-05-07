@@ -32,9 +32,10 @@ public class Model {
         public List<String> getAllCategories();
         public void updateOrAddExpense(Expense expense);
         public void batchUpdateExpenses(List<Expense> expenses, BatchUpdateListener listener);
-        public String getExistingUsersSheet(String id, String userName);
         public void changeLastUpdateTime(ChangeTimeListener listener);
-        public HashMap<String, String> returnMySheets();
+
+        public void addMessage(Message message);
+        public List<Message> getMessages();
     }
 
     private static final Model instance = new Model();
@@ -102,6 +103,14 @@ public class Model {
         return modelImpl.getSumByMonth(fromDate, toDate);
     }
 
+    public List<Message> getMessages(){
+        return  modelImpl.getMessages();
+    }
+
+    public void addMessage(Message message){
+        modelImpl.addMessage(message);
+    }
+
     public interface ChangeTimeListener{
         public void onResult();
     }
@@ -110,17 +119,10 @@ public class Model {
         public void onResult();
     }
 
-    public String getExistingUsersSheet(String id, String userName){
-        return modelImpl.getExistingUsersSheet(id, userName);
-    }
-
-    public HashMap<String, String> returnMySheets(){
-        return modelImpl.returnMySheets();
-    }
-
     public interface LoadImageListener{
         public void onResult(Bitmap imageBmp);
     }
+
 
     public void loadImage(final String imageName, final LoadImageListener listener) {
         AsyncTask<String,String,Bitmap> task = new AsyncTask<String, String, Bitmap >() {

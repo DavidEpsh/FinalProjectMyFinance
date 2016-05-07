@@ -40,11 +40,6 @@ public class ModelSql implements Model.ModelInterface {
     }
 
     @Override
-    public String getExistingUsersSheet(String id, String userName) {
-        return null;
-    }
-
-    @Override
     public List<Expense> getExpenses() {
         return ExpenseSql.getExpenses(dbHelper);
     }
@@ -88,8 +83,13 @@ public class ModelSql implements Model.ModelInterface {
     }
 
     @Override
-    public HashMap<String, String> returnMySheets() {
-        return null;
+    public List<Message> getMessages() {
+        return MessageSql.getMessages(dbHelper);
+    }
+
+    @Override
+    public void addMessage(Message message){
+        MessageSql.addMessage(dbHelper, message);
     }
 
     class MyOpenHelper extends SQLiteOpenHelper {
@@ -103,13 +103,13 @@ public class ModelSql implements Model.ModelInterface {
         @Override
         public void onCreate(SQLiteDatabase db) {
             ExpenseSql.create(db);
-            //ModelUsersAndAccountsSql.create(db);
+            MessageSql.create(db);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             ExpenseSql.drop(db);
-            //ModelUsersAndAccountsSql.drop(db);
+            MessageSql.drop(db);
             onCreate(db);
         }
     }
