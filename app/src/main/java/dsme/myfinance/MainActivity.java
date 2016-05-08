@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity
 
     final static public String PREFS_CATEGORIES = "CATEGORIES";
     final static public String EXPENSE_ID = "EXPENSE_ID";
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,5 +114,11 @@ public class MainActivity extends AppCompatActivity
                 .beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
+
+        if (fragment instanceof ChatFragment){
+            fab.setVisibility(View.INVISIBLE);
+        }else if(fab.getVisibility() == View.INVISIBLE){
+            fab.setVisibility(View.VISIBLE);
+        }
     }
 }

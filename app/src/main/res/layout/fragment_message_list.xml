@@ -20,6 +20,7 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context=".fragments.ChatFragment"
+        android:layout_weight="10"
     tools:listitem="@layout/fragment_message" />
 
     <include layout="@layout/include_chat_items" />

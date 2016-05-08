@@ -13,7 +13,7 @@ public class MessageSql {
     private static final String MESSAGE_ID = "MESSAGE_ID";
     private static final String INCREMENT = "INCREMENT";
     private static final String SENDER = "SENDER";
-    private static final String CHAR_ID= "CHAT_ID";
+    private static final String CHAT_ID = "CHAT_ID";
     private static final String MESSAGE_CONTENT = "MESSAGE_CONTENT";
 
     public static void addMessage(ModelSql.MyOpenHelper dbHelper, Message message) {
@@ -21,7 +21,7 @@ public class MessageSql {
 
         ContentValues values = new ContentValues();
         values.put(MESSAGE_ID, message.getMessageId());
-        values.put(CHAR_ID, message.getChatId());
+        values.put(CHAT_ID, message.getChatId());
         values.put(SENDER, message.getSender());
         values.put(MESSAGE_CONTENT, message.getMessageContent());
 
@@ -39,7 +39,7 @@ public class MessageSql {
         if (!(cursor.getCount() <= 0)) {
             if (cursor.moveToFirst()) {
                 int id_message = cursor.getColumnIndex(MESSAGE_ID);
-                int id_chat = cursor.getColumnIndex(CHAR_ID);
+                int id_chat = cursor.getColumnIndex(CHAT_ID);
                 int content_index = cursor.getColumnIndex(MESSAGE_CONTENT);
                 int sender_index= cursor.getColumnIndex(SENDER);
 
@@ -63,6 +63,7 @@ public class MessageSql {
                 INCREMENT + " INTEGER PRIMARY KEY," +
                 MESSAGE_ID + " LONG," +
                 SENDER + " TEXT, " +
+                CHAT_ID + " TEXT, " +
                 MESSAGE_CONTENT + " TEXT" + ")");
     }
 

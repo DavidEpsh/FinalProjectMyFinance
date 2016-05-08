@@ -64,10 +64,12 @@ public class ChatFragment extends Fragment {
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long timestamp = Calendar.getInstance().getTimeInMillis();
-                Model.instance().addMessage(new Message(timestamp, timestamp, newMessageText.getText().toString(), "me"));
-                newMessageText.setText("");
-                reloadChat();
+                if (newMessageText.getText().length() > 0) {
+                    long timestamp = Calendar.getInstance().getTimeInMillis();
+                    Model.instance().addMessage(new Message(timestamp, timestamp, newMessageText.getText().toString(), "me"));
+                    newMessageText.setText("");
+                    reloadChat();
+                }
             }
         });
         return mView;

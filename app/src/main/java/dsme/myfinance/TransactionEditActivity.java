@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -184,32 +185,51 @@ public class TransactionEditActivity extends AppCompatActivity {
         int repeating;
         long timestamp;
 
-        if (id > 0) {
-            timestamp = id;
-        }else{
-            timestamp = GregorianCalendar.getInstance().getTimeInMillis();
-        }
+        if (checkFields()) {
 
-        long date = cal.getTimeInMillis();
+            if (id > 0) {
+                timestamp = id;
+            } else {
+                timestamp = GregorianCalendar.getInstance().getTimeInMillis();
+            }
 
-        if(isRepeating.isChecked()){
-            repeating = 1;
-        }else { repeating = 0;};
+            long date = cal.getTimeInMillis();
 
-        mExpense = new Expense(timestamp,
-                descriptionEditText.getText().toString(),
-                date,
-                repeating,
-                imagePath,
-                Float.valueOf(expenseAmount.getText().toString()),
-                categoryButton.getSelectedItem().toString(),
-                noteTextView.getText().toString());
+            if (isRepeating.isChecked()) {
+                repeating = 1;
+            } else {
+                repeating = 0;
+            }
+            ;
 
-        Model.instance().addExpense(mExpense);
+            mExpense = new Expense(timestamp,
+                    descriptionEditText.getText().toString(),
+                    date,
+                    repeating,
+                    imagePath,
+                    Float.valueOf(expenseAmount.getText().toString()),
+                    categoryButton.getSelectedItem().toString(),
+                    noteTextView.getText().toString());
+
+            Model.instance().addExpense(mExpense);
 //        Intent returnIntent = new Intent();
 //        returnIntent.putExtra("result", MainActivity.RESULT_ADD_EXPENSE);
 //        setResult(this.RESULT_OK, returnIntent);
-        finish();
+            finish();
+        }else{
+
+        }
+    }
+
+    public boolean checkFields(){
+    if(expenseAmount.getText().toString().length() == 0) {
+        Toast.makeText(this, "Please add expense amount", Toast.LENGTH_LONG).show();
+        return false;
+    }else if(descriptionEditText.getText().toString().length() == 0) {
+        Toast.makeText(this, "Please add a description", Toast.LENGTH_LONG).show();
+        return false;
+    }else
+        return true;
     }
 
     public void initializeSpinner(){
