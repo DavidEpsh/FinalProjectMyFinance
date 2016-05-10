@@ -46,6 +46,7 @@ public class OverviewFragment extends Fragment {
     ArrayList<Entry> e1;
     ArrayList<String> months;
     boolean shouldUpdateDataSets = false;
+    TextView monthSum;
 
     public OverviewFragment() {
     }
@@ -70,7 +71,7 @@ public class OverviewFragment extends Fragment {
         mView = inflater.inflate(R.layout.fragment_overview, container, false);
 
         TextView monthName = (TextView) mView.findViewById(R.id.overviewCurrentMonthName);
-        TextView monthSum = (TextView) mView.findViewById(R.id.overviewCurrentMonthSum);
+        monthSum = (TextView) mView.findViewById(R.id.overviewCurrentMonthSum);
 
         monthName.setText(DateUtils.getMonthName(GregorianCalendar.getInstance().get(Calendar.MONTH)+1));
         monthSum.setText(Float.toString(Model.instance().getSumByMonth(DateUtils.getStartOfMonth(),0))+ "$");
@@ -197,7 +198,10 @@ public class OverviewFragment extends Fragment {
 
         for(int i = 0; i < categories.size(); i++) {
             xVals.add(categories.get(i));
-            entries1.add(new Entry(Model.instance().getSumByCategory(categories.get(i), startOfMonth,0), i));
+            float sum = Model.instance().getSumByCategory(categories.get(i), startOfMonth,0);
+            if (sum > 0) {
+                entries1.add(new Entry(sum, i));
+            }
         }
     }
 
@@ -230,12 +234,14 @@ public class OverviewFragment extends Fragment {
 
     private void refreshCharts(){
         generatePieDataSet();
+        mPieChart.getData().notifyDataChanged();
         mPieChart.notifyDataSetChanged();
         mPieChart.invalidate();
         //mPieChart.animateY(1200);
         shouldUpdateDataSets = false;
-
+        monthSum.setText(Float.toString(Model.instance().getSumByMonth(DateUtils.getStartOfMonth(),0))+ "$");
         generateLineDataSet();
+        mLineChart.getData().notifyDataChanged();
         mLineChart.notifyDataSetChanged();
         mLineChart.invalidate();
     }

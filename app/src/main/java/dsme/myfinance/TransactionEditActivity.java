@@ -51,6 +51,7 @@ public class TransactionEditActivity extends AppCompatActivity {
     private Expense mExpense;
     String imagePath;
     GregorianCalendar cal;
+    boolean updateExistingExpense = false;
     long id = 0;
 
 
@@ -96,7 +97,7 @@ public class TransactionEditActivity extends AppCompatActivity {
                 if (mExpense.getExpenseImage() != null) {
                     setImage(mExpense.getExpenseImage());
                 }
-
+                updateExistingExpense = true;
                 setCalender(false);
 
             } else {
@@ -186,7 +187,6 @@ public class TransactionEditActivity extends AppCompatActivity {
         long timestamp;
 
         if (checkFields()) {
-
             if (id > 0) {
                 timestamp = id;
             } else {
@@ -211,13 +211,16 @@ public class TransactionEditActivity extends AppCompatActivity {
                     categoryButton.getSelectedItem().toString(),
                     noteTextView.getText().toString());
 
-            Model.instance().addExpense(mExpense);
+//            if (updateExistingExpense){
+            Model.instance().updateOrAddExpense(mExpense, false);
+//            }else {
+//                Model.instance().addExpense(mExpense);
+//            }
+//
 //        Intent returnIntent = new Intent();
 //        returnIntent.putExtra("result", MainActivity.RESULT_ADD_EXPENSE);
 //        setResult(this.RESULT_OK, returnIntent);
             finish();
-        }else{
-
         }
     }
 
