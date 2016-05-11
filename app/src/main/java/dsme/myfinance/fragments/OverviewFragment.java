@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import dsme.myfinance.MainActivity;
 import dsme.myfinance.R;
 import dsme.myfinance.models.Model;
 import dsme.myfinance.utils.DateUtils;
@@ -77,6 +79,18 @@ public class OverviewFragment extends Fragment {
         monthSum.setText(Float.toString(Model.instance().getSumByMonth(DateUtils.getStartOfMonth(),0))+ "$");
 
         createPieChart();
+
+        mPieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+                Toast.makeText(getActivity().getBaseContext(), Float.toString(e.getVal()) + "$", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
 
         mLineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override

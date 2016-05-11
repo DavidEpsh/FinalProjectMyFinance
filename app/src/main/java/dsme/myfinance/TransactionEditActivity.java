@@ -2,21 +2,27 @@ package dsme.myfinance;
 
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -126,6 +132,15 @@ public class TransactionEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (imagePath != null) {
+                    showImageDialog();
+                }
             }
         });
 
@@ -301,13 +316,43 @@ public class TransactionEditActivity extends AppCompatActivity {
     }
 
     public void setImage(String imagePath){
+        this.imagePath = imagePath;
         Bitmap imageBitmap = null;
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 15;
         imageBitmap = BitmapFactory.decodeFile(imagePath, options);
         imageView.setImageBitmap(imageBitmap);
+        imageView.setScaleType(ImageView.ScaleType.CENTER);
+        imageView.setAdjustViewBounds(true);
         imageView.setScaleX(3);
         imageView.setScaleY(3);
-        imageView.setRotation(90);
+    }
+
+    public void showImageDialog() {
+        Display display = this.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int screenWidth = size.x;
+        int screenHeight = size.y;
+
+        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+        int bitmapHeight = bitmap.getHeight();
+        int bitmapWidth = bitmap.getWidth();
+
+        while (bitmapHeight > (screenHeight - 250) || bitmapWidth > (screenWidth - 250)) {
+            bitmapHeight = bitmapHeight / 2;
+            bitmapWidth = bitmapWidth / 2;
+        }
+        BitmapDrawable resizedBitmap = new BitmapDrawable(this.getResources(), Bitmap.createScaledBitmap(bitmap, bitmapWidth, bitmapHeight, false));
+
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.image_popup);
+
+        ImageView image = (ImageView) dialog.findViewById(R.id.imageview);
+        image.setBackground(resizedBitmap);
+        dialog.getWindow().setBackgroundDrawable(null);
+
+        dialog.show();
     }
 }
