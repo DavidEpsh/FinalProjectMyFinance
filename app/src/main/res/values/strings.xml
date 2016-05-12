@@ -154,5 +154,6 @@
     <string name="advisors">Advisors</string>
     <string name="chat">Chat</string>
     <string name="expense_list">Expense List</string>
+    <string name="subscribe">Subscribe</string>
 
 </resources>
