@@ -121,7 +121,8 @@ public class MainActivity extends AppCompatActivity
             openFragment(new ChatFragment());
 
         } else if (id == R.id.nav_share) {
-
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
