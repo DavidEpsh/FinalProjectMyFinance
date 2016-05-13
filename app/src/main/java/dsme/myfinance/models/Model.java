@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -33,13 +35,14 @@ public class Model {
         public void updateOrAddExpense(Expense expense);
         public void batchUpdateExpenses(List<Expense> expenses, BatchUpdateListener listener);
         public void changeLastUpdateTime(ChangeTimeListener listener);
-
+        public void getAllDataFromCloud();
         public void addMessage(Message message);
         public List<Message> getMessages();
     }
 
     private static final Model instance = new Model();
     private ModelInterface modelImpl;
+    private ModelCloudDB modelCloud = new ModelCloudDB();
     Context context;
 
     private Model(){
@@ -111,6 +114,11 @@ public class Model {
         modelImpl.addMessage(message);
     }
 
+    public void getAllDataFromCloud(){
+        ModelCloudDB.GetAllData task = new ModelCloudDB().new GetAllData();
+        task.execute();
+    }
+
     public interface ChangeTimeListener{
         public void onResult();
     }
@@ -121,6 +129,10 @@ public class Model {
 
     public interface LoadImageListener{
         public void onResult(Bitmap imageBmp);
+    }
+
+    public interface OnTaskCompleted{
+        void onTaskCompleted();
     }
 
 

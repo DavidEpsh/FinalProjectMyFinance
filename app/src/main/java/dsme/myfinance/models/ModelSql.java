@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -81,6 +83,12 @@ public class ModelSql implements Model.ModelInterface {
     public void changeLastUpdateTime(Model.ChangeTimeListener listener) {
         changeLastUpdateTime(listener);
     }
+
+    @Override
+    public void getAllDataFromCloud() {
+
+    }
+
 
     @Override
     public List<Message> getMessages() {

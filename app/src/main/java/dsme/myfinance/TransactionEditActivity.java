@@ -36,6 +36,7 @@ import java.util.List;
 
 import dsme.myfinance.models.Expense;
 import dsme.myfinance.models.Model;
+import dsme.myfinance.models.ModelCloudDB;
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
 
@@ -234,6 +235,7 @@ public class TransactionEditActivity extends AppCompatActivity {
 //        Intent returnIntent = new Intent();
 //        returnIntent.putExtra("result", MainActivity.RESULT_ADD_EXPENSE);
 //        setResult(this.RESULT_OK, returnIntent);
+            new ModelCloudDB().new addNewExpenseToCloud().execute(mExpense);
             finish();
         }
     }

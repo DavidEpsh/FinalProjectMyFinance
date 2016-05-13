@@ -12,7 +12,9 @@ import android.widget.Toast;
 
 import dsme.myfinance.MainActivity;
 import dsme.myfinance.R;
+import dsme.myfinance.models.Expense;
 import dsme.myfinance.models.Model;
+import dsme.myfinance.models.ModelCloudDB;
 import dsme.myfinance.utils.DateUtils;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -29,6 +31,8 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -37,7 +41,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class OverviewFragment extends Fragment {
+public class OverviewFragment extends Fragment{
 
     PieChart mPieChart;
     LineChart mLineChart;
@@ -91,6 +95,14 @@ public class OverviewFragment extends Fragment {
 
             }
         });
+
+        new ModelCloudDB().new
+                GetAllData(){
+            @Override
+            protected void onPostExecute(List<Expense> object){
+                int temp = 1;
+            }
+        }.execute();
 
         mLineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
@@ -259,4 +271,5 @@ public class OverviewFragment extends Fragment {
         mLineChart.notifyDataSetChanged();
         mLineChart.invalidate();
     }
+
 }
