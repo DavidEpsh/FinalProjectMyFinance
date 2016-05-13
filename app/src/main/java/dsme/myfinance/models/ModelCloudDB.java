@@ -1,15 +1,8 @@
 package dsme.myfinance.models;
 
 
-import android.app.Activity;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -28,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,10 +38,11 @@ public class ModelCloudDB {
     static String user = "displayName";
 
     static InputStream is = null;
-    static JSONArray jObj = null;
+    static JSONArray jsonArray = null;
     static String json = "";
     static JSONArray jArray = null;
     static String API_URL ="https://myfinance-mean.herokuapp.com/api/expenses";
+    static String API_URL_USERS ="https://myfinance-mean.herokuapp.com/api/users";
     List<Expense> expensesArray;
 
     public class GetAllData extends AsyncTask<Void, Void, List<Expense> > {
@@ -90,12 +83,12 @@ public class ModelCloudDB {
 
             // try parse the string to a JSON object
             try {
-                jObj = new JSONArray(json);
-                //jArray = jObj.getJSONArray();
+                jsonArray = new JSONArray(json);
+                //jArray = jsonArray.getJSONArray();
                 expensesArray = new ArrayList<>();
 
-                for (int i = 0; i < jObj.length(); i++){
-                    JSONObject object = jObj.getJSONObject(i);
+                for (int i = 0; i < jsonArray.length(); i++){
+                    JSONObject object = jsonArray.getJSONObject(i);
                     String expenseName = object.getString(name);
                     int expenseAmount = object.getInt(amount);
                     String picturePath = object.getString(picPath);
@@ -156,6 +149,7 @@ public class ModelCloudDB {
                 jsonObject.accumulate(category, expenses[0].getCategory());
                 jsonObject.accumulate(isRecurring, expenses[0].isRepeatingExpense);
                 jsonObject.accumulate(user, "Moshe_a_Totah");
+                jsonObject.accumulate()
 
                 // 4. convert JSONObject to JSON to String
                 json = jsonObject.toString();
@@ -210,6 +204,76 @@ public class ModelCloudDB {
         inputStream.close();
         return result;
 
+    }
+
+    public class GetAllUsers extends AsyncTask<Void, Void, List<Expense> > {
+
+        protected List<Expense> doInBackground(Void... params) {
+
+            // Making HTTP request
+            try {
+                // defaultHttpClient
+                DefaultHttpClient httpClient = new DefaultHttpClient();
+                HttpGet httpGet = new HttpGet(API_URL_USERS);
+
+                HttpResponse httpResponse = httpClient.execute(httpGet);
+                HttpEntity httpEntity = httpResponse.getEntity();
+                is = httpEntity.getContent();
+
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(
+                        is, "iso-8859-1"), 8);
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+                is.close();
+                json = sb.toString();
+            } catch (Exception e) {
+                Log.e("Buffer Error", "Error converting result " + e.toString());
+            }
+
+            // try parse the string to a JSON object
+            try {
+                jsonArray = new JSONArray(json);
+                //jArray = jsonArray.getJSONArray();
+                expensesArray = new ArrayList<>();
+
+                for (int i = 0; i < jsonArray.length(); i++){
+                    JSONObject object = jsonArray.getJSONObject(i);
+                    String expenseName = object.getString(name);
+                    int expenseAmount = object.getInt(amount);
+                    String picturePath = object.getString(picPath);
+                    String note = object.getString(comments);
+                    String expenseCategory = object.getString(category);
+                    int isRepeating = object.getInt(isRecurring);
+                    String userName = "Temp";
+
+                    expensesArray.add(new Expense(12121212,
+                            expenseName,
+                            12121212,
+                            isRepeating,
+                            picturePath,
+                            (float)expenseAmount,
+                            category,
+                            note));
+                }
+            } catch (JSONException e) {
+                Log.e("JSON Parser", "Error parsing data " + e.toString());
+            }
+
+            // return JSON String
+            return expensesArray;
+        }
     }
 }
 

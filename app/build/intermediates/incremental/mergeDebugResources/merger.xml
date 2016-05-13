@@ -5592,7 +5592,7 @@
     </array><color name="iron">#CCCCCC</color><array name="preload_colors_small">
         <item>#42a5f5</item>
         <item>#f9a825</item>
-    </array><color name="window_background">#f0f0f0</color><color name="primary">#E43F3F</color><color name="oil">#333333</color><color name="colorPrimaryDark">#388E3C</color><color name="primary_light">#C8E6C9</color><color name="primary_darker">#CC1D1D</color><color name="jet">#222222</color><color name="aluminum">#999999</color><color name="black">#000000</color><color name="base">#AAAAAA</color><color name="monsoon">#80777777</color><array name="category_colors">
+    </array><color name="window_background">#f0f0f0</color><color name="primary">#E43F3F</color><color name="oil">#333333</color><color name="colorPrimaryDark">#388E3C</color><color name="primary_light">#C8E6C9</color><color name="primary_darker">#CC1D1D</color><color name="jet">#222222</color><color name="aluminum">#999999</color><color name="black">#000000</color><color name="base">#AAAAAA</color><color name="monsoon">#777777</color><array name="category_colors">
         <item>#e57373</item>
         <item>#ef5350</item>
         <item>#f44336</item>
