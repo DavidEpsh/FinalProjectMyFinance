@@ -95,10 +95,25 @@ public class ModelSql implements Model.ModelInterface {
         return MessageSql.getMessages(dbHelper);
     }
 
+
+
     @Override
     public void addMessage(Message message){
         MessageSql.addMessage(dbHelper, message);
     }
+
+
+    // **** USERS SQL ****
+    @Override
+    public void addUser(User user) {
+        UsersSql.addUser(dbHelper, user);
+    }
+
+    @Override
+    public User getUser() {
+        return UsersSql.getUser(dbHelper);
+    }
+
 
     class MyOpenHelper extends SQLiteOpenHelper {
         final static String dbName = "database.db";
@@ -112,12 +127,14 @@ public class ModelSql implements Model.ModelInterface {
         public void onCreate(SQLiteDatabase db) {
             ExpenseSql.create(db);
             MessageSql.create(db);
+            UsersSql.create(db);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             ExpenseSql.drop(db);
             MessageSql.drop(db);
+            UsersSql.drop(db);
             onCreate(db);
         }
     }

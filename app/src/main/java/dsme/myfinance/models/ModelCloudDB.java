@@ -1,6 +1,8 @@
 package dsme.myfinance.models;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -24,6 +26,9 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dsme.myfinance.MainActivity;
+import dsme.myfinance.utils.SharedPrefs;
+
 public class ModelCloudDB {
 
     static String Tag = "expenses";
@@ -35,12 +40,17 @@ public class ModelCloudDB {
     static String isRecurring = "isRecurring";
     static String created = "created";
     static String updatedAt = "updatedAt";
-    static String user = "displayName";
+    static String date = "expenseDate";
+
+    static JSONObject current_user = null;
+    static String user_id = "";
+    static String user = "user";
+//    static String user_email = "email";
+    static String user_display_name = "displayName";
 
     static InputStream is = null;
     static JSONArray jsonArray = null;
     static String json = "";
-    static JSONArray jArray = null;
     static String API_URL ="https://myfinance-mean.herokuapp.com/api/expenses";
     static String API_URL_USERS ="https://myfinance-mean.herokuapp.com/api/users";
     List<Expense> expensesArray;
@@ -125,8 +135,10 @@ public class ModelCloudDB {
 //    }
 
     public class addNewExpenseToCloud extends AsyncTask<Expense, Void, String> {
+
         @Override
         protected String doInBackground(Expense... expenses) {
+
 
             InputStream inputStream = null;
             String result = "";
@@ -148,8 +160,14 @@ public class ModelCloudDB {
                 jsonObject.accumulate(comments, expenses[0].getNote());
                 jsonObject.accumulate(category, expenses[0].getCategory());
                 jsonObject.accumulate(isRecurring, expenses[0].isRepeatingExpense);
-                jsonObject.accumulate(user, "Moshe_a_Totah");
-                jsonObject.accumulate()
+                jsonObject.accumulate(date, expenses[0].date);
+
+                JSONObject currUser = new JSONObject();
+                User currUserSql = Model.instance().getUser();
+                currUser.accumulate("_id", currUserSql.getId());
+                currUser.accumulate(user_display_name,currUserSql.getDisplayName());
+
+                jsonObject.accumulate(user, currUser);
 
                 // 4. convert JSONObject to JSON to String
                 json = jsonObject.toString();

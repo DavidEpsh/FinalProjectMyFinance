@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class sharedPrefs {
+public class SharedPrefs {
 
     public static String isSubscribedToAdviser = "is_subscribed";
+    public static String USER_ID = "user_id";
+    public static String USER_EMAIL = "user_email";
 
     public static void writeStringToPrefs(Activity activity, String name, String value){
         SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);

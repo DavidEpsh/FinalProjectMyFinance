@@ -35,6 +35,8 @@ import dsme.myfinance.fragments.ChatFragment;
 import dsme.myfinance.fragments.ExpenseListFragment;
 import dsme.myfinance.fragments.OverviewFragment;
 import dsme.myfinance.models.Model;
+import dsme.myfinance.models.User;
+import dsme.myfinance.utils.SharedPrefs;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -59,6 +61,12 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
+        //TODO -- change this fields
+        Model.instance().addUser(new User("5735ead5aafab0f44da48aa6", "Customer1 Customers"));
+
+        SharedPrefs.writeStringToPrefs(this, SharedPrefs.USER_EMAIL, "Customer1 Customers");
+        SharedPrefs.writeStringToPrefs(this, SharedPrefs.USER_ID, "5735ead5aafab0f44da48aa6");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

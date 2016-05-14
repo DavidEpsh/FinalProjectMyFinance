@@ -38,6 +38,9 @@ public class Model {
         public void getAllDataFromCloud();
         public void addMessage(Message message);
         public List<Message> getMessages();
+
+        public void addUser(User user);
+        public User getUser();
     }
 
     private static final Model instance = new Model();
@@ -183,6 +186,15 @@ public class Model {
             e.printStackTrace();
         }
         return bitmap;
+    }
+
+
+    public void addUser(User user){
+        modelImpl.addUser(user);
+    }
+
+    public User getUser(){
+        return modelImpl.getUser();
     }
 }
 

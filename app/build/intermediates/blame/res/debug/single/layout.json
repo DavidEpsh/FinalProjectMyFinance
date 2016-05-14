@@ -20,16 +20,16 @@
         "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_alert_dialog_material.xml"
     },
     {
-        "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item.xml",
-        "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\layout\\design_navigation_item.xml"
+        "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_message.xml",
+        "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\src\\main\\res\\layout\\fragment_message.xml"
     },
     {
         "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",
         "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_dialog_title_material.xml"
     },
     {
-        "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_message.xml",
-        "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\src\\main\\res\\layout\\fragment_message.xml"
+        "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item.xml",
+        "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\layout\\design_navigation_item.xml"
     },
     {
         "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\include_chat_items.xml",
@@ -48,12 +48,12 @@
         "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\src\\main\\res\\layout\\expense_item.xml"
     },
     {
-        "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_expanded_menu_layout.xml",
-        "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_expanded_menu_layout.xml"
-    },
-    {
         "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_message_list.xml",
         "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\src\\main\\res\\layout\\fragment_message_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_expanded_menu_layout.xml",
+        "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_expanded_menu_layout.xml"
     },
     {
         "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\image_popup.xml",
@@ -64,12 +64,12 @@
         "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.3.0\\res\\layout\\design_navigation_menu_item.xml"
     },
     {
-        "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
-        "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_action_mode_close_item_material.xml"
-    },
-    {
         "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_radio.xml",
         "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_close_item_material.xml",
+        "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\layout\\abc_action_mode_close_item_material.xml"
     },
     {
         "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_lines.xml",
