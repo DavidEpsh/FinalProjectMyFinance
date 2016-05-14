@@ -9,15 +9,14 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import dsme.myfinance.R;
+import dsme.myfinance.models.ModelCloudDB;
 
-public class LoginActivity extends AppCompatActivity {
-    private static final String TAG = "LoginActivity";
+public class LoginActivityApp extends AppCompatActivity {
+    private static final String TAG = "LoginActivityApp";
     private static final int REQUEST_SIGNUP = 0;
 
     @InjectView(R.id.input_email) EditText _emailText;
@@ -27,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_local);
         ButterKnife.inject(this);
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
 
         _loginButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivityApp.this,
                 R.style.AppTheme_Dark_Dialog);
 
         progressDialog.setIndeterminate(true);
@@ -62,15 +61,26 @@ public class LoginActivity extends AppCompatActivity {
 
         // TODO: Implement your own authentication logic here.
 
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
+//        new android.os.Handler().postDelayed(
+//                new Runnable() {
+//                    public void run() {
+//                        // On complete call either onLoginSuccess or onLoginFailed
+//                        onLoginSuccess();
+//                        // onLoginFailed();
+//                        progressDialog.dismiss();
+//                    }
+//                }, 3000);
+
+        new ModelCloudDB().new
+                GetAllData(){
+                    @Override
+                    protected void onPostExecute(String result){
+                        if (result.equals("Success!")) {
+                            progressDialog.dismiss();
+                            finish();
+                        }
                     }
-                }, 3000);
+                }.execute();
     }
 
 

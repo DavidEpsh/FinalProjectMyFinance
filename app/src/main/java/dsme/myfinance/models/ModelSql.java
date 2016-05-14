@@ -4,9 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
 import java.util.List;
 
 public class ModelSql implements Model.ModelInterface {
@@ -27,7 +24,7 @@ public class ModelSql implements Model.ModelInterface {
     }
 
     @Override
-    public Expense getExpense(long id) {
+    public Expense getExpense(String id) {
         return  ExpenseSql.getExpense(dbHelper, id);
     }
 
@@ -37,8 +34,8 @@ public class ModelSql implements Model.ModelInterface {
     }
 
     @Override
-    public void batchUpdateExpenses(List<Expense> expenses, Model.BatchUpdateListener listener) {
-        ExpenseSql.batchUpdateExpense(dbHelper, expenses, listener);
+    public void batchUpdateExpenses(List<Expense> expenses) {
+        ExpenseSql.batchUpdateExpense(dbHelper, expenses);
     }
 
     @Override
@@ -91,14 +88,14 @@ public class ModelSql implements Model.ModelInterface {
 
 
     @Override
-    public List<Message> getMessages() {
+    public List<MessageLocal> getMessages() {
         return MessageSql.getMessages(dbHelper);
     }
 
 
 
     @Override
-    public void addMessage(Message message){
+    public void addMessage(MessageLocal message){
         MessageSql.addMessage(dbHelper, message);
     }
 

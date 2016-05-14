@@ -18,7 +18,7 @@
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="3"
         android:text="@string/cancel"
         android:textColor="?android:textColorPrimary"
         tools:stateListAnimator="@android:animator/fade_in" />
@@ -28,9 +28,19 @@
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="3"
         android:text="@string/save"
         android:textColor="?android:textColorPrimary"
         tools:stateListAnimator="@android:animator/fade_in" />
+
+    <ImageButton
+        android:id="@+id/delete_expense_button"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:src="@drawable/ic_delete_black"
+        style="?android:attr/buttonBarButtonStyle"
+        android:scaleType="fitCenter"
+        android:visibility="gone"/>
 
 </LinearLayout>

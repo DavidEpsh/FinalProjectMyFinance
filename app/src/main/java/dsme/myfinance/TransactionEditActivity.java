@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -47,6 +48,7 @@ public class TransactionEditActivity extends AppCompatActivity {
     private Button cancelButton;
     private Button dateButton;
     private Button timeButton;
+    private ImageButton deleteExpense;
     private Button imageButton;
     private Spinner categoryButton;
     private EditText expenseAmount;
@@ -58,7 +60,7 @@ public class TransactionEditActivity extends AppCompatActivity {
     String imagePath;
     GregorianCalendar cal;
     boolean updateExistingExpense = false;
-    long id = 0;
+    String mongoId;
 
 
     @Override
@@ -77,18 +79,21 @@ public class TransactionEditActivity extends AppCompatActivity {
         expenseAmount = (EditText) findViewById(R.id.amountEditText);
         categoryButton = (Spinner) findViewById(R.id.categorySpinner);
         noteTextView = (EditText) findViewById(R.id.noteAutoCompleteTextView);
+        deleteExpense = (ImageButton) findViewById(R.id.delete_expense_button);
 
         initializeSpinner();
 
         if(getIntent() != null) { // This handles the case were the user opened an existing expense
-            long expenseId = (getIntent().getLongExtra(MainActivity.EXPENSE_ID, 0));
+            String expenseId = (getIntent().getStringExtra(MainActivity.EXPENSE_ID));
 
-            if (expenseId != 0) {
+            if (expenseId != null) {
                 mExpense = Model.instance().getExpense(expenseId);
-                id = mExpense.getTimestamp();
+                mongoId = mExpense.getMongoId();
                 expenseAmount.setText(Float.toString(mExpense.getExpenseAmount()));
                 descriptionEditText.setText(mExpense.getExpenseName());
                 noteTextView.setText(mExpense.getNote());
+//                deleteExpense.setEnabled(true);
+                deleteExpense.setVisibility(View.VISIBLE);
 
                 cal = new GregorianCalendar();
                 cal.setTimeInMillis(mExpense.getDate());
@@ -199,15 +204,8 @@ public class TransactionEditActivity extends AppCompatActivity {
     public void saveExpense(){
         Expense mExpense;
         int repeating;
-        long timestamp;
 
         if (checkFields()) {
-            if (id > 0) {
-                timestamp = id;
-            } else {
-                timestamp = GregorianCalendar.getInstance().getTimeInMillis();
-            }
-
             long date = cal.getTimeInMillis();
 
             if (isRepeating.isChecked()) {
@@ -215,19 +213,28 @@ public class TransactionEditActivity extends AppCompatActivity {
             } else {
                 repeating = 0;
             }
-            ;
 
-            mExpense = new Expense(timestamp,
-                    descriptionEditText.getText().toString(),
-                    date,
-                    repeating,
-                    imagePath,
-                    Float.valueOf(expenseAmount.getText().toString()),
-                    categoryButton.getSelectedItem().toString(),
-                    noteTextView.getText().toString());
+            if (mongoId != null){
+                mExpense = new Expense(mongoId,
+                        descriptionEditText.getText().toString(),
+                        date,
+                        repeating,
+                        imagePath,
+                        Float.valueOf(expenseAmount.getText().toString()),
+                        categoryButton.getSelectedItem().toString(),
+                        noteTextView.getText().toString());
+            }else {
+                mExpense = new Expense(descriptionEditText.getText().toString(),
+                        date,
+                        repeating,
+                        imagePath,
+                        Float.valueOf(expenseAmount.getText().toString()),
+                        categoryButton.getSelectedItem().toString(),
+                        noteTextView.getText().toString());
+            }
 
 //            if (updateExistingExpense){
-            Model.instance().updateOrAddExpense(mExpense, false);
+//            Model.instance().updateOrAddExpense(mExpense, false);
 //            }else {
 //                Model.instance().addExpense(mExpense);
 //            }
@@ -235,8 +242,20 @@ public class TransactionEditActivity extends AppCompatActivity {
 //        Intent returnIntent = new Intent();
 //        returnIntent.putExtra("result", MainActivity.RESULT_ADD_EXPENSE);
 //        setResult(this.RESULT_OK, returnIntent);
-            new ModelCloudDB().new addNewExpenseToCloud().execute(mExpense);
-            finish();
+//            new ModelCloudDB().new AddNewExpenseToCloud().execute(mExpense);
+
+            new ModelCloudDB().new
+                    AddNewExpenseToCloud(){
+                        @Override
+                        protected void onPostExecute(String result){
+                            if (!result.equals("Did not work!")){
+                                Toast.makeText(getApplicationContext() ,"Successfully added", Toast.LENGTH_LONG);
+                                finish();
+                            }else{
+                                Toast.makeText(getApplicationContext() ,"Couldn't add expense, please try again", Toast.LENGTH_LONG);
+                            }
+                        }
+                    }.execute(mExpense);
         }
     }
 

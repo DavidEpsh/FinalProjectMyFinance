@@ -61,4 +61,6 @@
 
     <dimen name="report_line_graph_width">2dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+
+    <dimen name="spacing">8dp</dimen>
 </resources>

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class SharedPrefs {
+public class sharedPrefs {
 
     public static String isSubscribedToAdviser = "is_subscribed";
     public static String USER_ID = "user_id";

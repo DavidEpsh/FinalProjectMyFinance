@@ -1,11 +1,9 @@
 package dsme.myfinance;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,27 +14,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-
 import dsme.myfinance.fragments.ChatFragment;
 import dsme.myfinance.fragments.ExpenseListFragment;
 import dsme.myfinance.fragments.OverviewFragment;
 import dsme.myfinance.models.Model;
 import dsme.myfinance.models.User;
-import dsme.myfinance.utils.SharedPrefs;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -64,9 +46,6 @@ public class MainActivity extends AppCompatActivity
 
         //TODO -- change this fields
         Model.instance().addUser(new User("5735ead5aafab0f44da48aa6", "Customer1 Customers"));
-
-        SharedPrefs.writeStringToPrefs(this, SharedPrefs.USER_EMAIL, "Customer1 Customers");
-        SharedPrefs.writeStringToPrefs(this, SharedPrefs.USER_ID, "5735ead5aafab0f44da48aa6");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -126,10 +105,11 @@ public class MainActivity extends AppCompatActivity
             openFragment(new ExpenseListFragment());
 
         } else if (id == R.id.nav_chat) {
-            openFragment(new ChatFragment());
+            Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_share) {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            Intent intent = new Intent(MainActivity.this, LoginActivityApp.class);
             startActivity(intent);
         }
 

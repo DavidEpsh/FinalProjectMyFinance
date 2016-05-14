@@ -15,7 +15,7 @@ public class ExpenseSql {
     private static final String CATEGORY = "CATEGORY";
     private static final String IMAGE_PATH = "IMAGE_PATH";
     private static final String REPEATING = "REPEATING";
-    private static final String TIMESTAMP = "TIMESTAMP";
+    private static final String MONGO_ID = "MONGO_ID";
     private static final String EXPENSE_AMOUNT = "EXPENSE_AMOUNT";
     private static final String IS_SAVED =  "IS_SAVED";
     private static final String NOTE = "NOTE";
@@ -25,7 +25,7 @@ public class ExpenseSql {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(TIMESTAMP, expense.getTimestamp());
+        values.put(MONGO_ID, expense.getMongoId());
         values.put(DATE, expense.getDate());
         values.put(NAME, expense.getExpenseName());
         values.put(CATEGORY, expense.getCategory());
@@ -38,17 +38,17 @@ public class ExpenseSql {
         db.insert(TABLE, null, values);
     }
 
-    public static void deleteExpense(ModelSql.MyOpenHelper dbHelper, String timeStamp) {
+    public static void deleteExpense(ModelSql.MyOpenHelper dbHelper, String mongoId) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         ContentValues values = new ContentValues();
         values.put(IS_SAVED, 0);
-        db.update(TABLE, values, TIMESTAMP + " = '" + timeStamp + "'", null);
+        db.update(TABLE, values, MONGO_ID + " = '" + mongoId + "'", null);
     }
 
-    public static Expense getExpense(ModelSql.MyOpenHelper dbHelper, long id) {
+    public static Expense getExpense(ModelSql.MyOpenHelper dbHelper, String id) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String query = "SELECT * FROM " + TABLE + " WHERE " + TIMESTAMP + " = " + id;
+        String query = "SELECT * FROM " + TABLE + " WHERE " + MONGO_ID + " = " + "'" + id + "'";
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.getCount() > 0) {
@@ -56,13 +56,13 @@ public class ExpenseSql {
             String expenseName = cursor.getString(cursor.getColumnIndex(NAME));
             String category = cursor.getString(cursor.getColumnIndex(CATEGORY));
             String imagePath = cursor.getString(cursor.getColumnIndex(IMAGE_PATH));
-            long timeStamp = cursor.getLong(cursor.getColumnIndex(TIMESTAMP));
+            String mongoId = cursor.getString(cursor.getColumnIndex(MONGO_ID));
             long date = cursor.getLong(cursor.getColumnIndex(DATE));
             int repeating = cursor.getInt(cursor.getColumnIndex(REPEATING));
             float amount = cursor.getFloat(cursor.getColumnIndex(EXPENSE_AMOUNT));
             String note = cursor.getString(cursor.getColumnIndex(NOTE));
 
-            Expense expense = new Expense(timeStamp, expenseName, date, repeating, imagePath, amount, category, note);
+            Expense expense = new Expense(mongoId, expenseName, date, repeating, imagePath, amount, category, note);
 
             cursor.close();
             return expense;
@@ -74,7 +74,7 @@ public class ExpenseSql {
     public static void updateOrAddExpense(ModelSql.MyOpenHelper dbHelper, Expense expense) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String query = "SELECT * FROM " + TABLE + " WHERE " + TIMESTAMP + " = " + expense.getTimestamp();
+        String query = "SELECT * FROM " + TABLE + " WHERE " + MONGO_ID + " = " + "'" + expense.getMongoId() + "'";
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.getCount() > 0) {
@@ -82,39 +82,38 @@ public class ExpenseSql {
             values.put(NAME, expense.getExpenseName());
             values.put(CATEGORY, expense.getCategory());
             values.put(REPEATING, expense.getIsRepeatingExpense());
-            values.put(TIMESTAMP, expense.getTimestamp());
+            values.put(MONGO_ID, expense.getMongoId());
             values.put(DATE, expense.getDate());
             values.put(IMAGE_PATH, expense.getExpenseImage());
             values.put(EXPENSE_AMOUNT, expense.getExpenseAmount());
             values.put(NOTE, expense.getNote());
 
-            db.update(TABLE, values, TIMESTAMP + " = '" + expense.getTimestamp() + "'", null);
+            db.update(TABLE, values, MONGO_ID + " = '" + expense.getMongoId() + "'", null);
         }else{
             addExpense(dbHelper, expense);
         }
     }
 
-    public static void batchUpdateExpense(ModelSql.MyOpenHelper dbHelper, List<Expense> expenses, Model.BatchUpdateListener listener) {
+    public static void batchUpdateExpense(ModelSql.MyOpenHelper dbHelper, List<Expense> expenses) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         for(Expense expense : expenses) {
-            if (getExpense(dbHelper, expense.getTimestamp()) == null) {
+            if (getExpense(dbHelper, expense.getMongoId()) == null) {
                 addExpense(dbHelper, expense);
             } else {
                 ContentValues values = new ContentValues();
                 values.put(NAME, expense.getExpenseName());
                 values.put(CATEGORY, expense.getCategory());
                 values.put(REPEATING, expense.getIsRepeatingExpense());
-                values.put(TIMESTAMP, expense.getTimestamp());
+                values.put(MONGO_ID, expense.getMongoId());
                 values.put(DATE, expense.getDate());
                 values.put(IMAGE_PATH, expense.getExpenseImage());
                 values.put(EXPENSE_AMOUNT, expense.getExpenseAmount());
                 values.put(NOTE, expense.getNote());
 
-                db.update(TABLE, values, TIMESTAMP + " = '" + expense.getTimestamp() + "'", null);
+                db.update(TABLE, values, MONGO_ID + " = '" + expense.getMongoId() + "'", null);
             }
         }
-        listener.onResult();
     }
 
     public static List<Expense> getExpenses(ModelSql.MyOpenHelper dbHelper) {
@@ -128,7 +127,7 @@ public class ExpenseSql {
 
         if (!(cursor.getCount() <= 0)) {
             if (cursor.moveToFirst()) {
-                int id_timestamp = cursor.getColumnIndex(TIMESTAMP);
+                int id_timestamp = cursor.getColumnIndex(MONGO_ID);
                 int date_index = cursor.getColumnIndex(DATE);
                 int name_index = cursor.getColumnIndex(NAME);
                 int category_index = cursor.getColumnIndex(CATEGORY);
@@ -138,7 +137,7 @@ public class ExpenseSql {
                 int note_index = cursor.getColumnIndex(NOTE);
 
                 do {
-                    long timeStamp = cursor.getLong(id_timestamp);
+                    String mongoId = cursor.getString(id_timestamp);
                     String expenseName = cursor.getString(name_index);
                     long date = cursor.getLong(date_index);
                     String category = cursor.getString(category_index);
@@ -147,7 +146,7 @@ public class ExpenseSql {
                     float amount = cursor.getFloat(amount_index);
                     String note = cursor.getString(note_index);
 
-                    Expense expense = new Expense(timeStamp, expenseName, date, repeating, imagePath, amount, category, note);
+                    Expense expense = new Expense(mongoId, expenseName, date, repeating, imagePath, amount, category, note);
                     data.add(expense);
                 } while (cursor.moveToNext());
             }
@@ -195,7 +194,7 @@ public class ExpenseSql {
 
         if (!(cursor.getCount() <= 0)) {
             if (cursor.moveToFirst()) {
-                int id_index = cursor.getColumnIndex(TIMESTAMP);
+                int id_index = cursor.getColumnIndex(MONGO_ID);
                 int date_index = cursor.getColumnIndex(DATE);
                 int name_index = cursor.getColumnIndex(NAME);
                 int category_index = cursor.getColumnIndex(CATEGORY);
@@ -205,7 +204,7 @@ public class ExpenseSql {
                 int note_index = cursor.getColumnIndex(NOTE);
 
                 do {
-                    long timeStamp = cursor.getLong(id_index);
+                    String mongoId = cursor.getString(id_index);
                     long date = cursor.getLong(date_index);
                     String expenseName = cursor.getString(name_index);
                     String category = cursor.getString(category_index);
@@ -214,7 +213,7 @@ public class ExpenseSql {
                     float amount = cursor.getFloat(amount_index);
                     String note = cursor.getString(note_index);
 
-                    Expense expense = new Expense(timeStamp, expenseName, date, repeating, imagePath, amount, category, note);
+                    Expense expense = new Expense(mongoId, expenseName, date, repeating, imagePath, amount, category, note);
                     data.add(expense);
                 } while (cursor.moveToNext());
             }
@@ -249,7 +248,7 @@ public class ExpenseSql {
 
         if (!(cursor.getCount() <= 0)) {
             if (cursor.moveToFirst()) {
-                int id_index = cursor.getColumnIndex(TIMESTAMP);
+                int id_index = cursor.getColumnIndex(MONGO_ID);
                 int date_index = cursor.getColumnIndex(DATE);
                 int name_index = cursor.getColumnIndex(NAME);
                 int category_index = cursor.getColumnIndex(CATEGORY);
@@ -259,7 +258,7 @@ public class ExpenseSql {
                 int note_index = cursor.getColumnIndex(NOTE);
 
                 do {
-                    long timeStamp = cursor.getLong(id_index);
+                    String mongoId = cursor.getString(id_index);
                     long date = cursor.getLong(date_index);
                     String expenseName = cursor.getString(name_index);
                     String category = cursor.getString(category_index);
@@ -268,7 +267,7 @@ public class ExpenseSql {
                     float amount = cursor.getFloat(amount_index);
                     String note = cursor.getString(note_index);
 
-                    Expense expense = new Expense(timeStamp, expenseName, date, repeating, imagePath, amount, category, note);
+                    Expense expense = new Expense(mongoId, expenseName, date, repeating, imagePath, amount, category, note);
                     data.add(expense);
                 } while (cursor.moveToNext());
             }
@@ -382,7 +381,7 @@ public class ExpenseSql {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(TIMESTAMP, expense.getTimestamp());
+        values.put(MONGO_ID, expense.getMongoId());
         values.put(DATE, expense.getDate());
         values.put(NAME, expense.getExpenseName());
         values.put(CATEGORY, expense.getCategory());
@@ -397,7 +396,7 @@ public class ExpenseSql {
 
     public static void create(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE + " (" +
-                TIMESTAMP + " LONG PRIMARY KEY," +
+                MONGO_ID + " TEXT PRIMARY KEY," +
                 DATE + " LONG," +
                 NAME + " TEXT," +
                 CATEGORY + " TEXT, " +

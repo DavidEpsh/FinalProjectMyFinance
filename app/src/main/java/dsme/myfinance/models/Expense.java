@@ -9,14 +9,28 @@ public class Expense{
     String category;
     int isSaved = 1;
     String note;
-    long timestamp;
+    String mongoId;
     long date;
     String userName;
 
-    public Expense(long timestamp, String name, long date, int isRepeating,  String expenseImage, float amount, String category, String note){
+    public Expense(String mongoId, String name, long date, int isRepeating,  String expenseImage, float amount, String category, String note){
         this.expenseName = name;
         this.isRepeatingExpense = isRepeating;
-        this.timestamp = timestamp;
+        this.mongoId = mongoId;
+        this.date = date;
+        this.note = note;
+
+        if(expenseImage != null) {
+            this.expenseImage = expenseImage;
+        }
+
+        this.expenseAmount = amount;
+        this.category = category;
+    }
+
+    public Expense(String name, long date, int isRepeating,  String expenseImage, float amount, String category, String note){
+        this.expenseName = name;
+        this.isRepeatingExpense = isRepeating;
         this.date = date;
         this.note = note;
 
@@ -33,9 +47,9 @@ public class Expense{
         return expenseName;
     }
 
-    public long getTimestamp(){ return timestamp;}
+    public String getMongoId(){ return mongoId;}
 
-    public void setTimestamp(long timestamp){ this.timestamp = timestamp; }
+    public void setMongoId(String mongoId){ this.mongoId = mongoId; }
 
     public long getDate(){ return date;}
 

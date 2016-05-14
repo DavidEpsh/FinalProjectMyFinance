@@ -16,7 +16,7 @@ public class MessageSql {
     private static final String CHAT_ID = "CHAT_ID";
     private static final String MESSAGE_CONTENT = "MESSAGE_CONTENT";
 
-    public static void addMessage(ModelSql.MyOpenHelper dbHelper, Message message) {
+    public static void addMessage(ModelSql.MyOpenHelper dbHelper, MessageLocal message) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -28,8 +28,8 @@ public class MessageSql {
         db.insert(TABLE_MESSAGES, null, values);
     }
 
-    public static List<Message> getMessages(ModelSql.MyOpenHelper dbHelper) {
-        List<Message> data = new LinkedList<Message>();
+    public static List<MessageLocal> getMessages(ModelSql.MyOpenHelper dbHelper) {
+        List<MessageLocal> data = new LinkedList<MessageLocal>();
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         String query = "SELECT * FROM " + TABLE_MESSAGES +
@@ -49,7 +49,7 @@ public class MessageSql {
                     String chatContent = cursor.getString(content_index);
                     String senderEmail = cursor.getString(sender_index);
 
-                    Message message = new Message(messageId, chatId, chatContent, senderEmail);
+                    MessageLocal message = new MessageLocal(messageId, chatId, chatContent, senderEmail);
                     data.add(message);
                 } while (cursor.moveToNext());
             }

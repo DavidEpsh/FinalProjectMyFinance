@@ -50,7 +50,7 @@ public class UsersSql {
     public static void create(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_USER + " (" +
                 USER_ID + " TEXT PRIMARY KEY," +
-                USER_EMAIL + " TEXT, " + ")");
+                USER_EMAIL + " TEXT" + ")");
     }
 
     public static void drop(SQLiteDatabase db) {

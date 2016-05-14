@@ -17,6 +17,7 @@ import java.util.List;
 import dsme.myfinance.R;
 import dsme.myfinance.adapters.MymessageRecyclerViewAdapter;
 import dsme.myfinance.models.Message;
+import dsme.myfinance.models.MessageLocal;
 import dsme.myfinance.models.Model;
 
 public class ChatFragment extends Fragment {
@@ -66,7 +67,7 @@ public class ChatFragment extends Fragment {
             public void onClick(View v) {
                 if (newMessageText.getText().length() > 0) {
                     long timestamp = Calendar.getInstance().getTimeInMillis();
-                    Model.instance().addMessage(new Message(timestamp, timestamp, newMessageText.getText().toString(), "me"));
+                    Model.instance().addMessage(new MessageLocal(timestamp, timestamp, newMessageText.getText().toString(), "me"));
                     newMessageText.setText("");
                     reloadChat();
                 }
@@ -83,7 +84,7 @@ public class ChatFragment extends Fragment {
     }
 
     private void reloadChat(){
-            List<Message> items = Model.instance().getMessages();
+            List<MessageLocal> items = Model.instance().getMessages();
             ((MymessageRecyclerViewAdapter) mRecyclerView.getAdapter()).setData(items);
             mRecyclerView.getAdapter().notifyDataSetChanged();
     }

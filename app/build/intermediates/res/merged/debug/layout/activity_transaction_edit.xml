@@ -49,6 +49,7 @@
                             android:layout_marginLeft="@dimen/keyline"
                             android:scaleType="centerInside"
                             android:src="@drawable/circle"
+                            android:visibility="gone"
                             tools:ignore="ContentDescription,RtlHardcoded" />
 
                         <ImageView
@@ -60,6 +61,7 @@
                             android:contentDescription="@string/transaction_type"
                             android:scaleType="centerInside"
                             android:src="@drawable/ic_action_category_type"
+                            android:visibility="gone"
                             tools:ignore="RtlHardcoded" />
 
                     </FrameLayout>

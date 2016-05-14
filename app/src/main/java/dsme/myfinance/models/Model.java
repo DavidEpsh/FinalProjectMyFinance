@@ -5,8 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -14,8 +12,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 
 public class Model {
@@ -23,7 +19,7 @@ public class Model {
     interface ModelInterface{
         public void addExpense(Expense expense);
         public void deleteExpense(String expense);
-        public Expense getExpense(long id);
+        public Expense getExpense(String id);
         public List<Expense> getExpenses();
         public List<Expense> getExpensesByCategory(String category, long fromDate, long toDate);
         public List<Expense> getExpensesByMonth(long fromDate, long toDate);
@@ -33,11 +29,11 @@ public class Model {
         public void addCategory(String category);
         public List<String> getAllCategories();
         public void updateOrAddExpense(Expense expense);
-        public void batchUpdateExpenses(List<Expense> expenses, BatchUpdateListener listener);
+        public void batchUpdateExpenses(List<Expense> expenses);
         public void changeLastUpdateTime(ChangeTimeListener listener);
         public void getAllDataFromCloud();
-        public void addMessage(Message message);
-        public List<Message> getMessages();
+        public void addMessage(MessageLocal message);
+        public List<MessageLocal> getMessages();
 
         public void addUser(User user);
         public User getUser();
@@ -60,7 +56,7 @@ public class Model {
         return instance;
     }
 
-    public Expense getExpense(long id){
+    public Expense getExpense(String id){
         return modelImpl.getExpense(id);
     }
 
@@ -77,8 +73,8 @@ public class Model {
         //modelParse.updateOrDelete(expense, doDeleteExpense);
     }
 
-    public void batchUpdateExpenses(List<Expense> expenses, BatchUpdateListener listener){
-        modelImpl.batchUpdateExpenses(expenses, listener);
+    public void batchUpdateExpenses(List<Expense> expenses){
+        modelImpl.batchUpdateExpenses(expenses);
     }
 
     public List<String> getCategories(){
@@ -109,11 +105,11 @@ public class Model {
         return modelImpl.getSumByMonth(fromDate, toDate);
     }
 
-    public List<Message> getMessages(){
+    public List<MessageLocal> getMessages(){
         return  modelImpl.getMessages();
     }
 
-    public void addMessage(Message message){
+    public void addMessage(MessageLocal message){
         modelImpl.addMessage(message);
     }
 

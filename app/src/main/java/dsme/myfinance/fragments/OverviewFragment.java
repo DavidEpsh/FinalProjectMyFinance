@@ -96,13 +96,13 @@ public class OverviewFragment extends Fragment{
             }
         });
 
-        new ModelCloudDB().new
-                GetAllData(){
-            @Override
-            protected void onPostExecute(List<Expense> object){
-                int temp = 1;
-            }
-        }.execute();
+//        new ModelCloudDB().new
+//                GetAllData(){
+//            @Override
+//            protected void onPostExecute(String result){
+//                int temp = 1;
+//            }
+//        }.execute();
 
         mLineChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override

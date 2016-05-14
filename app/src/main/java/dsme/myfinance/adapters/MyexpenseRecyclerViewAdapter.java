@@ -1,8 +1,6 @@
 package dsme.myfinance.adapters;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 //import dsme.myfinance.fragments.ExpenseListFragment.OnListFragmentInteractionListener;
 import dsme.myfinance.MainActivity;
@@ -67,7 +63,7 @@ public class MyexpenseRecyclerViewAdapter extends RecyclerView.Adapter<Myexpense
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), TransactionEditActivity.class);
-                intent.putExtra(MainActivity.EXPENSE_ID, holder.mItem.getTimestamp());
+                intent.putExtra(MainActivity.EXPENSE_ID, holder.mItem.getMongoId());
                 v.getContext().startActivity(intent);
             }
         });

@@ -43,7 +43,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".LoginActivityApp"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".LoginActivitySIO"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ChatActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

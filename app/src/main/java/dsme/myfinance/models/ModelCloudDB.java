@@ -1,8 +1,6 @@
 package dsme.myfinance.models;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -17,6 +15,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,13 +24,12 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-
-import dsme.myfinance.MainActivity;
-import dsme.myfinance.utils.SharedPrefs;
+import java.util.Objects;
 
 public class ModelCloudDB {
 
     static String Tag = "expenses";
+    static String id = "_id";
     static String name = "name";
     static String amount = "amount";
     static String picPath = "picPath";
@@ -55,9 +53,9 @@ public class ModelCloudDB {
     static String API_URL_USERS ="https://myfinance-mean.herokuapp.com/api/users";
     List<Expense> expensesArray;
 
-    public class GetAllData extends AsyncTask<Void, Void, List<Expense> > {
+    public class GetAllData extends AsyncTask<Void, Void, String > {
 
-        protected List<Expense> doInBackground(Void... params) {
+        protected String doInBackground(Void... params) {
 
             // Making HTTP request
             try {
@@ -92,36 +90,9 @@ public class ModelCloudDB {
             }
 
             // try parse the string to a JSON object
-            try {
-                jsonArray = new JSONArray(json);
-                //jArray = jsonArray.getJSONArray();
-                expensesArray = new ArrayList<>();
 
-                for (int i = 0; i < jsonArray.length(); i++){
-                    JSONObject object = jsonArray.getJSONObject(i);
-                    String expenseName = object.getString(name);
-                    int expenseAmount = object.getInt(amount);
-                    String picturePath = object.getString(picPath);
-                    String note = object.getString(comments);
-                    String expenseCategory = object.getString(category);
-                    int isRepeating = object.getInt(isRecurring);
-                    String userName = "Temp";
-
-                    expensesArray.add(new Expense(12121212,
-                            expenseName,
-                            12121212,
-                            isRepeating,
-                            picturePath,
-                            (float)expenseAmount,
-                            category,
-                            note));
-                }
-            } catch (JSONException e) {
-                Log.e("JSON Parser", "Error parsing data " + e.toString());
-            }
-
-            // return JSON String
-            return expensesArray;
+            Model.instance().batchUpdateExpenses(convertToExpenses(json));
+            return "Success!";
         }
     }
 
@@ -134,7 +105,7 @@ public class ModelCloudDB {
 //            return false;
 //    }
 
-    public class addNewExpenseToCloud extends AsyncTask<Expense, Void, String> {
+    public class AddNewExpenseToCloud extends AsyncTask<Expense, Void, String> {
 
         @Override
         protected String doInBackground(Expense... expenses) {
@@ -152,8 +123,15 @@ public class ModelCloudDB {
 
                 String json = "";
 
+                JSONObject currUser = new JSONObject();
+
+                User currUserSql = Model.instance().getUser();
+                currUser.accumulate("_id", currUserSql.getId());
+                currUser.accumulate(user_display_name,currUserSql.getDisplayName());
+
                 // 3. build jsonObject
                 JSONObject jsonObject = new JSONObject();
+                jsonObject.put(user, currUser);
                 jsonObject.accumulate(name, expenses[0].getExpenseName());
                 jsonObject.accumulate(amount, expenses[0].getExpenseAmount());
                 jsonObject.accumulate(picPath, expenses[0].getExpenseImage());
@@ -161,13 +139,7 @@ public class ModelCloudDB {
                 jsonObject.accumulate(category, expenses[0].getCategory());
                 jsonObject.accumulate(isRecurring, expenses[0].isRepeatingExpense);
                 jsonObject.accumulate(date, expenses[0].date);
-
-                JSONObject currUser = new JSONObject();
-                User currUserSql = Model.instance().getUser();
-                currUser.accumulate("_id", currUserSql.getId());
-                currUser.accumulate(user_display_name,currUserSql.getDisplayName());
-
-                jsonObject.accumulate(user, currUser);
+//                jsonObject.accumulate("id", currUserSql.getId());
 
                 // 4. convert JSONObject to JSON to String
                 json = jsonObject.toString();
@@ -193,8 +165,26 @@ public class ModelCloudDB {
                 inputStream = httpResponse.getEntity().getContent();
 
                 // 10. convert inputstream to string
-                if(inputStream != null)
-                    result = convertInputStreamToString(inputStream);
+                if(inputStream != null) {
+                    //result = convertInputStreamToString(inputStream);
+
+                    try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(
+                            inputStream, "iso-8859-1"), 8);
+                    StringBuilder sb = new StringBuilder();
+                    String line = null;
+                    while ((line = reader.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    inputStream.close();
+                    json = sb.toString();
+                } catch (Exception e) {
+                    Log.e("Buffer Error", "Error converting result " + e.toString());
+                }
+
+                    Model.instance().addExpense(convertToSingleExpense(json));
+                }
+
                 else
                     result = "Did not work!";
 
@@ -224,74 +214,144 @@ public class ModelCloudDB {
 
     }
 
-    public class GetAllUsers extends AsyncTask<Void, Void, List<Expense> > {
+//    public class GetAllUsers extends AsyncTask<Void, Void, List<Expense> > {
+//
+//        protected List<Expense> doInBackground(Void... params) {
+//
+//            // Making HTTP request
+//            try {
+//                // defaultHttpClient
+//                DefaultHttpClient httpClient = new DefaultHttpClient();
+//                HttpGet httpGet = new HttpGet(API_URL_USERS);
+//
+//                HttpResponse httpResponse = httpClient.execute(httpGet);
+//                HttpEntity httpEntity = httpResponse.getEntity();
+//                is = httpEntity.getContent();
+//
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            } catch (ClientProtocolException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            try {
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(
+//                        is, "iso-8859-1"), 8);
+//                StringBuilder sb = new StringBuilder();
+//                String line = null;
+//                while ((line = reader.readLine()) != null) {
+//                    sb.append(line + "\n");
+//                }
+//                is.close();
+//                json = sb.toString();
+//            } catch (Exception e) {
+//                Log.e("Buffer Error", "Error converting result " + e.toString());
+//            }
+//
+//            // try parse the string to a JSON object
+//            try {
+//                jsonArray = new JSONArray(json);
+//                //jArray = jsonArray.getJSONArray();
+//                expensesArray = new ArrayList<>();
+//
+//                for (int i = 0; i < jsonArray.length(); i++){
+//                    JSONObject object = jsonArray.getJSONObject(i);
+//                    String mongoId = object.getString(id);
+//                    String expenseName = object.getString(name);
+//                    int expenseAmount = object.getInt(amount);
+//                    String picturePath = object.getString(picPath);
+//                    String note = object.getString(comments);
+//                    String expenseCategory = object.getString(category);
+//                    int isRepeating = object.getInt(isRecurring);
+//                    String userName = "Temp";
+//
+//                    expensesArray.add(new Expense(12121212,
+//                            expenseName,
+//                            12121212,
+//                            isRepeating,
+//                            picturePath,
+//                            (float)expenseAmount,
+//                            category,
+//                            note));
+//                }
+//            } catch (JSONException e) {
+//                Log.e("JSON Parser", "Error parsing data " + e.toString());
+//            }
+//
+//            // return JSON String
+//            return expensesArray;
+//        }
+//    }
 
-        protected List<Expense> doInBackground(Void... params) {
+    public List<Expense> convertToExpenses(String input){
+        try {
 
-            // Making HTTP request
-            try {
-                // defaultHttpClient
-                DefaultHttpClient httpClient = new DefaultHttpClient();
-                HttpGet httpGet = new HttpGet(API_URL_USERS);
+            jsonArray = new JSONArray(input);
+            //jArray = jsonArray.getJSONArray();
+            expensesArray = new ArrayList<>();
 
-                HttpResponse httpResponse = httpClient.execute(httpGet);
-                HttpEntity httpEntity = httpResponse.getEntity();
-                is = httpEntity.getContent();
+            for (int i = 0; i < jsonArray.length(); i++){
+                JSONObject object = jsonArray.getJSONObject(i);
+                String mongoId = object.getString(id);
+                long expenseDate = object.getLong(date);
+                String expenseName = object.getString(name);
+                int expenseAmount = object.getInt(amount);
+                String picturePath = object.getString(picPath);
+                String note = object.getString(comments);
+                String expenseCategory = object.getString(category);
+                int isRepeating = object.getInt(isRecurring);
+                String userName = "Temp";
 
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                expensesArray.add(new Expense(mongoId,
+                        expenseName,
+                        expenseDate,
+                        isRepeating,
+                        picturePath,
+                        (float)expenseAmount,
+                        category,
+                        note));
             }
-
-            try {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(
-                        is, "iso-8859-1"), 8);
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-                is.close();
-                json = sb.toString();
-            } catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
-            }
-
-            // try parse the string to a JSON object
-            try {
-                jsonArray = new JSONArray(json);
-                //jArray = jsonArray.getJSONArray();
-                expensesArray = new ArrayList<>();
-
-                for (int i = 0; i < jsonArray.length(); i++){
-                    JSONObject object = jsonArray.getJSONObject(i);
-                    String expenseName = object.getString(name);
-                    int expenseAmount = object.getInt(amount);
-                    String picturePath = object.getString(picPath);
-                    String note = object.getString(comments);
-                    String expenseCategory = object.getString(category);
-                    int isRepeating = object.getInt(isRecurring);
-                    String userName = "Temp";
-
-                    expensesArray.add(new Expense(12121212,
-                            expenseName,
-                            12121212,
-                            isRepeating,
-                            picturePath,
-                            (float)expenseAmount,
-                            category,
-                            note));
-                }
-            } catch (JSONException e) {
-                Log.e("JSON Parser", "Error parsing data " + e.toString());
-            }
-
-            // return JSON String
-            return expensesArray;
+        } catch (JSONException e) {
+            Log.e("JSON Parser #1", "Error parsing data " + e.toString());
         }
+
+        // return JSON String
+        return expensesArray;
+    }
+
+    public Expense convertToSingleExpense(String input){
+
+        JSONObject object = null;
+
+        try {
+            object = new JSONObject(input);
+
+            String mongoId = object.getString(id);
+            String expenseName = object.getString(name);
+            int expenseAmount = object.getInt(amount);
+            long expenseDate = object.getLong(date);
+            String picturePath = object.getString(picPath);
+            String note = object.getString(comments);
+            String expenseCategory = object.getString(category);
+            int isRepeating = object.getInt(isRecurring);
+            String userName = "Temp";
+
+            return new Expense(mongoId,
+                    expenseName,
+                    expenseDate,
+                    isRepeating,
+                    picturePath,
+                    (float)expenseAmount,
+                    expenseCategory,
+                    note);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
 

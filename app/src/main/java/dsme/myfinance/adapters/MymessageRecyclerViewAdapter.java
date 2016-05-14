@@ -9,16 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import dsme.myfinance.R;
-import dsme.myfinance.models.Message;
+import dsme.myfinance.models.MessageLocal;
 
 import java.util.List;
 
 public class MymessageRecyclerViewAdapter extends RecyclerView.Adapter<MymessageRecyclerViewAdapter.ViewHolder> {
 
-    private List<Message> mValues;
+    private List<MessageLocal> mValues;
     private final int[] colors;
 
-    public MymessageRecyclerViewAdapter(List<Message> items, int[] colors) {
+    public MymessageRecyclerViewAdapter(List<MessageLocal> items, int[] colors) {
         mValues = items;
         this.colors = colors;
     }
@@ -55,7 +55,7 @@ public class MymessageRecyclerViewAdapter extends RecyclerView.Adapter<Mymessage
         public final TextView mMessageContent;
         public final ImageView myProfilePicture;
         public final ImageView otherProfilePicture;
-        public Message mItem;
+        public MessageLocal mItem;
 
         public ViewHolder(View view) {
             super(view);
@@ -66,7 +66,7 @@ public class MymessageRecyclerViewAdapter extends RecyclerView.Adapter<Mymessage
         }
     }
 
-    public void setData(List<Message> messages){
+    public void setData(List<MessageLocal> messages){
         this.mValues = messages;
     }
 }

@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:2:1-50:12
+ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:2:1-56:12
 	package
 		ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:3:5-29
 		INJECTED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml
@@ -48,7 +48,7 @@ ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\Andro
 	android:name
 		ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:17:22-69
 application
-ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:19:5-48:19
+ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:19:5-54:19
 MERGED from [com.android.support:appcompat-v7:23.3.0] C:\Users\David\Final Project\FinalProjectMyFinance\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:support-vector-drawable:23.3.0] C:\Users\David\Final Project\FinalProjectMyFinance\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\AndroidManifest.xml:7:5-20
 MERGED from [com.android.support:support-v4:23.3.0] C:\Users\David\Final Project\FinalProjectMyFinance\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\AndroidManifest.xml:22:5-20
@@ -114,12 +114,24 @@ ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\Andro
 		ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:38:13-56
 	android:name
 		ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:37:13-52
-activity#dsme.myfinance.LoginActivity
+activity#dsme.myfinance.LoginActivityApp
 ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:45:9-47:58
 	android:theme
 		ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:47:13-56
 	android:name
-		ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:46:13-42
+		ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:46:13-45
+activity#dsme.myfinance.LoginActivitySIO
+ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:48:9-50:58
+	android:theme
+		ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:50:13-56
+	android:name
+		ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:49:13-45
+activity#dsme.myfinance.ChatActivity
+ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:51:9-53:58
+	android:theme
+		ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:53:13-56
+	android:name
+		ADDED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml:52:13-41
 uses-sdk
 INJECTED from C:\Users\David\Final Project\FinalProjectMyFinance\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:appcompat-v7:23.3.0] C:\Users\David\Final Project\FinalProjectMyFinance\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\AndroidManifest.xml:21:5-23:78
