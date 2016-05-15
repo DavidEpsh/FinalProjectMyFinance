@@ -24,6 +24,10 @@ public class User {
         return displayName;
     }
 
+    public String getFirstName(){
+        return displayName.split(" ")[0];
+    }
+
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }

@@ -10,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 //import dsme.myfinance.fragments.ExpenseListFragment.OnListFragmentInteractionListener;
-import dsme.myfinance.MainActivity;
+import dsme.myfinance.activities.MainActivity;
 import dsme.myfinance.R;
-import dsme.myfinance.TransactionEditActivity;
+import dsme.myfinance.activities.TransactionEditActivity;
 import dsme.myfinance.models.Expense;
 import dsme.myfinance.models.Model;
 import dsme.myfinance.utils.DateUtils;

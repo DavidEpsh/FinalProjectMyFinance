@@ -72,12 +72,12 @@
         "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\drawable-hdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png"
     },
     {
-        "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_work_black.png",
-        "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\src\\main\\res\\drawable-hdpi\\ic_work_black.png"
-    },
-    {
         "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_delete_black.png",
         "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\src\\main\\res\\drawable-hdpi\\ic_delete_black.png"
+    },
+    {
+        "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_work_black.png",
+        "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\src\\main\\res\\drawable-hdpi\\ic_work_black.png"
     },
     {
         "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\email.png",

@@ -1,4 +1,4 @@
-package dsme.myfinance;
+package dsme.myfinance.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -37,7 +37,7 @@ public class LoginActivitySIO extends Activity {
             mSocket = IO.socket("http://chat.socket.io/");
         } catch (URISyntaxException e) {}
 
-        mUsername = Model.instance().getUser().getDisplayName();
+        mUsername = Model.instance().getUser().getFirstName();
         //attemptLogin();
         mSocket.on("login", onLogin);
         mSocket.connect();

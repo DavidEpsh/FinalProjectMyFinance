@@ -1,4 +1,4 @@
-package dsme.myfinance;
+package dsme.myfinance.activities;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import dsme.myfinance.R;
 import dsme.myfinance.models.ModelCloudDB;
 
 public class LoginActivityApp extends AppCompatActivity {

@@ -126,19 +126,21 @@ public class ModelCloudDB {
                 JSONObject currUser = new JSONObject();
 
                 User currUserSql = Model.instance().getUser();
-                currUser.accumulate("_id", currUserSql.getId());
-                currUser.accumulate(user_display_name,currUserSql.getDisplayName());
+                currUser.put("_id", currUserSql.getId());
+                currUser.put(user_display_name,currUserSql.getDisplayName());
 
                 // 3. build jsonObject
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put(user, currUser);
-                jsonObject.accumulate(name, expenses[0].getExpenseName());
-                jsonObject.accumulate(amount, expenses[0].getExpenseAmount());
-                jsonObject.accumulate(picPath, expenses[0].getExpenseImage());
-                jsonObject.accumulate(comments, expenses[0].getNote());
-                jsonObject.accumulate(category, expenses[0].getCategory());
-                jsonObject.accumulate(isRecurring, expenses[0].isRepeatingExpense);
-                jsonObject.accumulate(date, expenses[0].date);
+                jsonObject.accumulate(user, currUser);
+                jsonObject.put(name, expenses[0].getExpenseName());
+                jsonObject.put(amount, expenses[0].getExpenseAmount());
+                jsonObject.put(picPath, expenses[0].getExpenseImage());
+                jsonObject.put(comments, expenses[0].getNote());
+                jsonObject.put(category, expenses[0].getCategory());
+                jsonObject.put(isRecurring, expenses[0].isRepeatingExpense);
+                jsonObject.put(date, expenses[0].date);
+
+                jsonObject.accumulate(user, currUser);
 //                jsonObject.accumulate("id", currUserSql.getId());
 
                 // 4. convert JSONObject to JSON to String

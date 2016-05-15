@@ -264,12 +264,12 @@
         "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.3.0\\res\\drawable-xxhdpi-v4\\abc_list_selector_disabled_holo_light.9.png"
     },
     {
-        "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_directions_car_black.png",
-        "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\src\\main\\res\\drawable-xxhdpi\\ic_directions_car_black.png"
-    },
-    {
         "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_delete_black.png",
         "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\src\\main\\res\\drawable-xxhdpi\\ic_delete_black.png"
+    },
+    {
+        "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_directions_car_black.png",
+        "source": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\src\\main\\res\\drawable-xxhdpi\\ic_directions_car_black.png"
     },
     {
         "merged": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_pressed_holo_dark.9.png",

@@ -781,7 +781,7 @@
     <string name="main_currency">Main currency</string>
     <string name="message_user_joined">%s joined</string>
     <string name="message_user_left">%s left</string>
-    <string name="message_welcome">Welcome to Socket.IO Chat –</string>
+    <string name="message_welcome">Now in chat with your adviser</string>
     <string name="month">Month</string>
     <string name="monthly_expense">Monthly expense</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

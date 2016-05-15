@@ -32,6 +32,7 @@
                 android:imeActionLabel="@string/action_send"
                 android:imeOptions="actionSend"
                 android:inputType="text"
+
                 android:maxLines="1"
                 android:singleLine="true"/>
         <ImageButton

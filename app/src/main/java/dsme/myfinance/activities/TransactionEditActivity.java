@@ -1,4 +1,4 @@
-package dsme.myfinance;
+package dsme.myfinance.activities;
 
 
 import android.app.DatePickerDialog;
@@ -35,6 +35,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import dsme.myfinance.R;
 import dsme.myfinance.models.Expense;
 import dsme.myfinance.models.Model;
 import dsme.myfinance.models.ModelCloudDB;

@@ -33,7 +33,7 @@ import java.util.List;
 import dsme.myfinance.R;
 import dsme.myfinance.adapters.MessageAdapter;
 import dsme.myfinance.models.Message;
-import dsme.myfinance.LoginActivitySIO;
+import dsme.myfinance.activities.LoginActivitySIO;
 import dsme.myfinance.models.Model;
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -55,7 +55,7 @@ public class SIOFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private boolean mTyping = false;
     private Handler mTypingHandler = new Handler();
-    private String mUsername = Model.instance().getUser().getDisplayName();
+    private String mUsername = Model.instance().getUser().getFirstName();
     private Socket mSocket;
 
     public SIOFragment() {
@@ -209,7 +209,7 @@ public class SIOFragment extends Fragment {
     }
 
     private void addParticipantsLog(int numUsers) {
-        addLog(getResources().getQuantityString(R.plurals.message_participants, numUsers, numUsers));
+        //addLog(getResources().getQuantityString(R.plurals.message_participants, numUsers, numUsers));
     }
 
     private void addMessage(String username, String message) {
@@ -328,8 +328,8 @@ public class SIOFragment extends Fragment {
                         return;
                     }
 
-                    addLog(getResources().getString(R.string.message_user_joined, username));
-                    addParticipantsLog(numUsers);
+//                    addLog(getResources().getString(R.string.message_user_joined, username));
+//                    addParticipantsLog(numUsers);
                 }
             });
         }
@@ -351,8 +351,8 @@ public class SIOFragment extends Fragment {
                         return;
                     }
 
-                    addLog(getResources().getString(R.string.message_user_left, username));
-                    addParticipantsLog(numUsers);
+//                    addLog(getResources().getString(R.string.message_user_left, username));
+//                    addParticipantsLog(numUsers);
                     removeTyping(username);
                 }
             });

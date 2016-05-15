@@ -1,4 +1,4 @@
-package dsme.myfinance;
+package dsme.myfinance.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import dsme.myfinance.R;
 import dsme.myfinance.fragments.ChatFragment;
 import dsme.myfinance.fragments.ExpenseListFragment;
 import dsme.myfinance.fragments.OverviewFragment;
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity
 
 
         //TODO -- change this fields
-        Model.instance().addUser(new User("5735ead5aafab0f44da48aa6", "Customer1 Customers"));
+        Model.instance().addUser(new User("5738685d880f560e0043f4dc", "Danny Din"));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

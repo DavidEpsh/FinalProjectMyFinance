@@ -30,7 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="dsme.myfinance.MainActivity"
+            android:name="dsme.myfinance.activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
@@ -40,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="dsme.myfinance.TransactionEditActivity"
+            android:name="dsme.myfinance.activities.TransactionEditActivity"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,13 +49,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="dsme.myfinance.LoginActivityApp"
+            android:name="dsme.myfinance.activities.LoginActivityApp"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="dsme.myfinance.LoginActivitySIO"
+            android:name="dsme.myfinance.activities.LoginActivitySIO"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="dsme.myfinance.ChatActivity"
+            android:name="dsme.myfinance.activities.ChatActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
