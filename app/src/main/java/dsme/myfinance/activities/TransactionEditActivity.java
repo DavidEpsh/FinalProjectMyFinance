@@ -11,6 +11,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
@@ -147,6 +148,25 @@ public class TransactionEditActivity extends AppCompatActivity {
                 if (imagePath != null) {
                     showImageDialog();
                 }
+            }
+        });
+
+        deleteExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ModelCloudDB().new
+                        deleteExpense(){
+                            @Override
+                            protected void onPostExecute(String result){
+                                if (!result.equals("Did not work!")){
+                                    //Toast.makeText(getApplicationContext() ,"Successfully deleted", Toast.LENGTH_LONG);
+                                    finish();
+                                    //Snackbar.make(findViewById(R.id.container),"Successfully deleted", Snackbar.LENGTH_SHORT);
+                                }else{
+                                    Toast.makeText(getApplicationContext() ,"Couldn't delete expense, please try again later", Toast.LENGTH_LONG);
+                                }
+                            }
+                        }.execute(mExpense);
             }
         });
 
