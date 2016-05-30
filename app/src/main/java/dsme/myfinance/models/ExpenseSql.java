@@ -111,6 +111,7 @@ public class ExpenseSql {
                 values.put(EXPENSE_AMOUNT, expense.getExpenseAmount());
                 values.put(NOTE, expense.getNote());
 
+                addCategory(dbHelper, expense.getCategory());
                 db.update(TABLE, values, MONGO_ID + " = '" + expense.getMongoId() + "'", null);
             }
         }
@@ -343,10 +344,12 @@ public class ExpenseSql {
     public static void addCategory(ModelSql.MyOpenHelper dbHelper, String category) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(CATEGORY_ENTRY, category);
+        if(!getCategories(dbHelper).contains(category)) {
+            ContentValues values = new ContentValues();
+            values.put(CATEGORY_ENTRY, category);
 
-        db.insert(TABLE_CATEGORIES, null, values);
+            db.insert(TABLE_CATEGORIES, null, values);
+        }
     }
 
     public static List<String> getAllCategories(ModelSql.MyOpenHelper dbHelper) {
