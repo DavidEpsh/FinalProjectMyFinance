@@ -51,6 +51,8 @@ public class ModelCloudDB {
     static String json = "";
     static String API_URL ="https://myfinance-mean.herokuapp.com/api/expenses";
     static String API_URL_USERS ="https://myfinance-mean.herokuapp.com/api/users";
+    static String API_URL_LOGIN ="https://myfinance-mean.herokuapp.com/api/auth/login";
+
     List<Expense> expensesArray;
 
     public class GetAllData extends AsyncTask<Void, Void, String > {
@@ -304,7 +306,6 @@ public class ModelCloudDB {
                 String note = object.getString(comments);
                 String expenseCategory = object.getString(category);
                 int isRepeating = object.getInt(isRecurring);
-                String userName = "Temp";
 
                 expensesArray.add(new Expense(mongoId,
                         expenseName,
@@ -312,7 +313,7 @@ public class ModelCloudDB {
                         isRepeating,
                         picturePath,
                         (float)expenseAmount,
-                        category,
+                        expenseCategory,
                         note));
             }
         } catch (JSONException e) {
