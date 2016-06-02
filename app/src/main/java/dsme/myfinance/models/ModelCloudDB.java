@@ -3,6 +3,7 @@ package dsme.myfinance.models;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -19,13 +20,24 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+
+import dsme.myfinance.R;
+import dsme.myfinance.api.JSONParser;
 
 public class ModelCloudDB {
 
@@ -69,6 +81,7 @@ public class ModelCloudDB {
                 HttpResponse httpResponse = httpClient.execute(httpGet);
                 HttpEntity httpEntity = httpResponse.getEntity();
                 is = httpEntity.getContent();
+
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -398,6 +411,132 @@ public class ModelCloudDB {
 
         return null;
     }
+
+
+    public class test extends AsyncTask<Expense, Void, String > {
+
+        protected String doInBackground(Expense... expenses) {
+            try{
+
+            URL url = new URL(API_URL);
+                URLConnection urlConn;
+                DataOutputStream printout;
+                DataInputStream input;
+                urlConn = url.openConnection();
+                urlConn.setDoInput (true);
+                urlConn.setDoOutput (true);
+                urlConn.setUseCaches (false);
+                urlConn.setRequestProperty("Accept","application/json");
+                urlConn.setRequestProperty("Content-Type","application/json");
+                urlConn.connect();
+
+                // 3. build jsonObject
+            JSONObject jsonObject = new JSONObject();
+//            jsonObject.accumulate(user, currUser);
+            jsonObject.put(name, expenses[0].getExpenseName());
+            jsonObject.put(amount, expenses[0].getExpenseAmount());
+            jsonObject.put(picPath, expenses[0].getExpenseImage());
+            jsonObject.put(comments, expenses[0].getNote());
+            jsonObject.put(category, expenses[0].getCategory());
+            jsonObject.put(isRecurring, expenses[0].isRepeatingExpense);
+            jsonObject.put(date, expenses[0].date);
+
+//            jsonObject.accumulate(user, currUser);
+            json = jsonObject.toString();
+                // Send POST output.
+                printout = new DataOutputStream(urlConn.getOutputStream ());
+                printout.writeBytes(URLEncoder.encode(json,"UTF-8"));
+                printout.flush ();
+                printout.close ();
+
+
+
+                //Get Response
+                InputStream is = urlConn.getInputStream();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+                String line;
+                StringBuffer response = new StringBuffer();
+                while((line = rd.readLine()) != null) {
+                    response.append(line);
+                    response.append('\r');
+                }
+                rd.close();
+                return response.toString();
+
+            } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }catch (JSONException e){
+
+            }
+        return null;
+    }
+    }
+
+    public class PostAsync extends AsyncTask<String, String, JSONObject> {
+        JSONParser jsonParser = new JSONParser();
+
+        private static final String LOGIN_URL = "https://myfinance-mean.herokuapp.com/api/auth/signin";
+
+        private static final String TAG_SUCCESS = "success";
+        private static final String TAG_MESSAGE = "message";
+
+
+        @Override
+        protected JSONObject doInBackground(String... args) {
+
+            try {
+
+                HashMap<String, String> params = new HashMap<>();
+                params.put("username", args[0]);
+                params.put("password", args[1]);
+
+                Log.d("request", "starting");
+
+                JSONObject json = jsonParser.makeHttpRequest(
+                        LOGIN_URL, "POST", params);
+
+                if (json != null) {
+                    Log.d("JSON result", json.toString());
+
+                    return json;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        protected void onPostExecute(JSONObject json) {
+
+            int success = 0;
+            String message = "";
+
+
+            if (json != null) {
+
+                try {
+                    success = json.getInt(TAG_SUCCESS);
+                    message = json.getString(TAG_MESSAGE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (success == 1) {
+                Log.d("Success!", message);
+            }else{
+                Log.d("Failure", message);
+            }
+        }
+
+    }
+
 }
 
 
