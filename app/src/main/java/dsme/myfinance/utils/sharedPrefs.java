@@ -9,6 +9,7 @@ public class sharedPrefs {
     public static String isSubscribedToAdviser = "is_subscribed";
     public static String USER_ID = "user_id";
     public static String USER_EMAIL = "user_email";
+    public static String session_id = "session_id";
 
     public static void writeStringToPrefs(Activity activity, String name, String value){
         SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);

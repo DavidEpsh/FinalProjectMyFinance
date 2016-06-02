@@ -48,20 +48,13 @@ public class JSONParser {
             // request method is POST
             try {
                 urlObj = new URL(url);
-
                 conn = (HttpURLConnection) urlObj.openConnection();
-
                 conn.setDoOutput(true);
-
                 conn.setRequestMethod("POST");
-
                 conn.setRequestProperty("Accept-Charset", charset);
-
                 conn.setReadTimeout(10000);
                 conn.setConnectTimeout(15000);
-
                 conn.connect();
-
                 paramsString = sbParams.toString();
 
                 wr = new DataOutputStream(conn.getOutputStream());
@@ -82,17 +75,11 @@ public class JSONParser {
 
             try {
                 urlObj = new URL(url);
-
                 conn = (HttpURLConnection) urlObj.openConnection();
-
                 conn.setDoOutput(false);
-
                 conn.setRequestMethod("GET");
-
                 conn.setRequestProperty("Accept-Charset", charset);
-
                 conn.setConnectTimeout(15000);
-
                 conn.connect();
 
             } catch (IOException e) {
@@ -109,6 +96,19 @@ public class JSONParser {
             String line;
             while ((line = reader.readLine()) != null) {
                 result.append(line);
+            }
+
+            String headerName;
+            String headerValue = "FAIL";
+            for (int j = 0;; j++) {
+                headerName = conn.getHeaderFieldKey(j);
+                if (headerName != null && headerName.equals("Set-Cookie")) {
+                    // found the Set-Cookie header (code assumes only one cookie is
+                    // being set)
+                    headerValue = conn.getHeaderField(j);
+                    String sessionId = headerValue.split("=")[1].split(";")[0];
+                    break;
+                }
             }
 
             Log.d("JSON Parser", "result: " + result.toString());
