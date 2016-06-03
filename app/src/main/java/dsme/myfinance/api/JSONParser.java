@@ -14,6 +14,8 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 
+import dsme.myfinance.models.ModelCloudDB;
+
 public class JSONParser {
 
     String charset = "UTF-8";
@@ -24,6 +26,7 @@ public class JSONParser {
     JSONObject jObj = null;
     StringBuilder sbParams;
     String paramsString;
+    String sessionId = null;
 
     public JSONObject makeHttpRequest(String url, String method,
                                       HashMap<String, String> params) {
@@ -106,7 +109,7 @@ public class JSONParser {
                     // found the Set-Cookie header (code assumes only one cookie is
                     // being set)
                     headerValue = conn.getHeaderField(j);
-                    String sessionId = headerValue.split("=")[1].split(";")[0];
+                    sessionId = headerValue.split("=")[1].split(";")[0];
                     break;
                 }
             }
@@ -122,10 +125,12 @@ public class JSONParser {
         // try parse the string to a JSON object
         try {
             jObj = new JSONObject(result.toString());
+            if (sessionId != null){
+                jObj.put("session_id", sessionId);
+            }
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
-
         // return JSON Object
         return jObj;
     }

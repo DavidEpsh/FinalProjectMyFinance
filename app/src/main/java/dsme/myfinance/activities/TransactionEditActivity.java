@@ -11,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Display;
@@ -282,7 +281,7 @@ public class TransactionEditActivity extends AppCompatActivity {
 //
 //            }.execute(mExpense);
 
-            new ModelCloudDB().new PostAsync().execute("dave", "A1a1a1a1!!");
+            new ModelCloudDB().new LogIn().execute("dave", "A1a1a1a1!!");
         }
     }
 

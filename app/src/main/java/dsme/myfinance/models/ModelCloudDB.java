@@ -54,10 +54,11 @@ public class ModelCloudDB {
     static String date = "expenseDate";
 
     static JSONObject current_user = null;
-    static String user_id = "";
     static String user = "user";
-//    static String user_email = "email";
+    static String user_email = "email";
     static String user_display_name = "displayName";
+    static String user_phone_number = "phoneNumber";
+    static String session_id = "session_id";
 
     static InputStream is = null;
     static JSONArray jsonArray = null;
@@ -379,6 +380,27 @@ public class ModelCloudDB {
         return expensesArray;
     }
 
+    public User convertToUser(JSONObject input) {
+
+        User currentUser;
+        try {
+            String userId = input.getString(id);
+            String phone = input.getString(user_phone_number);
+            String email = input.getString(user_email);
+            String sessionID = input.getString(session_id);
+            String displayName = input.getString(user_display_name);
+
+            currentUser = new User(userId,displayName, email, phone, sessionID);
+
+        } catch (JSONException e) {
+            Log.e("JSON Parser #1", "Error parsing data " + e.toString());
+            return null;
+        }
+
+        // return JSON String
+        return currentUser;
+    }
+
     public Expense convertToSingleExpense(String input){
 
         JSONObject object = null;
@@ -412,70 +434,7 @@ public class ModelCloudDB {
         return null;
     }
 
-
-    public class test extends AsyncTask<Expense, Void, String> {
-
-        protected String doInBackground(Expense... expenses) {
-            try {
-
-                URL url = new URL(API_URL);
-                URLConnection urlConn;
-                DataOutputStream printout;
-                DataInputStream input;
-                urlConn = url.openConnection();
-                urlConn.setDoInput(true);
-                urlConn.setDoOutput(true);
-                urlConn.setUseCaches(false);
-                urlConn.setRequestProperty("Accept", "application/json");
-                urlConn.setRequestProperty("Content-Type", "application/json");
-                urlConn.connect();
-
-                // 3. build jsonObject
-                JSONObject jsonObject = new JSONObject();
-//            jsonObject.accumulate(user, currUser);
-                jsonObject.put(name, expenses[0].getExpenseName());
-                jsonObject.put(amount, expenses[0].getExpenseAmount());
-                jsonObject.put(picPath, expenses[0].getExpenseImage());
-                jsonObject.put(comments, expenses[0].getNote());
-                jsonObject.put(category, expenses[0].getCategory());
-                jsonObject.put(isRecurring, expenses[0].isRepeatingExpense);
-                jsonObject.put(date, expenses[0].date);
-
-//            jsonObject.accumulate(user, currUser);
-                json = jsonObject.toString();
-                // Send POST output.
-                printout = new DataOutputStream(urlConn.getOutputStream());
-                printout.writeBytes(URLEncoder.encode(json, "UTF-8"));
-                printout.flush();
-                printout.close();
-
-
-                //Get Response
-                InputStream is = urlConn.getInputStream();
-                BufferedReader rd = new BufferedReader(new InputStreamReader(is));
-                String line;
-                StringBuffer response = new StringBuffer();
-                while ((line = rd.readLine()) != null) {
-                    response.append(line);
-                    response.append('\r');
-                }
-                rd.close();
-                return response.toString();
-
-            } catch (MalformedURLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (JSONException e) {
-
-            }
-            return null;
-        }
-    }
-
-    public class PostAsync extends AsyncTask<String, String, JSONObject> {
+    public class LogIn extends AsyncTask<String, String, JSONObject> {
         JSONParser jsonParser = new JSONParser();
 
         @Override
@@ -487,14 +446,12 @@ public class ModelCloudDB {
                 params.put("username", args[0]);
                 params.put("password", args[1]);
 
-                Log.d("request", "starting");
-
                 JSONObject json = jsonParser.makeHttpRequest(
                         API_URL_LOGIN, "POST", params);
 
                 if (json != null) {
                     Log.d("JSON result", json.toString());
-
+                    Model.instance().addUser(convertToUser(json));
                     return json;
                 }
 
@@ -505,17 +462,7 @@ public class ModelCloudDB {
             return null;
         }
 
-        protected void onPostExecute(JSONObject json) {
 
-            int success = 0;
-            String message = "";
-
-            if (success == 1) {
-                Log.d("Success!", message);
-            }else{
-                Log.d("Failure", message);
-            }
-        }
 
     }
 

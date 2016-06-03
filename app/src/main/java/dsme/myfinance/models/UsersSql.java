@@ -16,6 +16,9 @@ public class UsersSql {
     private static final String TABLE_USER = "USER";
     private static final String USER_ID = "USER_ID";
     private static final String USER_EMAIL = "USER_EMAIL";
+    private static final String USER_PHONE_NUMBER = "USER_PHONE_NUMBER";
+    private static final String SESSION_ID = "SESSION_ID";
+    private static final String USER_DISPLAY_NAME = "USER_DISPLAY_NAME";
 
     public static void addUser(ModelSql.MyOpenHelper dbHelper, User user) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -38,10 +41,16 @@ public class UsersSql {
             if (cursor.moveToFirst()) {
                 int id_userID = cursor.getColumnIndex(USER_ID);
                 int id_userEmail = cursor.getColumnIndex(USER_EMAIL);
+                int id_userPhone = cursor.getColumnIndex(USER_PHONE_NUMBER);
+                int id_sessionId = cursor.getColumnIndex(SESSION_ID);
+                int id_displayName = cursor.getColumnIndex(USER_DISPLAY_NAME);
 
                 String userID = cursor.getString(id_userID);
                 String userEmail = cursor.getString(id_userEmail);
-                return new User(userID, userEmail);
+                String userPhone = cursor.getString(id_userPhone);
+                String sessionId = cursor.getString(id_sessionId);
+                String displayName = cursor.getString(id_displayName);
+                return new User(userID, displayName, userEmail, userPhone, sessionId);
             }
         }
         return null;
@@ -50,6 +59,9 @@ public class UsersSql {
     public static void create(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_USER + " (" +
                 USER_ID + " TEXT PRIMARY KEY," +
+                USER_DISPLAY_NAME + " TEXT," +
+                USER_PHONE_NUMBER +" TEXT," +
+                SESSION_ID +" TEXT," +
                 USER_EMAIL + " TEXT" + ")");
     }
 

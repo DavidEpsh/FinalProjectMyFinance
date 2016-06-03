@@ -6,10 +6,16 @@ import org.json.JSONObject;
 public class User {
     String id;
     String displayName;
+    String email;
+    String phoneNumber;
+    String sessionId;
 
-    public User(String id, String displayName){
+    public User(String id, String displayName, String email, String phoneNumber, String sessionId){
         this.id = id;
         this.displayName = displayName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.sessionId = sessionId;
     }
 
     public String getId() {
@@ -31,6 +37,30 @@ public class User {
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
 //    String provider;
 //    String userName;
 //    String phoneNumber;
@@ -38,16 +68,15 @@ public class User {
 
     public class Adviser extends User{
 
-        public Adviser(String id, String displayName) {
-            super(id, displayName);
+        public Adviser(String id, String displayName, String email, String phoneNumber, String sessionId) {
+            super(id, displayName, email, phoneNumber, sessionId);
         }
     }
 
     public class Customer extends User{
 
-
-        public Customer(String id, String displayName) {
-            super(id, displayName);
+        public Customer(String id, String displayName, String email, String phoneNumber, String sessionId) {
+            super(id, displayName, email, phoneNumber, sessionId);
         }
     }
 

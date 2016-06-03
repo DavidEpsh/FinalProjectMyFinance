@@ -749,7 +749,9 @@
     <string name="far_left">Far left</string>
     <string name="far_right">Far right</string>
     <string name="file">File</string>
+    <string name="first_name">First Name</string>
     <string name="from">From</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="import_backup">Import backup</string>
     <string name="include_in_reports">Include in reports</string>
     <string name="include_in_totals">Include in totals</string>
@@ -764,6 +766,7 @@
     <string name="l_delete_short">DEL</string>
     <string name="l_please_enter_currency_code">Please enter currency code</string>
     <string name="l_refresh_rates_daily">Refresh rates every day</string>
+    <string name="last_name">Last Name</string>
     <string name="last_updated">Last updated</string>
     <string name="library_easypreferences_author">Pixplicity</string>
     <string name="library_easypreferences_authorWebsite">http://pixplicity.com</string>
@@ -798,6 +801,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="phone_number">Phone Number</string>
     <string name="preposition_for_date">on <ns1:g example="May 29" id="date">%s</ns1:g></string>
     <string name="preposition_for_time">at <ns1:g example="2:33 am" id="time">%s</ns1:g></string>
     <string name="previous">Previous</string>
@@ -846,6 +850,7 @@
     <string name="unlock">Unlock</string>
     <string name="user">User</string>
     <string name="user_action_typing">is typing</string>
+    <string name="username">Username</string>
     <string name="version">Version</string>
     <string name="week">Week</string>
     <string name="year">Year</string>

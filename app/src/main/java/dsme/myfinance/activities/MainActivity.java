@@ -24,8 +24,9 @@ import dsme.myfinance.models.User;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    final static public String PREFS_CATEGORIES = "CATEGORIES";
     final static public String EXPENSE_ID = "EXPENSE_ID";
+    final static public int ACTIVITY_SIGN_IN= 1000;
+    final static public int RESULT_OK= 1001;
     FloatingActionButton fab;
 
     @Override
@@ -44,10 +45,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
-        //TODO -- change this fields
-        Model.instance().addUser(new User("5738685d880f560e0043f4dc", "Danny Din"));
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -57,9 +54,16 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        openFragment(new OverviewFragment());
+        Intent keyboardIntent = getIntent();
+        if (keyboardIntent.hasExtra(Intent.EXTRA_TEXT)) {
+            String name = keyboardIntent.getStringExtra(Intent.EXTRA_TEXT);
+            Intent intentNew = new Intent(MainActivity.this, TransactionEditActivity.class);
+            intentNew.putExtra("name", name);
+            startActivity(intentNew);
+        }
 
-
+        Intent intent = new Intent(MainActivity.this, LoginActivityApp.class);
+        startActivityForResult(intent,ACTIVITY_SIGN_IN);
     }
 
     @Override
@@ -129,6 +133,16 @@ public class MainActivity extends AppCompatActivity
             fab.setVisibility(View.INVISIBLE);
         }else if(fab.getVisibility() == View.INVISIBLE){
             fab.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == ACTIVITY_SIGN_IN) {
+            if (resultCode == RESULT_OK) {
+                openFragment(new OverviewFragment());
+            }
         }
     }
 }

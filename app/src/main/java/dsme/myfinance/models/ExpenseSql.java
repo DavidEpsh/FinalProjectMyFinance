@@ -97,6 +97,8 @@ public class ExpenseSql {
     public static void batchUpdateExpense(ModelSql.MyOpenHelper dbHelper, List<Expense> expenses) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
+        db.delete(TABLE,null,null);
+
         for(Expense expense : expenses) {
             if (getExpense(dbHelper, expense.getMongoId()) == null) {
                 addExpense(dbHelper, expense);
@@ -112,7 +114,8 @@ public class ExpenseSql {
                 values.put(NOTE, expense.getNote());
 
                 addCategory(dbHelper, expense.getCategory());
-                db.update(TABLE, values, MONGO_ID + " = '" + expense.getMongoId() + "'", null);
+                //db.insert(TABLE, values, MONGO_ID + " = '" + expense.getMongoId() + "'", null);
+                db.insert(TABLE, null, values);
             }
         }
     }
