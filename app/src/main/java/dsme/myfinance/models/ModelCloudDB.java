@@ -398,7 +398,7 @@ public class ModelCloudDB {
             String lastName = input.getString(user_last_name);
             String userName = input.getString(user_user_name);
 
-            currentUser = new User(userId, displayName, userName, email, phone, sessionID, firstName, lastName, null);
+            currentUser = new User(userId, displayName,firstName, lastName, userName, email, phone, sessionID, null);
 
         } catch (JSONException e) {
             Log.e("JSON Parser #1", "Error parsing data " + e.toString());
@@ -518,15 +518,15 @@ public class ModelCloudDB {
                 // 3. build jsonObject
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put(user, currUser);
-                jsonObject.put(name, expenses[0].getExpenseName());
-                jsonObject.put(amount, expenses[0].getExpenseAmount());
-                jsonObject.put(picPath, expenses[0].getExpenseImage());
-                jsonObject.put(comments, expenses[0].getNote());
-                jsonObject.put(category, expenses[0].getCategory());
                 jsonObject.put(isRecurring, expenses[0].isRepeatingExpense);
+                jsonObject.put(category, expenses[0].getCategory());
+                jsonObject.put(comments, expenses[0].getNote());
                 jsonObject.put(date, expenses[0].date);
+                jsonObject.put(picPath,"fsdfsd");// expenses[0].getExpenseImage());
+                jsonObject.put(amount, expenses[0].getExpenseAmount());
+                jsonObject.put(name, expenses[0].getExpenseName());
 
-                JSONObject jObj = jsonParser.makeHttpRequestUsingJobj(API_URL_SIGNUP, "POST", jsonObject);
+                JSONObject jObj = jsonParser.makeHttpRequestUsingJobj(API_URL, "POST", jsonObject);
 
                 if (jObj != null) {
                     Log.d("JSON result", jObj.toString());

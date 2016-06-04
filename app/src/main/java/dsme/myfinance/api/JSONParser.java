@@ -113,7 +113,7 @@ public class JSONParser {
                     // found the Set-Cookie header (code assumes only one cookie is
                     // being set)
                     headerValue = conn.getHeaderField(j);
-                    sessionId = headerValue.split("=")[1].split(";")[0];
+                    sessionId = headerValue; //headerValue.split("=")[1].split(";")[0];
                     break;
                 }
             }
@@ -177,7 +177,7 @@ public class JSONParser {
                 conn.setDoOutput(false);
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Content-Type", "application/json");
-                //conn.setRequestProperty("Content-Type", Model.instance().getUser().getSessionId());
+                conn.setRequestProperty("Content-Type", Model.instance().getUser().getSessionIdTrimmed());
                 conn.setConnectTimeout(15000);
                 conn.connect();
 
@@ -204,7 +204,7 @@ public class JSONParser {
                 headerName = conn.getHeaderFieldKey(j);
                 if (headerName != null && headerName.equals("Set-Cookie")) {
                     headerValue = conn.getHeaderField(j);
-                    sessionId = headerValue.split("=")[1].split(";")[0];
+                    sessionId = headerValue; //headerValue.split("=")[1].split(";")[0];
                     break;
                 }
             }
