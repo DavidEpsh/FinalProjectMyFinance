@@ -8,6 +8,7 @@ import android.util.Log;
 
 import android.content.Intent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -69,6 +70,8 @@ public class LoginActivityApp extends AppCompatActivity {
         progressDialog.setMessage("Logging In...");
         progressDialog.show();
 
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
@@ -78,14 +81,13 @@ public class LoginActivityApp extends AppCompatActivity {
             protected void onPostExecute(JSONObject json) {
                 if (json == null) {
                     progressDialog.dismiss();
-                    Toast.makeText(LoginActivityApp.this, "Could not log in, please try again later", Toast.LENGTH_SHORT);
+                    loginButton.setEnabled(true);
+                    Toast.makeText(LoginActivityApp.this, "User or password incorrect", Toast.LENGTH_SHORT).show();
                 }else{
                     getData();
                 }
             }
         }.execute(email, password);
-
-
     }
 
 
@@ -126,8 +128,8 @@ public class LoginActivityApp extends AppCompatActivity {
             _emailText.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            _passwordText.setError("Password ust be longer than 4 characters");
+        if (password.isEmpty() || password.length() < 6) {
+            _passwordText.setError("Password ust be longer than 6 characters");
             valid = false;
         } else {
             _passwordText.setError(null);
@@ -143,7 +145,7 @@ public class LoginActivityApp extends AppCompatActivity {
                     protected void onPostExecute(String result){
                         if (result.equals("Success!")) {
                             progressDialog.dismiss();
-                            finish();
+                            closeActivity();
                         }
                     }
                 }.execute();
@@ -155,6 +157,11 @@ public class LoginActivityApp extends AppCompatActivity {
                 .addToBackStack(null)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .commit();
+    }
+
+    public void closeActivity(){
+        setResult(MainActivity.RESULT_OK);
+        finish();
     }
 
     @Override

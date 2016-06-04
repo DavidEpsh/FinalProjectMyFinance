@@ -8,6 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class ExpenseSql {
+    private static final String TABLE_MESSAGES = "MESSAGES";
+    private static final String TABLE_USER = "USER";
     private static final String TABLE = "EXPENSES";
     private static final String TABLE_CATEGORIES = "CATEGORIES";
     private static final String CATEGORY_ENTRY = "CATEGORY";
@@ -398,6 +400,13 @@ public class ExpenseSql {
         values.put(IS_SAVED, 1);
 
         db.insert(TABLE, null, values);
+    }
+
+    public static void deleteAll(SQLiteDatabase db){
+        db.execSQL("DELETE FROM "+ TABLE_USER);
+        db.execSQL("DELETE FROM "+ TABLE);
+        db.execSQL("DELETE FROM "+ TABLE_MESSAGES);
+        db.execSQL("DELETE FROM "+ TABLE_CATEGORIES);
     }
 
     public static void create(SQLiteDatabase db) {

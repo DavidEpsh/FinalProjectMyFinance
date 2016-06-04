@@ -9,11 +9,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.CookieManager;
+import java.net.CookieStore;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 
+import dsme.myfinance.models.Model;
 import dsme.myfinance.models.ModelCloudDB;
 
 public class JSONParser {
@@ -28,8 +31,7 @@ public class JSONParser {
     String paramsString;
     String sessionId = null;
 
-    public JSONObject makeHttpRequest(String url, String method,
-                                      HashMap<String, String> params) {
+    public JSONObject makeHttpRequest(String url, String method,HashMap<String, String> params) {
 
         sbParams = new StringBuilder();
         int i = 0;
@@ -55,6 +57,7 @@ public class JSONParser {
                 conn.setDoOutput(true);
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Accept-Charset", charset);
+//                conn.setRequestProperty("Content-Type", "application/json");
                 conn.setReadTimeout(10000);
                 conn.setConnectTimeout(15000);
                 conn.connect();
@@ -93,6 +96,7 @@ public class JSONParser {
 
         try {
             //Receive the response from the server
+            String response = conn.getResponseMessage();
             InputStream in = new BufferedInputStream(conn.getInputStream());
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             result = new StringBuilder();
@@ -134,4 +138,96 @@ public class JSONParser {
         // return JSON Object
         return jObj;
     }
+
+    public JSONObject makeHttpRequestUsingJobj(String url, String method,JSONObject jobj) {
+        if (method.equals("POST")) {
+            // request method is POST
+            try {
+                urlObj = new URL(url);
+                conn = (HttpURLConnection) urlObj.openConnection();
+                conn.setDoOutput(true);
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Cookie", Model.instance().getUser().getSessionId());
+                conn.setReadTimeout(10000);
+                conn.setConnectTimeout(15000);
+                conn.connect();
+
+                paramsString = jobj.toString();
+
+                wr = new DataOutputStream(conn.getOutputStream());
+                wr.writeBytes(paramsString);
+                wr.flush();
+                wr.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(method.equals("GET")){
+            // request method is GET
+
+            if (sbParams.length() != 0) {
+                url += "?" + sbParams.toString();
+            }
+
+            try {
+                urlObj = new URL(url);
+                conn = (HttpURLConnection) urlObj.openConnection();
+                conn.setDoOutput(false);
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Content-Type", "application/json");
+                //conn.setRequestProperty("Content-Type", Model.instance().getUser().getSessionId());
+                conn.setConnectTimeout(15000);
+                conn.connect();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        try {
+            //Receive the response from the server
+            String response = conn.getResponseMessage();
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            result = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                result.append(line);
+            }
+
+            String headerName;
+            String headerValue = "FAIL";
+            for (int j = 0;; j++) {
+                headerName = conn.getHeaderFieldKey(j);
+                if (headerName != null && headerName.equals("Set-Cookie")) {
+                    headerValue = conn.getHeaderField(j);
+                    sessionId = headerValue.split("=")[1].split(";")[0];
+                    break;
+                }
+            }
+
+            Log.d("JSON Parser", "result: " + result.toString());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        conn.disconnect();
+
+        // try parse the string to a JSON object
+        try {
+            jObj = new JSONObject(result.toString());
+            if (sessionId != null){
+                jObj.put("session_id", sessionId);
+            }
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+        // return JSON Object
+        return jObj;
+    }
+
 }

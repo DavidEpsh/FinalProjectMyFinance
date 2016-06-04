@@ -58,7 +58,11 @@ public class ModelCloudDB {
     static String user_email = "email";
     static String user_display_name = "displayName";
     static String user_phone_number = "phoneNumber";
+    static String user_first_name= "firstName";
+    static String user_last_name= "lastName";
     static String session_id = "session_id";
+    static String user_user_name= "username";
+    static String user_password= "password";
 
     static InputStream is = null;
     static JSONArray jsonArray = null;
@@ -66,6 +70,7 @@ public class ModelCloudDB {
     static String API_URL ="https://myfinance-mean.herokuapp.com/api/expenses";
     static String API_URL_USERS ="https://myfinance-mean.herokuapp.com/api/users";
     static String API_URL_LOGIN ="https://myfinance-mean.herokuapp.com/api/auth/signin";
+    static String API_URL_SIGNUP ="https://myfinance-mean.herokuapp.com/api/auth/signup";
 
     List<Expense> expensesArray;
 
@@ -122,96 +127,96 @@ public class ModelCloudDB {
 //            return false;
 //    }
 
-    public class AddNewExpenseToCloud extends AsyncTask<Expense, Void, String> {
-
-        @Override
-        protected String doInBackground(Expense... expenses) {
-
-
-            InputStream inputStream = null;
-            String result = "";
-            try {
-
-                // 1. create HttpClient
-                HttpClient httpclient = new DefaultHttpClient();
-
-                // 2. make POST request to the given URL
-                HttpPost httpPost = new HttpPost(API_URL);
-
-                String json = "";
-
-                JSONObject currUser = new JSONObject();
-
-                User currUserSql = Model.instance().getUser();
-                currUser.put("_id", currUserSql.getId());
-                currUser.put(user_display_name,currUserSql.getDisplayName());
-
-                // 3. build jsonObject
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate(user, currUser);
-                jsonObject.put(name, expenses[0].getExpenseName());
-                jsonObject.put(amount, expenses[0].getExpenseAmount());
-                jsonObject.put(picPath, expenses[0].getExpenseImage());
-                jsonObject.put(comments, expenses[0].getNote());
-                jsonObject.put(category, expenses[0].getCategory());
-                jsonObject.put(isRecurring, expenses[0].isRepeatingExpense);
-                jsonObject.put(date, expenses[0].date);
-
-                jsonObject.accumulate(user, currUser);
-                json = jsonObject.toString();
-
-                StringEntity se = new StringEntity(json);
-
-                // 6. set httpPost Entity
-                httpPost.setEntity(se);
-
-                // 7. Set some headers to inform server about the type of the content
-                httpPost.setHeader("Accept", "application/json");
-                httpPost.setHeader("Content-type", "application/json");
-
-                // 8. Execute POST request to the given URL
-                HttpResponse httpResponse = httpclient.execute(httpPost);
-
-                // 9. receive response as inputStream
-                inputStream = httpResponse.getEntity().getContent();
-
-                // 10. convert inputstream to string
-                if(inputStream != null) {
-                    //result = convertInputStreamToString(inputStream);
-
-                    try {
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(
-                            inputStream, "iso-8859-1"), 8);
-                    StringBuilder sb = new StringBuilder();
-                    String line = null;
-                    while ((line = reader.readLine()) != null) {
-                        sb.append(line + "\n");
-                    }
-                    inputStream.close();
-                    json = sb.toString();
-                } catch (Exception e) {
-                    Log.e("Buffer Error", "Error converting result " + e.toString());
-                }
-
-                    Model.instance().addExpense(convertToSingleExpense(json));
-                }
-
-                else
-                    result = "Did not work!";
-
-            } catch (Exception e) {
-                Log.d("InputStream", e.getLocalizedMessage());
-            }
-
-            // 11. return result
-            return result;
-        }
-        // onPostExecute displays the results of the AsyncTask.
-        @Override
-        protected void onPostExecute(String result) {
-            //Toast.makeText(getBaseContext(), "Data Sent!", Toast.LENGTH_LONG).show();
-        }
-    }
+//    public class AddNewExpenseToCloud extends AsyncTask<Expense, Void, String> {
+//
+//        @Override
+//        protected String doInBackground(Expense... expenses) {
+//
+//
+//            InputStream inputStream = null;
+//            String result = "";
+//            try {
+//
+//                // 1. create HttpClient
+//                HttpClient httpclient = new DefaultHttpClient();
+//
+//                // 2. make POST request to the given URL
+//                HttpPost httpPost = new HttpPost(API_URL);
+//
+//                String json = "";
+//
+//                JSONObject currUser = new JSONObject();
+//
+//                User currUserSql = Model.instance().getUser();
+//                currUser.put("_id", currUserSql.getId());
+//                currUser.put(user_display_name,currUserSql.getDisplayName());
+//
+//                // 3. build jsonObject
+//                JSONObject jsonObject = new JSONObject();
+//                jsonObject.accumulate(user, currUser);
+//                jsonObject.put(name, expenses[0].getExpenseName());
+//                jsonObject.put(amount, expenses[0].getExpenseAmount());
+//                jsonObject.put(picPath, expenses[0].getExpenseImage());
+//                jsonObject.put(comments, expenses[0].getNote());
+//                jsonObject.put(category, expenses[0].getCategory());
+//                jsonObject.put(isRecurring, expenses[0].isRepeatingExpense);
+//                jsonObject.put(date, expenses[0].date);
+//
+//                jsonObject.accumulate(user, currUser);
+//                json = jsonObject.toString();
+//
+//                StringEntity se = new StringEntity(json);
+//
+//                // 6. set httpPost Entity
+//                httpPost.setEntity(se);
+//
+//                // 7. Set some headers to inform server about the type of the content
+//                httpPost.setHeader("Accept", "application/json");
+//                httpPost.setHeader("Content-type", "application/json");
+//
+//                // 8. Execute POST request to the given URL
+//                HttpResponse httpResponse = httpclient.execute(httpPost);
+//
+//                // 9. receive response as inputStream
+//                inputStream = httpResponse.getEntity().getContent();
+//
+//                // 10. convert inputstream to string
+//                if(inputStream != null) {
+//                    //result = convertInputStreamToString(inputStream);
+//
+//                    try {
+//                    BufferedReader reader = new BufferedReader(new InputStreamReader(
+//                            inputStream, "iso-8859-1"), 8);
+//                    StringBuilder sb = new StringBuilder();
+//                    String line = null;
+//                    while ((line = reader.readLine()) != null) {
+//                        sb.append(line + "\n");
+//                    }
+//                    inputStream.close();
+//                    json = sb.toString();
+//                } catch (Exception e) {
+//                    Log.e("Buffer Error", "Error converting result " + e.toString());
+//                }
+//
+//                    Model.instance().addExpense(convertToSingleExpense(json));
+//                }
+//
+//                else
+//                    result = "Did not work!";
+//
+//            } catch (Exception e) {
+//                Log.d("InputStream", e.getLocalizedMessage());
+//            }
+//
+//            // 11. return result
+//            return result;
+//        }
+//        // onPostExecute displays the results of the AsyncTask.
+//        @Override
+//        protected void onPostExecute(String result) {
+//            //Toast.makeText(getBaseContext(), "Data Sent!", Toast.LENGTH_LONG).show();
+//        }
+//    }
 
     public class deleteExpense extends AsyncTask<Expense, Void, String> {
 
@@ -389,8 +394,11 @@ public class ModelCloudDB {
             String email = input.getString(user_email);
             String sessionID = input.getString(session_id);
             String displayName = input.getString(user_display_name);
+            String firstName = input.getString(user_first_name);
+            String lastName = input.getString(user_last_name);
+            String userName = input.getString(user_user_name);
 
-            currentUser = new User(userId,displayName, email, phone, sessionID);
+            currentUser = new User(userId, displayName, userName, email, phone, sessionID, firstName, lastName, null);
 
         } catch (JSONException e) {
             Log.e("JSON Parser #1", "Error parsing data " + e.toString());
@@ -461,11 +469,78 @@ public class ModelCloudDB {
 
             return null;
         }
-
-
-
     }
 
+    public class SignUp extends AsyncTask<User, String, User> {
+        JSONParser jsonParser = new JSONParser();
+
+        @Override
+        protected User doInBackground(User... users) {
+
+            try {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put(user_first_name, users[0].getFirstName());
+                jsonObject.put(user_last_name, users[0].getLastName());
+                jsonObject.put(user_email, users[0].getEmail());
+                jsonObject.put(user_phone_number, users[0].getPhoneNumber());
+                jsonObject.put(user_user_name, users[0].getUserName());
+                jsonObject.put(user_password, users[0].getPassword());
+
+                JSONObject json = jsonParser.makeHttpRequestUsingJobj(API_URL_SIGNUP, "POST", jsonObject);
+
+                if (json != null) {
+                    Log.d("JSON result", json.toString());
+                    User user = convertToUser(json);
+                    Model.instance().addUser(user);
+                    return user;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+    public class AddNewExpenseToCloud extends AsyncTask<Expense, Void, String> {
+        JSONParser jsonParser = new JSONParser();
+
+        @Override
+        protected String doInBackground(Expense... expenses) {
+
+            try {
+                JSONObject currUser = new JSONObject();
+
+                User currUserSql = Model.instance().getUser();
+                currUser.put("_id", currUserSql.getId());
+                currUser.put(user_display_name,currUserSql.getDisplayName());
+
+                // 3. build jsonObject
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put(user, currUser);
+                jsonObject.put(name, expenses[0].getExpenseName());
+                jsonObject.put(amount, expenses[0].getExpenseAmount());
+                jsonObject.put(picPath, expenses[0].getExpenseImage());
+                jsonObject.put(comments, expenses[0].getNote());
+                jsonObject.put(category, expenses[0].getCategory());
+                jsonObject.put(isRecurring, expenses[0].isRepeatingExpense);
+                jsonObject.put(date, expenses[0].date);
+
+                JSONObject jObj = jsonParser.makeHttpRequestUsingJobj(API_URL_SIGNUP, "POST", jsonObject);
+
+                if (jObj != null) {
+                    Log.d("JSON result", jObj.toString());
+                    Model.instance().addExpense(convertToSingleExpense(jObj.toString()));
+                    return "OK";
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
 }
 
 

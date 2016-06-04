@@ -62,8 +62,12 @@ public class MainActivity extends AppCompatActivity
             startActivity(intentNew);
         }
 
-        Intent intent = new Intent(MainActivity.this, LoginActivityApp.class);
-        startActivityForResult(intent,ACTIVITY_SIGN_IN);
+        if(Model.instance().getUser() == null) {
+            Intent intent = new Intent(MainActivity.this, LoginActivityApp.class);
+            startActivityForResult(intent, ACTIVITY_SIGN_IN);
+        }else{
+            openFragment(new OverviewFragment());
+        }
     }
 
     @Override
@@ -127,7 +131,7 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, fragment)
-                .commit();
+                .commitAllowingStateLoss();
 
         if (fragment instanceof ChatFragment){
             fab.setVisibility(View.INVISIBLE);

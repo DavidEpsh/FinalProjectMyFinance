@@ -264,24 +264,20 @@ public class TransactionEditActivity extends AppCompatActivity {
 //        setResult(this.RESULT_OK, returnIntent);
 //            new ModelCloudDB().new AddNewExpenseToCloud().execute(mExpense);
 
-//            new ModelCloudDB().new
-//                    AddNewExpenseToCloud(){
-//                        @Override
-//                        protected void onPostExecute(String result){
-//                            if (!result.equals("Did not work!")){
-//                                Toast.makeText(getApplicationContext() ,"Successfully added", Toast.LENGTH_LONG);
-//                                finish();
-//                            }else{
-//                                Toast.makeText(getApplicationContext() ,"Couldn't add expense, please try again", Toast.LENGTH_LONG);
-//                            }
-//                        }
-//                    }.execute(mExpense);
-
-//            new ModelCloudDB().new test(){
-//
-//            }.execute(mExpense);
-
-            new ModelCloudDB().new LogIn().execute("dave", "A1a1a1a1!!");
+            new ModelCloudDB().new
+                    AddNewExpenseToCloud() {
+                        @Override
+                        protected void onPostExecute(String result) {
+                            if (result != null) {
+                                if (!result.equals("Did not work!")) {
+                                    Toast.makeText(getApplicationContext(), "Successfully added", Toast.LENGTH_LONG);
+                                    finish();
+                                }
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Couldn't add expense, please try again", Toast.LENGTH_LONG);
+                            }
+                        }
+                    }.execute(mExpense);
         }
     }
 
