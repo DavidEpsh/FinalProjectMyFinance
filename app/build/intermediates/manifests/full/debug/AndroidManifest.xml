@@ -57,6 +57,10 @@
         <activity
             android:name="dsme.myfinance.activities.ChatActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="dsme.myfinance.activities.ActivityAdviserProfile"
+            android:label="@string/title_activity_ctivity_advisor_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

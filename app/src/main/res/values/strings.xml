@@ -192,5 +192,6 @@
     <string name="first_name">First Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="username">Username</string>
+    <string name="title_activity_ctivity_advisor_profile">ctivityAdvisorProfile</string>
 
 </resources>

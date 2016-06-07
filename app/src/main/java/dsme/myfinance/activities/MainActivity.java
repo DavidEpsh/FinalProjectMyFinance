@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.nav_share) {
-            Intent intent = new Intent(MainActivity.this, LoginActivityApp.class);
+            Intent intent = new Intent(MainActivity.this, ActivityAdviserProfile.class);
             startActivity(intent);
         }
 
