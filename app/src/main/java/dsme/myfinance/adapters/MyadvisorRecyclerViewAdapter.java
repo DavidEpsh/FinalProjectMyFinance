@@ -14,10 +14,15 @@ import dsme.myfinance.R;
 
 public class MyadvisorRecyclerViewAdapter extends RecyclerView.Adapter<MyadvisorRecyclerViewAdapter.ViewHolder> {
 
-    private final List mValues;
+    private List mValues;
 
     public MyadvisorRecyclerViewAdapter(List items) {
         mValues = items;
+    }
+
+    public void setData(List advisers)
+    {
+        mValues = advisers;
     }
 
     @Override
@@ -43,7 +48,11 @@ public class MyadvisorRecyclerViewAdapter extends RecyclerView.Adapter<Myadvisor
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        if(mValues == null){
+            return 0;
+        }else{
+            return mValues.size();
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

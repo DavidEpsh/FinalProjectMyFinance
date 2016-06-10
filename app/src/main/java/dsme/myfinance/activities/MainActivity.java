@@ -18,8 +18,8 @@ import dsme.myfinance.R;
 import dsme.myfinance.fragments.ChatFragment;
 import dsme.myfinance.fragments.ExpenseListFragment;
 import dsme.myfinance.fragments.OverviewFragment;
+import dsme.myfinance.fragments.adviserListFragment;
 import dsme.myfinance.models.Model;
-import dsme.myfinance.models.User;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -117,9 +117,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, ChatActivity.class);
             startActivity(intent);
 
-        } else if (id == R.id.nav_share) {
-            Intent intent = new Intent(MainActivity.this, ActivityAdviserProfile.class);
-            startActivity(intent);
+        } else if (id == R.id.nav_adviser_list) {
+            openFragment(new adviserListFragment());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

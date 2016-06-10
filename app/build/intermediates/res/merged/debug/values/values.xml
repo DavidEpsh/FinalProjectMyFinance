@@ -663,6 +663,7 @@
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
     <string name="about">About</string>
+    <string name="about_me">About Me</string>
     <string name="account_balance_update">Account balance update</string>
     <string name="accounts_few">Accounts</string>
     <string name="accounts_many">Accounts</string>
@@ -787,6 +788,7 @@
     <string name="message_welcome">Now in chat with your adviser</string>
     <string name="month">Month</string>
     <string name="monthly_expense">Monthly expense</string>
+    <string name="my_credentials">My Credentials</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="next">Next</string>

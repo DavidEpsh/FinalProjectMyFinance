@@ -99,4 +99,16 @@ public class User {
     public String getSessionIdTrimmed() {
         return sessionId.split("=")[0].split(";")[0];
     }
+
+
+    public static class Adviser extends User{
+
+        String description;
+
+        public Adviser(String id, String displayName,String userName, String firstName, String lastName, String email, String phoneNumber, String sessionId, String password, String description){
+            super(id, displayName, userName, firstName, lastName, email, phoneNumber, sessionId, password);
+
+            this.description = description;
+        }
+    }
 }

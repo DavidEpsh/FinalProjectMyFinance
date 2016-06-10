@@ -19,7 +19,7 @@
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_adviser_list"
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/advisors" />
 

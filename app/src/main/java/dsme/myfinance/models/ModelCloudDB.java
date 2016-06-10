@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-
 import dsme.myfinance.R;
 import dsme.myfinance.api.JSONParser;
 
@@ -63,6 +62,9 @@ public class ModelCloudDB {
     static String session_id = "session_id";
     static String user_user_name= "username";
     static String user_password= "password";
+    static String roles= "roles";
+    static String adviser_description= "description";
+
 
     static InputStream is = null;
     static JSONArray jsonArray = null;
@@ -117,106 +119,6 @@ public class ModelCloudDB {
             return "Success!";
         }
     }
-
-//    public boolean isConnected(){
-//        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
-//        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-//        if (networkInfo != null && networkInfo.isConnected())
-//            return true;
-//        else
-//            return false;
-//    }
-
-//    public class AddNewExpenseToCloud extends AsyncTask<Expense, Void, String> {
-//
-//        @Override
-//        protected String doInBackground(Expense... expenses) {
-//
-//
-//            InputStream inputStream = null;
-//            String result = "";
-//            try {
-//
-//                // 1. create HttpClient
-//                HttpClient httpclient = new DefaultHttpClient();
-//
-//                // 2. make POST request to the given URL
-//                HttpPost httpPost = new HttpPost(API_URL);
-//
-//                String json = "";
-//
-//                JSONObject currUser = new JSONObject();
-//
-//                User currUserSql = Model.instance().getUser();
-//                currUser.put("_id", currUserSql.getId());
-//                currUser.put(user_display_name,currUserSql.getDisplayName());
-//
-//                // 3. build jsonObject
-//                JSONObject jsonObject = new JSONObject();
-//                jsonObject.accumulate(user, currUser);
-//                jsonObject.put(name, expenses[0].getExpenseName());
-//                jsonObject.put(amount, expenses[0].getExpenseAmount());
-//                jsonObject.put(picPath, expenses[0].getExpenseImage());
-//                jsonObject.put(comments, expenses[0].getNote());
-//                jsonObject.put(category, expenses[0].getCategory());
-//                jsonObject.put(isRecurring, expenses[0].isRepeatingExpense);
-//                jsonObject.put(date, expenses[0].date);
-//
-//                jsonObject.accumulate(user, currUser);
-//                json = jsonObject.toString();
-//
-//                StringEntity se = new StringEntity(json);
-//
-//                // 6. set httpPost Entity
-//                httpPost.setEntity(se);
-//
-//                // 7. Set some headers to inform server about the type of the content
-//                httpPost.setHeader("Accept", "application/json");
-//                httpPost.setHeader("Content-type", "application/json");
-//
-//                // 8. Execute POST request to the given URL
-//                HttpResponse httpResponse = httpclient.execute(httpPost);
-//
-//                // 9. receive response as inputStream
-//                inputStream = httpResponse.getEntity().getContent();
-//
-//                // 10. convert inputstream to string
-//                if(inputStream != null) {
-//                    //result = convertInputStreamToString(inputStream);
-//
-//                    try {
-//                    BufferedReader reader = new BufferedReader(new InputStreamReader(
-//                            inputStream, "iso-8859-1"), 8);
-//                    StringBuilder sb = new StringBuilder();
-//                    String line = null;
-//                    while ((line = reader.readLine()) != null) {
-//                        sb.append(line + "\n");
-//                    }
-//                    inputStream.close();
-//                    json = sb.toString();
-//                } catch (Exception e) {
-//                    Log.e("Buffer Error", "Error converting result " + e.toString());
-//                }
-//
-//                    Model.instance().addExpense(convertToSingleExpense(json));
-//                }
-//
-//                else
-//                    result = "Did not work!";
-//
-//            } catch (Exception e) {
-//                Log.d("InputStream", e.getLocalizedMessage());
-//            }
-//
-//            // 11. return result
-//            return result;
-//        }
-//        // onPostExecute displays the results of the AsyncTask.
-//        @Override
-//        protected void onPostExecute(String result) {
-//            //Toast.makeText(getBaseContext(), "Data Sent!", Toast.LENGTH_LONG).show();
-//        }
-//    }
 
     public class deleteExpense extends AsyncTask<Expense, Void, String> {
 
@@ -502,6 +404,7 @@ public class ModelCloudDB {
             return null;
         }
     }
+
     public class AddNewExpenseToCloud extends AsyncTask<Expense, Void, String> {
         JSONParser jsonParser = new JSONParser();
 
@@ -512,7 +415,7 @@ public class ModelCloudDB {
                 JSONObject currUser = new JSONObject();
 
                 User currUserSql = Model.instance().getUser();
-                currUser.put("_id", currUserSql.getId());
+                currUser.put("id", currUserSql.getId());
                 currUser.put(user_display_name,currUserSql.getDisplayName());
 
                 // 3. build jsonObject
@@ -541,6 +444,46 @@ public class ModelCloudDB {
             return null;
         }
     }
+
+    public class GetAdvisers extends AsyncTask<Void, Void, List<User.Adviser>> {
+        JSONParser jsonParser = new JSONParser();
+
+        @Override
+        protected List<User.Adviser> doInBackground(Void... Void) {
+
+            List<User.Adviser> advisers = new ArrayList<>();
+
+            try {
+                JSONArray jArray = jsonParser.makeHttpRequestArray(API_URL_USERS, "GET", null);
+
+                if (jArray != null) {
+                    Log.d("JSON result", jArray.toString());
+
+                    for (int i = 0; i < jArray.length(); i++) {
+                        JSONObject object = jArray.getJSONObject(i);
+                        JSONArray role = object.getJSONArray(roles);
+
+                        if(role.getString(1).equals("advisor")) {
+                            String displayName = object.getString(user_display_name);
+                            String userName = object.getString(user_display_name);
+                            String firstName = object.getString(user_first_name);
+                            String lastName = object.getString(user_last_name);
+                            String userId = object.getString(id);
+                            String email = object.getString(user_email);
+                            String phoneNumber = object.getString(user_phone_number);
+                            String description = object.getString(adviser_description);
+
+                            advisers.add(new User.Adviser(userId,displayName, userName,firstName, lastName,email, phoneNumber, null, null,description));
+                        }
+                    }
+                    return advisers;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
 }
-
-

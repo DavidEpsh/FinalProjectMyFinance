@@ -22,10 +22,8 @@ import dsme.myfinance.utils.DateUtils;
 
 public class ExpenseListFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String CURRENT_MONTH = "month";
     private static final String CURRENT_YEAR = "year";
-    // TODO: Customize parameters
     private int month = -1;
     private int year = 0;
     RecyclerView recyclerView;

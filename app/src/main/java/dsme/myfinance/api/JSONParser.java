@@ -1,5 +1,7 @@
 package dsme.myfinance.api;
 import android.util.Log;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.BufferedInputStream;
@@ -27,6 +29,7 @@ public class JSONParser {
     StringBuilder result;
     URL urlObj;
     JSONObject jObj = null;
+    JSONArray jArray = null;
     StringBuilder sbParams;
     String paramsString;
     String sessionId = null;
@@ -228,6 +231,59 @@ public class JSONParser {
         }
         // return JSON Object
         return jObj;
+    }
+
+    public JSONArray makeHttpRequestArray(String url, String method, JSONObject jobj) {
+
+        if(method.equals("GET")){
+            // request method is GET
+
+            try {
+                urlObj = new URL(url);
+                conn = (HttpURLConnection) urlObj.openConnection();
+                conn.setDoOutput(false);
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Content-Type", "application/json");
+                //conn.setRequestProperty("Content-Type", Model.instance().getUser().getSessionIdTrimmed());
+                conn.setConnectTimeout(15000);
+                conn.connect();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        try {
+            //Receive the response from the server
+            String response = conn.getResponseMessage();
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            result = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                result.append(line);
+            }
+
+            Log.d("JSON Parser", "result: " + result.toString());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        conn.disconnect();
+
+        // try parse the string to a JSON object
+        try {
+            jArray = new JSONArray(result.toString());
+            if (sessionId != null){
+                jObj.put("session_id", sessionId);
+            }
+        } catch (JSONException e) {
+            Log.e("JSON Parser", "Error parsing data " + e.toString());
+        }
+        // return JSON Object
+        return jArray;
     }
 
 }
