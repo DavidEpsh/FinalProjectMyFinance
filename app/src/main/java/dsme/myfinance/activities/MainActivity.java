@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intentNew);
         }
 
-        if(Model.instance().getUser() == null) {
+        if(Model.instance().getCustomer() == null) {
             Intent intent = new Intent(MainActivity.this, LoginActivityApp.class);
             startActivityForResult(intent, ACTIVITY_SIGN_IN);
         }else{

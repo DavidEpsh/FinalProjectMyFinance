@@ -106,8 +106,8 @@ public class ModelSql implements Model.ModelInterface {
     }
 
     @Override
-    public User getUser() {
-        return UsersSql.getUser(dbHelper);
+    public User getCustomer() {
+        return UsersSql.getCustomer(dbHelper);
     }
 
 

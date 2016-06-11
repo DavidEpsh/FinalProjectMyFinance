@@ -112,15 +112,13 @@ public class fragmentSignUp extends Fragment {
 
             new ModelCloudDB(). new SignUp(){
                 @Override
-                protected void onPostExecute(User.Customer result){
-                    if (result != null) {
+                protected void onPostExecute(String result){
+                    if (result.equals("OK")) {
                         progressDialog.dismiss();
-                        Model.instance().addCustomer(user);
                         closeActivity();
                     }else{
                         progressDialog.dismiss();
                         Toast.makeText(getContext(), "Unable to sign up, please try again", Toast.LENGTH_SHORT).show();
-
                     }
                 }
             }.execute(user);

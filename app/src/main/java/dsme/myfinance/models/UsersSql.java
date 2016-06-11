@@ -36,13 +36,14 @@ public class UsersSql {
         values.put(SESSION_ID, user.getSessionId());
         values.put(USER_FIRST_NAME, user.getFirstName());
         values.put(USER_LAST_NAME, user.getLastName());
+        values.put(USER_USER_NAME, user.getUserName());
         values.put(ADVISER_DISPLAY_NAME, user.getAdviserName());
         values.put(ADVISER_ID, user.getAdviserId());
 
         db.insert(TABLE_USER, null, values);
     }
 
-    public static User getUser(ModelSql.MyOpenHelper dbHelper) {
+    public static User.Customer getCustomer(ModelSql.MyOpenHelper dbHelper) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         String query = "SELECT * FROM " + TABLE_USER;

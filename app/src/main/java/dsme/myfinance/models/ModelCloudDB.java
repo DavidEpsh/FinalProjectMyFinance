@@ -17,7 +17,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import dsme.myfinance.api.JSONParser;
 
@@ -58,7 +57,7 @@ public class ModelCloudDB {
     static String API_URL_LOGIN ="https://myfinance-mean.herokuapp.com/api/auth/signin";
     static String API_URL_SIGNUP ="https://myfinance-mean.herokuapp.com/api/auth/signup";
     static String API_URL_USERS_EXPENSES ="https://myfinance-mean.herokuapp.com/api/user-expenses/";
-    static String API_URL_ADVISER_PIC ="https://myfinance-mean.herokuapp.com/modules/users/client/img/profile/uploads/";
+    public static String API_URL_ADVISER_PIC ="https://myfinance-mean.herokuapp.com/modules/users/client/img/profile/uploads/";
 
     List<Expense> expensesArray;
 
@@ -167,82 +166,10 @@ public class ModelCloudDB {
 
     }
 
-//    public class GetAllUsers extends AsyncTask<Void, Void, List<Expense> > {
-//
-//        protected List<Expense> doInBackground(Void... params) {
-//
-//            // Making HTTP request
-//            try {
-//                // defaultHttpClient
-//                DefaultHttpClient httpClient = new DefaultHttpClient();
-//                HttpGet httpGet = new HttpGet(API_URL_USERS);
-//
-//                HttpResponse httpResponse = httpClient.execute(httpGet);
-//                HttpEntity httpEntity = httpResponse.getEntity();
-//                is = httpEntity.getContent();
-//
-//            } catch (UnsupportedEncodingException e) {
-//                e.printStackTrace();
-//            } catch (ClientProtocolException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            try {
-//                BufferedReader reader = new BufferedReader(new InputStreamReader(
-//                        is, "iso-8859-1"), 8);
-//                StringBuilder sb = new StringBuilder();
-//                String line = null;
-//                while ((line = reader.readLine()) != null) {
-//                    sb.append(line + "\n");
-//                }
-//                is.close();
-//                json = sb.toString();
-//            } catch (Exception e) {
-//                Log.e("Buffer Error", "Error converting result " + e.toString());
-//            }
-//
-//            // try parse the string to a JSON object
-//            try {
-//                jsonArray = new JSONArray(json);
-//                //jArray = jsonArray.getJSONArray();
-//                expensesArray = new ArrayList<>();
-//
-//                for (int i = 0; i < jsonArray.length(); i++){
-//                    JSONObject object = jsonArray.getJSONObject(i);
-//                    String mongoId = object.getString(id);
-//                    String expenseName = object.getString(name);
-//                    int expenseAmount = object.getInt(amount);
-//                    String picturePath = object.getString(picPath);
-//                    String note = object.getString(comments);
-//                    String expenseCategory = object.getString(category);
-//                    int isRepeating = object.getInt(isRecurring);
-//                    String userName = "Temp";
-//
-//                    expensesArray.add(new Expense(12121212,
-//                            expenseName,
-//                            12121212,
-//                            isRepeating,
-//                            picturePath,
-//                            (float)expenseAmount,
-//                            category,
-//                            note));
-//                }
-//            } catch (JSONException e) {
-//                Log.e("JSON Parser", "Error parsing data " + e.toString());
-//            }
-//
-//            // return JSON String
-//            return expensesArray;
-//        }
-//    }
-
     public List<Expense> convertToExpenses(String input){
         try {
 
             jsonArray = new JSONArray(input);
-            //jArray = jsonArray.getJSONArray();
             expensesArray = new ArrayList<>();
 
             for (int i = 0; i < jsonArray.length(); i++){
@@ -275,20 +202,16 @@ public class ModelCloudDB {
 
     public User.Customer convertToCustomer(JSONObject input) {
 
-        JSONObject adviser;
+        JSONObject adviser = null;
         User.Customer currentUser;
 
-        try {
-            adviser = input.getJSONObject("advisor");
-        }catch (JSONException e) {
-            Log.e("JSON Parser #1", "Error parsing data " + e.toString());
-            return null;
-        }
         try {
             String adviserId = null;
             String adviserName = null;
 
-            if (adviser != null){
+
+            if (input.has("advisor")){
+                adviser = input.getJSONObject("advisor");
                 adviserId = adviser.getString(id);
                 adviserName = adviser.getString(user_display_name);
             }
@@ -374,11 +297,11 @@ public class ModelCloudDB {
         }
     }
 
-    public class SignUp extends AsyncTask<User, String, User.Customer> {
+    public class SignUp extends AsyncTask<User, String, String> {
         JSONParser jsonParser = new JSONParser();
 
         @Override
-        protected User.Customer doInBackground(User... users) {
+        protected String doInBackground(User... users) {
 
             try {
                 JSONObject jsonObject = new JSONObject();
@@ -395,14 +318,14 @@ public class ModelCloudDB {
                     Log.d("JSON result", json.toString());
                     User.Customer user = convertToCustomer(json);
                     Model.instance().addCustomer(user);
-                    return user;
+                    return "OK";
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            return null;
+            return "FAIL";
         }
     }
 
@@ -487,9 +410,30 @@ public class ModelCloudDB {
         protected String doInBackground(Void... Void) {
 
             try {
-                JSONArray jArray = jsonParser.makeHttpRequestArray(API_URL_USERS_EXPENSES + Model.instance().getUser().getId(), "GET", null);
+                JSONArray jArray = jsonParser.makeHttpRequestArray(API_URL_USERS_EXPENSES + Model.instance().getCustomer().getId(), "GET", null);
 
                 Model.instance().batchUpdateExpenses(convertToExpenses(jArray.toString()));
+                return "Success!";
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+    public class AssociateAdviser extends AsyncTask<Void, Void, String > {
+        JSONParser jsonParser = new JSONParser();
+
+        @Override
+        protected String doInBackground(Void... Void) {
+
+            try {
+                JSONArray jArray = jsonParser.makeHttpRequestArray(API_URL_USERS_EXPENSES + Model.instance().getCustomer().getId(), "GET", null);
+
+                User.Customer customer = Model.instance().getCustomer();
+                customer.setAdviserId();
                 return "Success!";
 
             } catch (Exception e) {

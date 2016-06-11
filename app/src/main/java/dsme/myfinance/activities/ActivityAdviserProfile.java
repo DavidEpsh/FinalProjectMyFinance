@@ -8,9 +8,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,6 +27,7 @@ public class ActivityAdviserProfile extends AppCompatActivity {
     public static String ADVISER_EXTRA = "adviser_extra";
 
     FloatingActionButton addAdviser;
+    ImageView profileImageView;
     String displayName;
     String profilePicture;
     String description;
@@ -39,6 +42,8 @@ public class ActivityAdviserProfile extends AppCompatActivity {
         setContentView(R.layout.activity_advisor_profile);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_adviser_profile);
         setSupportActionBar(toolbar);
+
+        profileImageView = (ImageView) findViewById(R.id.adviser_profile_image);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add_adviser);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +76,8 @@ public class ActivityAdviserProfile extends AppCompatActivity {
             id = adviser.getId();
             phoneNumber = adviser.getPhoneNumber();
             email = adviser.getEmail();
+
+            Picasso.with(this).load(ModelCloudDB.API_URL_ADVISER_PIC + id + ".jpg").into(profileImageView);
         }
     }
 

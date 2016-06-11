@@ -36,7 +36,7 @@ public class Model {
         public List<MessageLocal> getMessages();
 
         public void addCustomer(User.Customer user);
-        public User getUser();
+        public User.Customer getCustomer();
     }
 
     private static final Model instance = new Model();
@@ -189,8 +189,8 @@ public class Model {
         modelImpl.addCustomer(user);
     }
 
-    public User getUser(){
-        return modelImpl.getUser();
+    public User.Customer getCustomer(){
+        return modelImpl.getCustomer();
     }
 }
 

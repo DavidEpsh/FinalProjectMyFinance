@@ -55,7 +55,7 @@ public class SIOFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private boolean mTyping = false;
     private Handler mTypingHandler = new Handler();
-    private String mUsername = Model.instance().getUser().getFirstName();
+    private String mUsername = Model.instance().getCustomer().getFirstName();
     private Socket mSocket;
 
     public SIOFragment() {

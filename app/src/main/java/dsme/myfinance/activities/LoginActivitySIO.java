@@ -37,7 +37,7 @@ public class LoginActivitySIO extends Activity {
             mSocket = IO.socket("http://chat.socket.io/");
         } catch (URISyntaxException e) {}
 
-        mUsername = Model.instance().getUser().getFirstName();
+        mUsername = Model.instance().getCustomer().getFirstName();
         //attemptLogin();
         mSocket.on("login", onLogin);
         mSocket.connect();
@@ -62,7 +62,7 @@ public class LoginActivitySIO extends Activity {
      */
     private void attemptLogin() {
 
-        mSocket.emit("add user", Model.instance().getUser().getDisplayName());
+        mSocket.emit("add user", Model.instance().getCustomer().getDisplayName());
     }
 
     private Emitter.Listener onLogin = new Emitter.Listener() {

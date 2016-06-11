@@ -10,16 +10,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.CookieManager;
-import java.net.CookieStore;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.HashMap;
 
 import dsme.myfinance.models.Model;
-import dsme.myfinance.models.ModelCloudDB;
 
 public class JSONParser {
 
@@ -136,11 +130,11 @@ public class JSONParser {
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
 
-//                if(Model.instance().getUser().getSessionId() != null) {
-//                    String temp1 = Model.instance().getUser().getSessionId();
-//                    String temp = Model.instance().getUser().getSessionIdTrimmed();
-//                    conn.setRequestProperty("Cookie", Model.instance().getUser().getSessionIdTrimmed());
-//                }
+                if(Model.instance().getCustomer().getSessionId() != null) {
+                    String temp1 = Model.instance().getCustomer().getSessionId();
+                    String temp = Model.instance().getCustomer().getSessionIdTrimmed();
+                    conn.setRequestProperty("Cookie", Model.instance().getCustomer().getSessionId());
+                }
                 conn.setReadTimeout(10000);
                 conn.setConnectTimeout(15000);
                 conn.connect();
@@ -169,7 +163,7 @@ public class JSONParser {
                 conn.setDoOutput(false);
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Content-Type", "application/json");
-                conn.setRequestProperty("Content-Type", Model.instance().getUser().getSessionIdTrimmed());
+                conn.setRequestProperty("Content-Type", Model.instance().getCustomer().getSessionIdTrimmed());
                 conn.setConnectTimeout(15000);
                 conn.connect();
 
@@ -192,7 +186,7 @@ public class JSONParser {
 
             String headerName;
             String headerValue = "FAIL";
-            for (int j = 0;; j++) {
+            for (int j = 0; j<50; j++) {
                 headerName = conn.getHeaderFieldKey(j);
                 if (headerName != null && headerName.equals("Set-Cookie")) {
                     headerValue = conn.getHeaderField(j);
@@ -209,12 +203,12 @@ public class JSONParser {
 
         conn.disconnect();
 
-        // try parse the string to a JSON object
         try {
             jObj = new JSONObject(result.toString());
             if (sessionId != null){
                 jObj.put("session_id", sessionId);
             }
+
         } catch (JSONException e) {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
@@ -233,7 +227,7 @@ public class JSONParser {
                 conn.setDoOutput(false);
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Content-Type", "application/json");
-                //conn.setRequestProperty("Content-Type", Model.instance().getUser().getSessionIdTrimmed());
+                //conn.setRequestProperty("Content-Type", Model.instance().getCustomer().getSessionIdTrimmed());
                 conn.setConnectTimeout(15000);
                 conn.connect();
 

@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/values-fi-rFI/values-fi-rFI.xml",
+        "outputFile": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\res\\merged\\debug\\values-fi-rFI\\values-fi-rFI.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 98
                 },
                 "from": {
-                    "file": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/net.danlew/android.joda/2.4.0/res/values-fi-rFI/values.xml",
+                    "file": "C:\\Users\\David\\Final Project\\FinalProjectMyFinance\\app\\build\\intermediates\\exploded-aar\\net.danlew\\android.joda\\2.4.0\\res\\values-fi-rFI\\values.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
