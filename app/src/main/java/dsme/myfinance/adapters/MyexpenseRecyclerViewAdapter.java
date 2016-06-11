@@ -44,7 +44,7 @@ public class MyexpenseRecyclerViewAdapter extends RecyclerView.Adapter<Myexpense
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.expense_item, parent, false);
+                .inflate(R.layout.item_expense, parent, false);
         return new ViewHolder(view);
 
     }
@@ -96,10 +96,5 @@ public class MyexpenseRecyclerViewAdapter extends RecyclerView.Adapter<Myexpense
             mAmount= (TextView) mView.findViewById(R.id.amountTextView);
             circle = (ImageView) mView.findViewById(R.id.colorImageView);
         }
-
-//        @Override
-//        public String toString() {
-//            return super.toString() + " '" + mContentView.getText() + "'";
-//        }
     }
 }

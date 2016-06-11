@@ -23,6 +23,7 @@ android {
 repositories {
     maven { url "https://jitpack.io" }
     maven { url "http://dl.bintray.com/pixplicity/maven" }
+    mavenCentral()
 }
 
 dependencies {
@@ -42,4 +43,5 @@ dependencies {
     compile 'com.android.support:cardview-v7:23.3.0'
     compile 'com.jakewharton:butterknife:6.1.0'
     compile 'io.socket:socket.io-client:0.7.0'
+    compile 'com.google.code.gson:gson:2.6.2'
 }

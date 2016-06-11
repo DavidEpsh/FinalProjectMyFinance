@@ -35,7 +35,7 @@ public class Model {
         public void addMessage(MessageLocal message);
         public List<MessageLocal> getMessages();
 
-        public void addUser(User user);
+        public void addCustomer(User.Customer user);
         public User getUser();
     }
 
@@ -185,8 +185,8 @@ public class Model {
     }
 
 
-    public void addUser(User user){
-        modelImpl.addUser(user);
+    public void addCustomer(User.Customer user){
+        modelImpl.addCustomer(user);
     }
 
     public User getUser(){

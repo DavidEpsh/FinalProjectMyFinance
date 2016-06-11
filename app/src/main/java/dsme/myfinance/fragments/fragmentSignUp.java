@@ -1,13 +1,9 @@
 package dsme.myfinance.fragments;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -15,7 +11,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import dsme.myfinance.R;
-import dsme.myfinance.activities.LoginActivityApp;
 import dsme.myfinance.activities.MainActivity;
 import dsme.myfinance.models.Model;
 import dsme.myfinance.models.ModelCloudDB;
@@ -103,7 +98,7 @@ public class fragmentSignUp extends Fragment {
         }
 
         if(validInput){
-            final User user = new User(null,
+            final User.Customer user = new User.Customer(null,
                     null,
                     userName.getText().toString(),
                     firstName.getText().toString(),
@@ -111,14 +106,16 @@ public class fragmentSignUp extends Fragment {
                     email.getText().toString(),
                     phone.getText().toString(),
                     null,
-                    password.getText().toString());
+                    password.getText().toString(),
+                    null,
+                    null);
 
             new ModelCloudDB(). new SignUp(){
                 @Override
-                protected void onPostExecute(User result){
+                protected void onPostExecute(User.Customer result){
                     if (result != null) {
                         progressDialog.dismiss();
-                        Model.instance().addUser(user);
+                        Model.instance().addCustomer(user);
                         closeActivity();
                     }else{
                         progressDialog.dismiss();

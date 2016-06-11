@@ -11,9 +11,9 @@ public class UsersSql {
 
     private static final String TABLE_ADVISER = "ADVISER";
     private static final String ADVISER_ID = "ADVISER_ID";
+    private static final String ADVISER_DISPLAY_NAME = "ADVISER_DISPLAY_NAME";
 
-
-    private static final String TABLE_USER = "USER";
+    private static final String TABLE_USER = "CUSTOMER";
     private static final String USER_ID = "USER_ID";
     private static final String USER_EMAIL = "USER_EMAIL";
     private static final String USER_PHONE_NUMBER = "USER_PHONE_NUMBER";
@@ -23,7 +23,7 @@ public class UsersSql {
     private static final String USER_FIRST_NAME= "USER_FIRST_NAME";
     private static final String USER_USER_NAME= "USER_USER_NAME";
 
-    public static void addUser(ModelSql.MyOpenHelper dbHelper, User user) {
+    public static void addCustomer(ModelSql.MyOpenHelper dbHelper, User.Customer user) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ExpenseSql.deleteAll(db);
@@ -36,6 +36,8 @@ public class UsersSql {
         values.put(SESSION_ID, user.getSessionId());
         values.put(USER_FIRST_NAME, user.getFirstName());
         values.put(USER_LAST_NAME, user.getLastName());
+        values.put(ADVISER_DISPLAY_NAME, user.getAdviserName());
+        values.put(ADVISER_ID, user.getAdviserId());
 
         db.insert(TABLE_USER, null, values);
     }
@@ -56,6 +58,8 @@ public class UsersSql {
                 int id_firstName = cursor.getColumnIndex(USER_FIRST_NAME);
                 int id_lastName = cursor.getColumnIndex(USER_LAST_NAME);
                 int id_userName = cursor.getColumnIndex(USER_USER_NAME);
+                int id_adviserName = cursor.getColumnIndex(ADVISER_DISPLAY_NAME);
+                int id_adviserId = cursor.getColumnIndex(ADVISER_ID);
 
                 String userID = cursor.getString(id_userID);
                 String userEmail = cursor.getString(id_userEmail);
@@ -65,8 +69,10 @@ public class UsersSql {
                 String firstName = cursor.getString(id_firstName);
                 String lastName = cursor.getString(id_lastName);
                 String userName = cursor.getString(id_userName);
+                String adviserName = cursor.getString(id_adviserName);
+                String adviserId = cursor.getString(id_adviserId);
 
-                return new User(userID, displayName, userName, userEmail, userPhone, sessionId, firstName, lastName,null);
+                return new User.Customer(userID, displayName, firstName, lastName, userName, userEmail, userPhone, sessionId,null, adviserName, adviserId);
             }
         }
         return null;
@@ -81,7 +87,9 @@ public class UsersSql {
                 USER_LAST_NAME +" TEXT," +
                 USER_USER_NAME +" TEXT," +
                 SESSION_ID +" TEXT," +
-                USER_EMAIL + " TEXT" + ")");
+                USER_EMAIL + " TEXT," +
+                ADVISER_DISPLAY_NAME +" TEXT," +
+                ADVISER_ID + " TEXT" + ")");
     }
 
     public static void drop(SQLiteDatabase db) {

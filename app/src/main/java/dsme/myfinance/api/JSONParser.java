@@ -34,23 +34,7 @@ public class JSONParser {
     String paramsString;
     String sessionId = null;
 
-    public JSONObject makeHttpRequest(String url, String method,HashMap<String, String> params) {
-
-        sbParams = new StringBuilder();
-        int i = 0;
-        for (String key : params.keySet()) {
-            try {
-                if (i != 0){
-                    sbParams.append("&");
-                }
-                sbParams.append(key).append("=")
-                        .append(URLEncoder.encode(params.get(key), charset));
-
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            i++;
-        }
+    public JSONObject makeHttpRequest(String url, String method,JSONObject user) {
 
         if (method.equals("POST")) {
             // request method is POST
@@ -59,12 +43,12 @@ public class JSONParser {
                 conn = (HttpURLConnection) urlObj.openConnection();
                 conn.setDoOutput(true);
                 conn.setRequestMethod("POST");
-                conn.setRequestProperty("Accept-Charset", charset);
-//                conn.setRequestProperty("Content-Type", "application/json");
+//                conn.setRequestProperty("Accept-Charset", charset);
+                conn.setRequestProperty("Content-Type", "application/json");
                 conn.setReadTimeout(10000);
                 conn.setConnectTimeout(15000);
                 conn.connect();
-                paramsString = sbParams.toString();
+                paramsString = user.toString();
 
                 wr = new DataOutputStream(conn.getOutputStream());
                 wr.writeBytes(paramsString);
@@ -113,7 +97,7 @@ public class JSONParser {
             for (int j = 0;; j++) {
                 headerName = conn.getHeaderFieldKey(j);
                 if (headerName != null && headerName.equals("Set-Cookie")) {
-                    // found the Set-Cookie header (code assumes only one cookie is
+                    // found the Set-Cookie header (code assudavemes only one cookie is
                     // being set)
                     headerValue = conn.getHeaderField(j);
                     sessionId = headerValue; //headerValue.split("=")[1].split(";")[0];
@@ -151,7 +135,12 @@ public class JSONParser {
                 conn.setDoOutput(true);
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
-                conn.setRequestProperty("Cookie", Model.instance().getUser().getSessionId());
+
+//                if(Model.instance().getUser().getSessionId() != null) {
+//                    String temp1 = Model.instance().getUser().getSessionId();
+//                    String temp = Model.instance().getUser().getSessionIdTrimmed();
+//                    conn.setRequestProperty("Cookie", Model.instance().getUser().getSessionIdTrimmed());
+//                }
                 conn.setReadTimeout(10000);
                 conn.setConnectTimeout(15000);
                 conn.connect();

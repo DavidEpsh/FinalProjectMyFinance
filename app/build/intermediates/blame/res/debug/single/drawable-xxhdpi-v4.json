@@ -264,12 +264,12 @@
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/drawable-xxhdpi-v4/abc_btn_check_to_on_mtrl_000.png"
     },
     {
-        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/ic_add_white.png",
-        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/src/main/res/drawable-xxhdpi/ic_add_white.png"
-    },
-    {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/abc_list_longpressed_holo.9.png",
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/drawable-xxhdpi-v4/abc_list_longpressed_holo.9.png"
+    },
+    {
+        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/ic_add_white.png",
+        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/src/main/res/drawable-xxhdpi/ic_add_white.png"
     },
     {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/ic_card_giftcard_black.png",

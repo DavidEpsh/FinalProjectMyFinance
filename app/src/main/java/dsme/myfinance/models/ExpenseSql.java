@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ExpenseSql {
     private static final String TABLE_MESSAGES = "MESSAGES";
-    private static final String TABLE_USER = "USER";
+    private static final String TABLE_USER = "CUSTOMER";
     private static final String TABLE = "EXPENSES";
     private static final String TABLE_CATEGORIES = "CATEGORIES";
     private static final String CATEGORY_ENTRY = "CATEGORY";

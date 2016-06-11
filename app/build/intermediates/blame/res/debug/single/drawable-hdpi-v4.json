@@ -220,12 +220,12 @@
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/src/main/res/drawable-hdpi/ic_local_gas_station_black_48dp.png"
     },
     {
-        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/abc_scrubber_primary_mtrl_alpha.9.png",
-        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/drawable-hdpi-v4/abc_scrubber_primary_mtrl_alpha.9.png"
-    },
-    {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/abc_ic_menu_paste_mtrl_am_alpha.png",
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/drawable-hdpi-v4/abc_ic_menu_paste_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/abc_scrubber_primary_mtrl_alpha.9.png",
+        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/drawable-hdpi-v4/abc_scrubber_primary_mtrl_alpha.9.png"
     },
     {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/abc_ic_go_search_api_mtrl_alpha.png",

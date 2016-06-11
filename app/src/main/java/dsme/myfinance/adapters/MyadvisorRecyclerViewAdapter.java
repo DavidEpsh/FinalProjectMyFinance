@@ -1,5 +1,6 @@
 package dsme.myfinance.adapters;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,14 +8,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
+import com.google.gson.Gson;
 
 import java.util.List;
 
 import dsme.myfinance.R;
+import dsme.myfinance.activities.ActivityAdviserProfile;
+import dsme.myfinance.models.User;
 
 public class MyadvisorRecyclerViewAdapter extends RecyclerView.Adapter<MyadvisorRecyclerViewAdapter.ViewHolder> {
 
-    private List mValues;
+    private List<User.Adviser> mValues;
 
     public MyadvisorRecyclerViewAdapter(List items) {
         mValues = items;
@@ -28,20 +32,23 @@ public class MyadvisorRecyclerViewAdapter extends RecyclerView.Adapter<Myadvisor
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_advisor, parent, false);
+                .inflate(R.layout.item_adviser, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        //holder.mItem = mValues.get(position);
-        //holder.mIdView.setText(mValues.get(position).id);
-        //holder.mContentView.setText(mValues.get(position).content);
+        holder.mItem = mValues.get(position);
+        holder.mAdviserName.setText(mValues.get(position).getDisplayName());
+        holder.mEmail.setText(mValues.get(position).getEmail());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Gson gson = new Gson();
+                Intent intent = new Intent(v.getContext(), ActivityAdviserProfile.class);
+                intent.putExtra(ActivityAdviserProfile.ADVISER_EXTRA, gson.toJson(holder.mItem));
+                v.getContext().startActivity(intent);
             }
         });
     }
@@ -56,20 +63,21 @@ public class MyadvisorRecyclerViewAdapter extends RecyclerView.Adapter<Myadvisor
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public User.Adviser mItem;
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final TextView mAdviserName;
+        public final TextView mEmail;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            mAdviserName = (TextView) view.findViewById(R.id.titleTextView);
+            mEmail = (TextView) view.findViewById(R.id.subtitleTextView);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mEmail.getText() + "'";
         }
     }
 }

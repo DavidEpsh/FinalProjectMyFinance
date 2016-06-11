@@ -101,9 +101,8 @@ public class ModelSql implements Model.ModelInterface {
 
 
     // **** USERS SQL ****
-    @Override
-    public void addUser(User user) {
-        UsersSql.addUser(dbHelper, user);
+    public void addCustomer(User.Customer user) {
+        UsersSql.addCustomer(dbHelper, user);
     }
 
     @Override

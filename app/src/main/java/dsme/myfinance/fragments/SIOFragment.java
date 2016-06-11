@@ -76,7 +76,7 @@ public class SIOFragment extends Fragment {
 
         //ChatApplication app = (ChatApplication) getActivity().getApplication();
         try {
-            mSocket = IO.socket("http://chat.socket.io");
+            mSocket = IO.socket("https://myfinance-mean.herokuapp.com/socket.io/");
         } catch (URISyntaxException e) {}
 
 

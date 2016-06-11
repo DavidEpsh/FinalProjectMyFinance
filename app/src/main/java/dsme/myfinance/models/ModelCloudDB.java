@@ -1,41 +1,24 @@
 package dsme.myfinance.models;
-
-
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.TextView;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
-
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
-import dsme.myfinance.R;
 import dsme.myfinance.api.JSONParser;
 
 public class ModelCloudDB {
@@ -64,6 +47,7 @@ public class ModelCloudDB {
     static String user_password= "password";
     static String roles= "roles";
     static String adviser_description= "description";
+    static String adviser_profile_image= "profileImageURL";
 
 
     static InputStream is = null;
@@ -73,10 +57,12 @@ public class ModelCloudDB {
     static String API_URL_USERS ="https://myfinance-mean.herokuapp.com/api/users";
     static String API_URL_LOGIN ="https://myfinance-mean.herokuapp.com/api/auth/signin";
     static String API_URL_SIGNUP ="https://myfinance-mean.herokuapp.com/api/auth/signup";
+    static String API_URL_USERS_EXPENSES ="https://myfinance-mean.herokuapp.com/api/user-expenses/";
+    static String API_URL_ADVISER_PIC ="https://myfinance-mean.herokuapp.com/modules/users/client/img/profile/uploads/";
 
     List<Expense> expensesArray;
 
-    public class GetAllData extends AsyncTask<Void, Void, String > {
+    public class GetAllData2 extends AsyncTask<Void, Void, String > {
 
         protected String doInBackground(Void... params) {
 
@@ -287,10 +273,26 @@ public class ModelCloudDB {
         return expensesArray;
     }
 
-    public User convertToUser(JSONObject input) {
+    public User.Customer convertToCustomer(JSONObject input) {
 
-        User currentUser;
+        JSONObject adviser;
+        User.Customer currentUser;
+
         try {
+            adviser = input.getJSONObject("advisor");
+        }catch (JSONException e) {
+            Log.e("JSON Parser #1", "Error parsing data " + e.toString());
+            return null;
+        }
+        try {
+            String adviserId = null;
+            String adviserName = null;
+
+            if (adviser != null){
+                adviserId = adviser.getString(id);
+                adviserName = adviser.getString(user_display_name);
+            }
+
             String userId = input.getString(id);
             String phone = input.getString(user_phone_number);
             String email = input.getString(user_email);
@@ -300,7 +302,7 @@ public class ModelCloudDB {
             String lastName = input.getString(user_last_name);
             String userName = input.getString(user_user_name);
 
-            currentUser = new User(userId, displayName,firstName, lastName, userName, email, phone, sessionID, null);
+            currentUser = new User.Customer(userId, displayName,firstName, lastName, userName, email, phone, sessionID, null, adviserName, adviserId);
 
         } catch (JSONException e) {
             Log.e("JSON Parser #1", "Error parsing data " + e.toString());
@@ -351,17 +353,16 @@ public class ModelCloudDB {
         protected JSONObject doInBackground(String... args) {
 
             try {
-
-                HashMap<String, String> params = new HashMap<>();
-                params.put("username", args[0]);
-                params.put("password", args[1]);
+                JSONObject user = new JSONObject();
+                user.put("username", args[0]);
+                user.put("password", args[1]);
 
                 JSONObject json = jsonParser.makeHttpRequest(
-                        API_URL_LOGIN, "POST", params);
+                        API_URL_LOGIN, "POST", user);
 
                 if (json != null) {
                     Log.d("JSON result", json.toString());
-                    Model.instance().addUser(convertToUser(json));
+                    Model.instance().addCustomer(convertToCustomer(json));
                     return json;
                 }
 
@@ -373,11 +374,11 @@ public class ModelCloudDB {
         }
     }
 
-    public class SignUp extends AsyncTask<User, String, User> {
+    public class SignUp extends AsyncTask<User, String, User.Customer> {
         JSONParser jsonParser = new JSONParser();
 
         @Override
-        protected User doInBackground(User... users) {
+        protected User.Customer doInBackground(User... users) {
 
             try {
                 JSONObject jsonObject = new JSONObject();
@@ -392,8 +393,8 @@ public class ModelCloudDB {
 
                 if (json != null) {
                     Log.d("JSON result", json.toString());
-                    User user = convertToUser(json);
-                    Model.instance().addUser(user);
+                    User.Customer user = convertToCustomer(json);
+                    Model.instance().addCustomer(user);
                     return user;
                 }
 
@@ -412,20 +413,12 @@ public class ModelCloudDB {
         protected String doInBackground(Expense... expenses) {
 
             try {
-                JSONObject currUser = new JSONObject();
-
-                User currUserSql = Model.instance().getUser();
-                currUser.put("id", currUserSql.getId());
-                currUser.put(user_display_name,currUserSql.getDisplayName());
-
-                // 3. build jsonObject
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put(user, currUser);
                 jsonObject.put(isRecurring, expenses[0].isRepeatingExpense);
                 jsonObject.put(category, expenses[0].getCategory());
                 jsonObject.put(comments, expenses[0].getNote());
                 jsonObject.put(date, expenses[0].date);
-                jsonObject.put(picPath,"fsdfsd");// expenses[0].getExpenseImage());
+                jsonObject.put(picPath, expenses[0].getExpenseImage());
                 jsonObject.put(amount, expenses[0].getExpenseAmount());
                 jsonObject.put(name, expenses[0].getExpenseName());
 
@@ -436,7 +429,6 @@ public class ModelCloudDB {
                     Model.instance().addExpense(convertToSingleExpense(jObj.toString()));
                     return "OK";
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -472,12 +464,33 @@ public class ModelCloudDB {
                             String email = object.getString(user_email);
                             String phoneNumber = object.getString(user_phone_number);
                             String description = object.getString(adviser_description);
+                            String profileImage = object.getString(adviser_profile_image);
 
-                            advisers.add(new User.Adviser(userId,displayName, userName,firstName, lastName,email, phoneNumber, null, null,description));
+                            advisers.add(new User.Adviser(userId,displayName, userName,firstName, lastName,email, phoneNumber, null, null,description, profileImage));
                         }
                     }
                     return advisers;
                 }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+    public class GetAllData extends AsyncTask<Void, Void, String > {
+        JSONParser jsonParser = new JSONParser();
+
+        @Override
+        protected String doInBackground(Void... Void) {
+
+            try {
+                JSONArray jArray = jsonParser.makeHttpRequestArray(API_URL_USERS_EXPENSES + Model.instance().getUser().getId(), "GET", null);
+
+                Model.instance().batchUpdateExpenses(convertToExpenses(jArray.toString()));
+                return "Success!";
 
             } catch (Exception e) {
                 e.printStackTrace();

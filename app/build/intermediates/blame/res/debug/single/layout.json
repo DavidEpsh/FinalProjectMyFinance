@@ -1,11 +1,11 @@
 [
     {
-        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_checkbox.xml",
-        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/layout/abc_list_menu_item_checkbox.xml"
-    },
-    {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/abc_screen_simple_overlay_action_mode.xml",
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/layout/abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_checkbox.xml",
+        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/layout/abc_list_menu_item_checkbox.xml"
     },
     {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/fragment_sio.xml",
@@ -34,6 +34,10 @@
     {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/fragment_expense.xml",
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/src/main/res/layout/fragment_expense.xml"
+    },
+    {
+        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/item_expense.xml",
+        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/src/main/res/layout/item_expense.xml"
     },
     {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/fragment_sign_up.xml",
@@ -100,12 +104,12 @@
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/src/main/res/layout/fragment_expense_list.xml"
     },
     {
-        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/select_dialog_multichoice_material.xml",
-        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/layout/select_dialog_multichoice_material.xml"
-    },
-    {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/notification_template_big_media_narrow.xml",
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/layout/notification_template_big_media_narrow.xml"
+    },
+    {
+        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/select_dialog_multichoice_material.xml",
+        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/layout/select_dialog_multichoice_material.xml"
     },
     {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/image_popup.xml",
@@ -128,20 +132,12 @@
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/layout/abc_action_menu_item_layout.xml"
     },
     {
-        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/fragment_advisor.xml",
-        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/src/main/res/layout/fragment_advisor.xml"
-    },
-    {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/include_edit_buttons.xml",
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/src/main/res/layout/include_edit_buttons.xml"
     },
     {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/item_log.xml",
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/src/main/res/layout/item_log.xml"
-    },
-    {
-        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/expense_item.xml",
-        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/src/main/res/layout/expense_item.xml"
     },
     {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/design_navigation_menu.xml",
@@ -158,10 +154,6 @@
     {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/design_menu_item_action_area.xml",
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/design/23.3.0/res/layout/design_menu_item_action_area.xml"
-    },
-    {
-        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/fragment_advisor_profile.xml",
-        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/src/main/res/layout/fragment_advisor_profile.xml"
     },
     {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/fragment_message_list.xml",
@@ -298,6 +290,10 @@
     {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/notification_template_part_time.xml",
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/layout/notification_template_part_time.xml"
+    },
+    {
+        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/item_adviser.xml",
+        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/src/main/res/layout/item_adviser.xml"
     },
     {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view_list_item.xml",
