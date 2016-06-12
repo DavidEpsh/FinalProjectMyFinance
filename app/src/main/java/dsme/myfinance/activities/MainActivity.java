@@ -3,6 +3,7 @@ package dsme.myfinance.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -26,8 +27,11 @@ public class MainActivity extends AppCompatActivity
 
     final static public String EXPENSE_ID = "EXPENSE_ID";
     final static public int ACTIVITY_SIGN_IN= 1000;
-    final static public int RESULT_OK= 1001;
+    final static public int ACTIVITY_SUBSCRIBE= 1001;
+    final static public int ACTIVITY_ADD_EXPENSE= 1002;
+    final static public int RESULT_OK= 1020;
     FloatingActionButton fab;
+    View mView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +45,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, TransactionEditActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, ACTIVITY_ADD_EXPENSE);
             }
         });
 
@@ -63,6 +67,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         if(Model.instance().getCustomer() == null) {
+            Model.instance().logOutUser();
             Intent intent = new Intent(MainActivity.this, LoginActivityApp.class);
             startActivityForResult(intent, ACTIVITY_SIGN_IN);
         }else{
@@ -146,6 +151,16 @@ public class MainActivity extends AppCompatActivity
             if (resultCode == RESULT_OK) {
                 openFragment(new OverviewFragment());
             }
+        }else if(requestCode == ACTIVITY_SUBSCRIBE){
+            if (resultCode == RESULT_OK){
+                openFragment(new OverviewFragment());
+            }
+        }else if(requestCode == ACTIVITY_ADD_EXPENSE){
+            mView = findViewById(R.id.drawer_layout);
+            if (data.getStringExtra(TransactionEditActivity.RETURN_EXPENSE_NAME) != null)
+            Snackbar.make(mView,
+                    "\"" + data.getStringExtra(TransactionEditActivity.RETURN_EXPENSE_NAME) + "\"" + " was added to your expenses",
+                    Snackbar.LENGTH_LONG).show();
         }
     }
 }

@@ -45,6 +45,7 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class TransactionEditActivity extends AppCompatActivity {
 
+    public static String RETURN_EXPENSE_NAME = "expense_name";
     private Button saveButton;
     private Button cancelButton;
     private Button dateButton;
@@ -258,11 +259,6 @@ public class TransactionEditActivity extends AppCompatActivity {
 //            }else {
 //                Model.instance().addExpense(mExpense);
 //            }
-//
-//        Intent returnIntent = new Intent();
-//        returnIntent.putExtra("result", MainActivity.RESULT_ADD_EXPENSE);
-//        setResult(this.RESULT_OK, returnIntent);
-//            new ModelCloudDB().new AddNewExpenseToCloud().execute(mExpense);
 
             new ModelCloudDB().new
                     AddNewExpenseToCloud() {
@@ -270,7 +266,9 @@ public class TransactionEditActivity extends AppCompatActivity {
                         protected void onPostExecute(String result) {
                             if (result != null) {
                                 if (!result.equals("Did not work!")) {
-                                    Toast.makeText(getApplicationContext(), "Successfully added", Toast.LENGTH_LONG);
+                                    Intent returnIntent = new Intent();
+                                    returnIntent.putExtra(RETURN_EXPENSE_NAME, descriptionEditText.getText().toString());
+                                    setResult(MainActivity.RESULT_OK, returnIntent);
                                     finish();
                                 }
                             } else {

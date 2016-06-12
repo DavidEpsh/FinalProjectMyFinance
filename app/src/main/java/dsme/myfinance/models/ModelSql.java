@@ -106,7 +106,12 @@ public class ModelSql implements Model.ModelInterface {
     }
 
     @Override
-    public User getCustomer() {
+    public void logOutUser() {
+        UsersSql.logOutUser(dbHelper);
+    }
+
+    @Override
+    public User.Customer getCustomer() {
         return UsersSql.getCustomer(dbHelper);
     }
 

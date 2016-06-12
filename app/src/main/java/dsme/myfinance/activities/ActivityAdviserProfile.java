@@ -46,6 +46,7 @@ public class ActivityAdviserProfile extends AppCompatActivity {
         profileImageView = (ImageView) findViewById(R.id.adviser_profile_image);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_add_adviser);
+        //noinspection ConstantConditions
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,8 +54,10 @@ public class ActivityAdviserProfile extends AppCompatActivity {
                     @Override
                     protected void onPostExecute(List advisers) {
                         if (advisers == null) {
-
+                            setResult(MainActivity.RESULT_OK);
+                            finish();
                         }else{
+
                         }
                     }
                 }.execute();

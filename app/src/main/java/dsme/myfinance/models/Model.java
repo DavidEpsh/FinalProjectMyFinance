@@ -37,6 +37,7 @@ public class Model {
 
         public void addCustomer(User.Customer user);
         public User.Customer getCustomer();
+        public void logOutUser();
     }
 
     private static final Model instance = new Model();
@@ -116,6 +117,10 @@ public class Model {
     public void getAllDataFromCloud(){
         ModelCloudDB.GetAllData task = new ModelCloudDB().new GetAllData();
         task.execute();
+    }
+
+    public void logOutUser(){
+        modelImpl.logOutUser();
     }
 
     public interface ChangeTimeListener{

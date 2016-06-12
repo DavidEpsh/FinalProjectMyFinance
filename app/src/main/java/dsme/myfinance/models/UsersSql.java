@@ -79,6 +79,12 @@ public class UsersSql {
         return null;
     }
 
+    public static void logOutUser(ModelSql.MyOpenHelper dbHelper) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ExpenseSql.deleteAll(db);
+    }
+
     public static void create(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_USER + " (" +
                 USER_ID + " TEXT PRIMARY KEY," +
