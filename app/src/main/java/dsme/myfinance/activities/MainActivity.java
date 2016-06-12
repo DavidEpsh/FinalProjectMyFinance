@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import dsme.myfinance.R;
 import dsme.myfinance.fragments.ChatFragment;
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View myAccount = navigationView.getHeaderView(0);
+        ((TextView) myAccount.findViewById(R.id.nav_email)).setText(Model.instance().getCustomer().getDisplayName());
+        ((TextView) myAccount.findViewById(R.id.nav_display_name)).setText(Model.instance().getCustomer().getEmail());
         navigationView.setNavigationItemSelectedListener(this);
 
         Intent keyboardIntent = getIntent();
@@ -96,6 +100,8 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(MainActivity.this, LoginActivityApp.class);
+            startActivityForResult(intent, ACTIVITY_SIGN_IN);
             return true;
         }
 

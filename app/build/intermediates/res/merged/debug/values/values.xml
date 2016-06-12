@@ -780,6 +780,7 @@
     <string name="library_easypreferences_licenseId">apache_2_0</string>
     <string name="library_easypreferences_repositoryLink">https://github.com/Pixplicity/EasyPreferences</string>
     <string name="lock">Lock</string>
+    <string name="log_out">Log Out</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="main_currency">Main currency</string>

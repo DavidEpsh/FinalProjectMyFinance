@@ -430,10 +430,10 @@ public class ModelCloudDB {
         protected String doInBackground(Void... Void) {
 
             try {
-                JSONArray jArray = jsonParser.makeHttpRequestArray(API_URL_USERS_EXPENSES + Model.instance().getCustomer().getId(), "GET", null);
+                JSONObject jobj = jsonParser.makeHttpRequestUsingJobj(API_URL_USERS_EXPENSES + Model.instance().getCustomer().getId(), "GET", null);
 
                 User.Customer customer = Model.instance().getCustomer();
-                customer.setAdviserId();
+                //customer.setAdviserId();
                 return "Success!";
 
             } catch (Exception e) {

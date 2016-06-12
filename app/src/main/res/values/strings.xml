@@ -195,5 +195,6 @@
     <string name="title_activity_ctivity_advisor_profile">ctivityAdvisorProfile</string>
     <string name="about_me">About Me</string>
     <string name="my_credentials">My Credentials</string>
+    <string name="log_out">Log Out</string>
 
 </resources>
