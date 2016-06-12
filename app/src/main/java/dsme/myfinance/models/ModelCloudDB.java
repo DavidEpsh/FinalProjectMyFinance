@@ -1,6 +1,9 @@
 package dsme.myfinance.models;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.google.gson.Gson;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -61,96 +64,17 @@ public class ModelCloudDB {
 
     List<Expense> expensesArray;
 
-    public class GetAllData2 extends AsyncTask<Void, Void, String > {
-
-        protected String doInBackground(Void... params) {
-
-            // Making HTTP request
-            try {
-                // defaultHttpClient
-                DefaultHttpClient httpClient = new DefaultHttpClient();
-                HttpGet httpGet = new HttpGet(API_URL);
-
-                HttpResponse httpResponse = httpClient.execute(httpGet);
-                HttpEntity httpEntity = httpResponse.getEntity();
-                is = httpEntity.getContent();
-
-
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(
-                        is, "iso-8859-1"), 8);
-                StringBuilder sb = new StringBuilder();
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
-                }
-                is.close();
-                json = sb.toString();
-            } catch (Exception e) {
-                Log.e("Buffer Error", "Error converting result " + e.toString());
-            }
-
-            // try parse the string to a JSON object
-
-            Model.instance().batchUpdateExpenses(convertToExpenses(json));
-            return "Success!";
-        }
-    }
-
     public class deleteExpense extends AsyncTask<Expense, Void, String> {
 
         @Override
         protected String doInBackground(Expense... expenses) {
+            JSONParser jsonParser = new JSONParser();
 
 
-            InputStream inputStream = null;
-            String result = "";
-            try {
+            String response = jsonParser.makeHttpRequestDelete(
+                    API_URL, "DELETE", expenses[0].getMongoId());
 
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpDelete httpDelete = new HttpDelete(API_URL);
-
-                httpDelete.setHeader("id", expenses[0].getMongoId());
-                HttpResponse httpResponse = httpclient.execute(httpDelete);
-                inputStream = httpResponse.getEntity().getContent();
-
-                if(inputStream != null) {
-                    try {
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(
-                                inputStream, "iso-8859-1"), 8);
-                        StringBuilder sb = new StringBuilder();
-                        String line = null;
-                        while ((line = reader.readLine()) != null) {
-                            sb.append(line + "\n");
-                        }
-                        inputStream.close();
-                        json = sb.toString();
-                    } catch (Exception e) {
-                        Log.e("Buffer Error", "Error converting result " + e.toString());
-                    }
-
-                    Model.instance().addExpense(convertToSingleExpense(json));
-                }
-
-                else
-                    result = "Did not work!";
-
-            } catch (Exception e) {
-                Log.d("InputStream", e.getLocalizedMessage());
-            }
-
-            return result;
-        }
-        @Override
-        protected void onPostExecute(String result) {
+            return response;
         }
     }
 
@@ -423,18 +347,26 @@ public class ModelCloudDB {
         }
     }
 
-    public class AssociateAdviser extends AsyncTask<Void, Void, String > {
+    public class AssociateAdviser extends AsyncTask<JSONObject, Void, String > {
         JSONParser jsonParser = new JSONParser();
 
         @Override
-        protected String doInBackground(Void... Void) {
+        protected String doInBackground(JSONObject... jsonObjects) {
 
             try {
-                JSONObject jobj = jsonParser.makeHttpRequestUsingJobj(API_URL_USERS_EXPENSES + Model.instance().getCustomer().getId(), "GET", null);
+                JSONObject associationObj = new JSONObject();
+                associationObj.put(id, Model.instance().getCustomer().getId());
+                associationObj.put(user_display_name, Model.instance().getCustomer().getDisplayName());
+                associationObj.put("advisor", jsonObjects[0]);
+                JSONObject jobj = jsonParser.makeHttpRequestUsingJobj(API_URL_USERS, "PUT", associationObj);
+                JSONObject adviserObj = jobj.getJSONObject("advisor");
 
                 User.Customer customer = Model.instance().getCustomer();
-                //customer.setAdviserId();
-                return "Success!";
+                customer.setAdviserId(adviserObj.getString(id));
+                customer.setAdviserName(jobj.getString(user_display_name));
+                Model.instance().addCustomer(customer);
+
+                return "OK";
 
             } catch (Exception e) {
                 e.printStackTrace();

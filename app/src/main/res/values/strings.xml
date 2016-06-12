@@ -196,5 +196,8 @@
     <string name="about_me">About Me</string>
     <string name="my_credentials">My Credentials</string>
     <string name="log_out">Log Out</string>
+    <string name="send_sms">Send SMS</string>
+    <string name="call">Call</string>
+    <string name="email">Email</string>
 
 </resources>

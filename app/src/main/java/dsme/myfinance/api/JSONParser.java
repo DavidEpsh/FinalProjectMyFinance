@@ -52,8 +52,7 @@ public class JSONParser {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        else if(method.equals("GET")){
+        }else if(method.equals("GET")){
             // request method is GET
 
             if (sbParams.length() != 0) {
@@ -171,6 +170,32 @@ public class JSONParser {
                 e.printStackTrace();
             }
 
+        }else if(method.equals("PUT")){
+
+            try {
+                urlObj = new URL(url);
+                conn = (HttpURLConnection) urlObj.openConnection();
+                conn.setDoOutput(true);
+                conn.setRequestMethod("PUT");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Cookie", Model.instance().getCustomer().getSessionId());
+                conn.setConnectTimeout(15000);
+                conn.connect();
+
+                paramsString = jobj.toString();
+                int index = paramsString.indexOf("\"" + "id" + "\"");
+
+
+                String str = new StringBuilder(paramsString).insert(index + 1, "_").toString();
+
+                wr = new DataOutputStream(conn.getOutputStream());
+                wr.writeBytes(str);
+                wr.flush();
+                wr.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         try {
@@ -268,5 +293,38 @@ public class JSONParser {
         // return JSON Object
         return jArray;
     }
+
+    public String makeHttpRequestDelete(String url, String method, String jobj) {
+        String response = "Fail";
+            try {
+                urlObj = new URL(url);
+                conn = (HttpURLConnection) urlObj.openConnection();
+                conn.setDoOutput(false);;
+                conn.setRequestMethod("DELETE");
+                conn.setRequestProperty("id", jobj);
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Cookie", Model.instance().getCustomer().getSessionId());
+                conn.setConnectTimeout(15000);
+                conn.connect();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        try {
+            response = conn.getResponseMessage();
+
+            Log.d("JSON Parser", "result: " + result.toString());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        conn.disconnect();
+
+        // return JSON Object
+        return response;
+    }
+
 
 }

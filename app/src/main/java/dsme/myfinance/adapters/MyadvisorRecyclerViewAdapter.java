@@ -1,10 +1,12 @@
 package dsme.myfinance.adapters;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 
@@ -14,6 +16,8 @@ import java.util.List;
 
 import dsme.myfinance.R;
 import dsme.myfinance.activities.ActivityAdviserProfile;
+import dsme.myfinance.activities.MainActivity;
+import dsme.myfinance.models.Model;
 import dsme.myfinance.models.User;
 
 public class MyadvisorRecyclerViewAdapter extends RecyclerView.Adapter<MyadvisorRecyclerViewAdapter.ViewHolder> {
@@ -42,13 +46,18 @@ public class MyadvisorRecyclerViewAdapter extends RecyclerView.Adapter<Myadvisor
         holder.mAdviserName.setText(mValues.get(position).getDisplayName());
         holder.mEmail.setText(mValues.get(position).getEmail());
 
+        if(Model.instance().getCustomer().getAdviserId() != null &&
+                Model.instance().getCustomer().getAdviserId().equals(holder.mItem.getId())){
+            holder.isAssociated.setChecked(true);
+        }
+
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Gson gson = new Gson();
                 Intent intent = new Intent(v.getContext(), ActivityAdviserProfile.class);
                 intent.putExtra(ActivityAdviserProfile.ADVISER_EXTRA, gson.toJson(holder.mItem));
-                v.getContext().startActivity(intent);
+                ((Activity)v.getContext()).startActivityForResult(intent, MainActivity.ACTIVITY_SUBSCRIBE);
             }
         });
     }
@@ -67,12 +76,15 @@ public class MyadvisorRecyclerViewAdapter extends RecyclerView.Adapter<Myadvisor
         public final View mView;
         public final TextView mAdviserName;
         public final TextView mEmail;
+        public CheckBox isAssociated;
+
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mAdviserName = (TextView) view.findViewById(R.id.titleTextView);
             mEmail = (TextView) view.findViewById(R.id.subtitleTextView);
+            isAssociated = (CheckBox)view.findViewById(R.id.checkbox_adviser);
         }
 
         @Override

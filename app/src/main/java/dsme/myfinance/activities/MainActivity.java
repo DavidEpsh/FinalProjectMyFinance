@@ -125,8 +125,9 @@ public class MainActivity extends AppCompatActivity
             openFragment(new ExpenseListFragment());
 
         } else if (id == R.id.nav_chat) {
-            Intent intent = new Intent(MainActivity.this, ChatActivity.class);
-            startActivity(intent);
+//            Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+//            startActivity(intent);
+            openFragment(new ChatFragment());
 
         } else if (id == R.id.nav_adviser_list) {
             openFragment(new adviserListFragment());
@@ -160,13 +161,20 @@ public class MainActivity extends AppCompatActivity
         }else if(requestCode == ACTIVITY_SUBSCRIBE){
             if (resultCode == RESULT_OK){
                 openFragment(new OverviewFragment());
+                mView = findViewById(R.id.drawer_layout);
+                if (data.getStringExtra(ActivityAdviserProfile.ADVISER_NAME) != null)
+                    Snackbar.make(mView,
+                            "Subscribed to " + data.getStringExtra(ActivityAdviserProfile.ADVISER_NAME) + " successfully",
+                            Snackbar.LENGTH_LONG).show();
             }
         }else if(requestCode == ACTIVITY_ADD_EXPENSE){
-            mView = findViewById(R.id.drawer_layout);
-            if (data.getStringExtra(TransactionEditActivity.RETURN_EXPENSE_NAME) != null)
-            Snackbar.make(mView,
-                    "\"" + data.getStringExtra(TransactionEditActivity.RETURN_EXPENSE_NAME) + "\"" + " was added to your expenses",
-                    Snackbar.LENGTH_LONG).show();
+            if(resultCode == RESULT_OK) {
+                mView = findViewById(R.id.drawer_layout);
+                if (data.getStringExtra(TransactionEditActivity.RETURN_EXPENSE_NAME) != null)
+                    Snackbar.make(mView,
+                            "\"" + data.getStringExtra(TransactionEditActivity.RETURN_EXPENSE_NAME) + "\"" + " was added to your expenses",
+                            Snackbar.LENGTH_LONG).show();
+            }
         }
     }
 }

@@ -155,5 +155,8 @@
         <item name="android:background">@color/monsoon</item>
     </style>
 
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">28sp</item>
+    </style>
 
 </resources>
