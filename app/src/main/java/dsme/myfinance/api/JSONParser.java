@@ -314,8 +314,6 @@ public class JSONParser {
         try {
             response = conn.getResponseMessage();
 
-            Log.d("JSON Parser", "result: " + result.toString());
-
         } catch (IOException e) {
             e.printStackTrace();
         }

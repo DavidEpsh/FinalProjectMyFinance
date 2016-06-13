@@ -74,6 +74,10 @@ public class ModelCloudDB {
             String response = jsonParser.makeHttpRequestDelete(
                     API_URL, "DELETE", expenses[0].getMongoId());
 
+            if (!response.equals("OK")){
+                return "FAIL";
+            }
+
             return response;
         }
     }
