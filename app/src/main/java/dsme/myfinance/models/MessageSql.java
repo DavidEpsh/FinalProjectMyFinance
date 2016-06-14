@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,21 +12,25 @@ public class MessageSql {
 
     private static final String TABLE_MESSAGES = "MESSAGES";
     private static final String MESSAGE_ID = "MESSAGE_ID";
-    private static final String INCREMENT = "INCREMENT";
-    private static final String SENDER = "SENDER";
-    private static final String CHAT_ID = "CHAT_ID";
+    private static final String DATE = "DATE";
+    private static final String SENDER_ID = "SENDER_ID";
+    private static final String RECEPIENT_ID = "RECEPIENT_ID";
     private static final String MESSAGE_CONTENT = "MESSAGE_CONTENT";
 
     public static void addMessage(ModelSql.MyOpenHelper dbHelper, MessageLocal message) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(MESSAGE_ID, message.getMessageId());
-        values.put(CHAT_ID, message.getChatId());
-        values.put(SENDER, message.getSender());
-        values.put(MESSAGE_CONTENT, message.getMessageContent());
+        if (!isMessageExists(dbHelper, message.getMessageId())) {
 
-        db.insert(TABLE_MESSAGES, null, values);
+            ContentValues values = new ContentValues();
+            values.put(MESSAGE_ID, message.getMessageId());
+            values.put(RECEPIENT_ID, message.getRecepeintId());
+            values.put(SENDER_ID, message.getSenderId());
+            values.put(MESSAGE_CONTENT, message.getMessageContent());
+            values.put(DATE, message.getDate());
+
+            db.insert(TABLE_MESSAGES, null, values);
+        }
     }
 
     public static List<MessageLocal> getMessages(ModelSql.MyOpenHelper dbHelper) {
@@ -33,23 +38,25 @@ public class MessageSql {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         String query = "SELECT * FROM " + TABLE_MESSAGES +
-                " ORDER BY " + INCREMENT + " ASC";;
+                " ORDER BY " + DATE + " ASC";;
         Cursor cursor = db.rawQuery(query, null);
 
         if (!(cursor.getCount() <= 0)) {
             if (cursor.moveToFirst()) {
                 int id_message = cursor.getColumnIndex(MESSAGE_ID);
-                int id_chat = cursor.getColumnIndex(CHAT_ID);
-                int content_index = cursor.getColumnIndex(MESSAGE_CONTENT);
-                int sender_index= cursor.getColumnIndex(SENDER);
+                int id_recepient = cursor.getColumnIndex(RECEPIENT_ID);
+                int id_content = cursor.getColumnIndex(MESSAGE_CONTENT);
+                int id_sender= cursor.getColumnIndex(SENDER_ID);
+                int id_date = cursor.getColumnIndex(DATE);
 
                 do {
-                    long messageId = cursor.getLong(id_message);
-                    long chatId = cursor.getLong(id_chat);
-                    String chatContent = cursor.getString(content_index);
-                    String senderEmail = cursor.getString(sender_index);
+                    String messageId = cursor.getString(id_message);
+                    String senderId = cursor.getString(id_sender);
+                    String chatContent = cursor.getString(id_content);
+                    String recepientId = cursor.getString(id_recepient);
+                    String date = cursor.getString(id_date);
 
-                    MessageLocal message = new MessageLocal(messageId, chatId, chatContent, senderEmail);
+                    MessageLocal message = new MessageLocal(messageId,senderId, recepientId, chatContent, date);
                     data.add(message);
                 } while (cursor.moveToNext());
             }
@@ -58,12 +65,25 @@ public class MessageSql {
         return data;
     }
 
+    public static boolean isMessageExists(ModelSql.MyOpenHelper dbHelper, String id){
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_MESSAGES + " WHERE " + MESSAGE_ID + " = " + "'" + id + "'";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.getCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public static void create(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE_MESSAGES + " (" +
-                INCREMENT + " INTEGER PRIMARY KEY," +
-                MESSAGE_ID + " LONG," +
-                SENDER + " TEXT, " +
-                CHAT_ID + " TEXT, " +
+                MESSAGE_ID + " TEXT PRIMARY KEY," +
+                DATE + " TEXT," +
+                SENDER_ID + " TEXT, " +
+                RECEPIENT_ID + " TEXT, " +
                 MESSAGE_CONTENT + " TEXT" + ")");
     }
 

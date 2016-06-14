@@ -133,8 +133,8 @@ public class ActivityAdviserProfile extends AppCompatActivity {
             setTitle(displayName);
             aboutMe.setText(description);
 
-//            Picasso.with(this).load(ModelCloudDB.API_URL_ADVISER_PIC + id).into(profileImageView);
-            Picasso.with(this).load("http://vignette1.wikia.nocookie.net/family-guy-fanverse/images/d/d7/Stewie-griffin.gif/revision/latest?cb=20140215140724").into(profileImageView);
+            Picasso.with(this).load(ModelCloudDB.API_URL_ADVISER_PIC + id).into(profileImageView);
+//            Picasso.with(this).load("http://vignette1.wikia.nocookie.net/family-guy-fanverse/images/d/d7/Stewie-griffin.gif/revision/latest?cb=20140215140724").into(profileImageView);
         }
     }
 

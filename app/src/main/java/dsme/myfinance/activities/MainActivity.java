@@ -58,8 +58,10 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View myAccount = navigationView.getHeaderView(0);
-        ((TextView) myAccount.findViewById(R.id.nav_email)).setText(Model.instance().getCustomer().getDisplayName());
-        ((TextView) myAccount.findViewById(R.id.nav_display_name)).setText(Model.instance().getCustomer().getEmail());
+        if(Model.instance().getCustomer() != null) {
+            ((TextView) myAccount.findViewById(R.id.nav_email)).setText(Model.instance().getCustomer().getDisplayName());
+            ((TextView) myAccount.findViewById(R.id.nav_display_name)).setText(Model.instance().getCustomer().getEmail());
+        }
         navigationView.setNavigationItemSelectedListener(this);
 
         Intent keyboardIntent = getIntent();

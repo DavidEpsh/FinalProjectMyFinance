@@ -54,13 +54,6 @@ public class fragmentSignUp extends Fragment {
         password = (EditText)mRootView.findViewById(R.id.input_password);
         signUp = (Button)mRootView.findViewById(R.id.btn_sign_up);
 
-        email.setText("2@1.com");
-        firstName.setText("dave6");
-        lastName.setText("dave6");
-        userName.setText("dave6");
-        phone.setText("0500000000");
-        password.setText("A1a1a1a1!!");
-
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

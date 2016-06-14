@@ -1,7 +1,9 @@
 package dsme.myfinance.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,10 +17,12 @@ import java.util.Calendar;
 import java.util.List;
 
 import dsme.myfinance.R;
+import dsme.myfinance.activities.MainActivity;
 import dsme.myfinance.adapters.MymessageRecyclerViewAdapter;
 import dsme.myfinance.models.Message;
 import dsme.myfinance.models.MessageLocal;
 import dsme.myfinance.models.Model;
+import dsme.myfinance.models.ModelCloudDB;
 
 public class ChatFragment extends Fragment {
 
@@ -26,6 +30,26 @@ public class ChatFragment extends Fragment {
     RecyclerView mRecyclerView;
     ImageButton buttonSend;
     EditText newMessageText;
+    String userId;
+    String adviserId;
+    private Handler handler = new Handler();
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+
+            new ModelCloudDB(). new GetAllMessages() {
+                @Override
+                protected void onPostExecute(String result) {
+                    if (result != null && result.equals("OK")) {
+                        reloadChat();
+                    }else{
+                    }
+                }
+            }.execute();
+            handler.postDelayed(this, 10000);
+        }
+    };
 
     public ChatFragment() {
     }
@@ -54,22 +78,36 @@ public class ChatFragment extends Fragment {
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.chatList);
         buttonSend = (ImageButton) mView.findViewById(R.id.btSend);
         newMessageText = (EditText) mView.findViewById(R.id.etMessage);
+        userId = Model.instance().getCustomer().getId();
+        adviserId = Model.instance().getCustomer().getAdviserId();
+
+
+        handler.postDelayed(runnable, 100);
 
         if (mRecyclerView instanceof RecyclerView) {
             Context context = mRecyclerView.getContext();
             mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
             int[] colors = context.getResources().getIntArray(R.array.preload_colors_small);
-            mRecyclerView.setAdapter(new MymessageRecyclerViewAdapter(Model.instance().getMessages(), colors));
+            mRecyclerView.setAdapter(new MymessageRecyclerViewAdapter(Model.instance().getMessages(), colors, Model.instance().getCustomer().getId()));
+
         }
 
         buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (newMessageText.getText().length() > 0) {
-                    long timestamp = Calendar.getInstance().getTimeInMillis();
-                    Model.instance().addMessage(new MessageLocal(timestamp, timestamp, newMessageText.getText().toString(), "me"));
-                    newMessageText.setText("");
-                    reloadChat();
+                    MessageLocal message = new MessageLocal(null, userId, adviserId, newMessageText.getText().toString(), null);
+                    new ModelCloudDB(). new SendMessage() {
+                        @Override
+                        protected void onPostExecute(String result) {
+                            if (result != null && result.equals("OK")) {
+                                reloadChat();
+                                newMessageText.getText().clear();
+                            }else{
+
+                            }
+                        }
+                    }.execute(message);
                 }
             }
         });
@@ -79,8 +117,11 @@ public class ChatFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
+    }
+    public void onPause() {
+        super.onPause();
 
-        //reloadChat();
+        handler.removeCallbacks(runnable);
     }
 
     private void reloadChat(){

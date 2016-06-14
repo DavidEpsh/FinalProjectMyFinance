@@ -14,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import dsme.myfinance.models.Model;
+import dsme.myfinance.models.ModelCloudDB;
 
 public class JSONParser {
 
@@ -129,7 +130,7 @@ public class JSONParser {
                 conn.setRequestMethod("POST");
                 conn.setRequestProperty("Content-Type", "application/json");
 
-                if(Model.instance().getCustomer().getSessionId() != null) {
+                if(Model.instance().getCustomer() != null) {
                     String temp1 = Model.instance().getCustomer().getSessionId();
                     String temp = Model.instance().getCustomer().getSessionIdTrimmed();
                     conn.setRequestProperty("Cookie", Model.instance().getCustomer().getSessionId());
@@ -150,11 +151,6 @@ public class JSONParser {
             }
         }
         else if(method.equals("GET")){
-            // request method is GET
-
-            if (sbParams.length() != 0) {
-                url += "?" + sbParams.toString();
-            }
 
             try {
                 urlObj = new URL(url);
@@ -171,6 +167,7 @@ public class JSONParser {
             }
 
         }else if(method.equals("PUT")){
+            String str;
 
             try {
                 urlObj = new URL(url);
@@ -183,13 +180,15 @@ public class JSONParser {
                 conn.connect();
 
                 paramsString = jobj.toString();
-                int index = paramsString.indexOf("\"" + "id" + "\"");
 
+                if(!url.equals(ModelCloudDB.API_URL_CHAT)) {
 
-                String str = new StringBuilder(paramsString).insert(index + 1, "_").toString();
+                    int index = paramsString.indexOf("\"" + "id" + "\"");
+                    paramsString = new StringBuilder(paramsString).insert(index + 1, "_").toString();
+                }
 
                 wr = new DataOutputStream(conn.getOutputStream());
-                wr.writeBytes(str);
+                wr.writeBytes(paramsString);
                 wr.flush();
                 wr.close();
 
@@ -252,7 +251,7 @@ public class JSONParser {
                 conn.setDoOutput(false);
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Content-Type", "application/json");
-                //conn.setRequestProperty("Content-Type", Model.instance().getCustomer().getSessionIdTrimmed());
+                conn.setRequestProperty("Cookie", Model.instance().getCustomer().getSessionId());
                 conn.setConnectTimeout(15000);
                 conn.connect();
 

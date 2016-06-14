@@ -1,34 +1,47 @@
 package dsme.myfinance.models;
 
 
+import java.sql.Date;
+
 public class MessageLocal {
 
-    private long messageId;
-    private long chatId;
+    private String messageId;
+    private String senderId;
     private String messageContent;
-    private String sender;
+    private String recepeintId;
 
-    public MessageLocal(long messageId, long chatId, String messageContent, String sender){
-        this.messageId = messageId;
-        this.chatId = chatId;
-        this.messageContent = messageContent;
-        this.sender = sender;
+    public String getDate() {
+        return date;
     }
 
-    public long getMessageId() {
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    private String date;
+
+    public MessageLocal(String messageId, String senderId, String recepeintId, String messageContent, String date){
+        this.messageId = messageId;
+        this.senderId = senderId;
+        this.messageContent = messageContent;
+        this.recepeintId = recepeintId;
+        this.date = date;
+    }
+
+    public String getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(long messageId) {
+    public void setMessageId(String messageId) {
         this.messageId = messageId;
     }
 
-    public long getChatId() {
-        return chatId;
+    public String getSenderId() {
+        return senderId;
     }
 
-    public void setChatId(long chatId) {
-        this.chatId = chatId;
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
     }
 
     public String getMessageContent() {
@@ -39,12 +52,12 @@ public class MessageLocal {
         this.messageContent = messageContent;
     }
 
-    public String getSender() {
-        return sender;
+    public String getRecepeintId() {
+        return recepeintId;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setRecepeintId(String recepeintId) {
+        this.recepeintId = recepeintId;
     }
 
 

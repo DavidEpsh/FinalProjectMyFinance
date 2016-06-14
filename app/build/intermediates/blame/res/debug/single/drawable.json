@@ -80,12 +80,12 @@
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/drawable/abc_item_background_holo_dark.xml"
     },
     {
-        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/drawable/design_fab_background.xml",
-        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/design/23.3.0/res/drawable/design_fab_background.xml"
-    },
-    {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/drawable/abc_seekbar_track_material.xml",
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/drawable/abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/drawable/design_fab_background.xml",
+        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/design/23.3.0/res/drawable/design_fab_background.xml"
     },
     {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_holo_dark.xml",

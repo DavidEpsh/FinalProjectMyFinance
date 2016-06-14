@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import dsme.myfinance.api.JSONParser;
@@ -51,6 +52,12 @@ public class ModelCloudDB {
     static String adviser_description= "description";
     static String adviser_profile_image= "profileImageURL";
 
+    static String message_content = "text";
+    static String message_sender_id = "sender";
+    static String message_recepient_id = "to";
+    static String message_created_date = "created";
+    static String message_type = "type";
+
 
     static InputStream is = null;
     static JSONArray jsonArray = null;
@@ -60,7 +67,8 @@ public class ModelCloudDB {
     static String API_URL_LOGIN ="https://myfinance-mean.herokuapp.com/api/auth/signin";
     static String API_URL_SIGNUP ="https://myfinance-mean.herokuapp.com/api/auth/signup";
     static String API_URL_USERS_EXPENSES ="https://myfinance-mean.herokuapp.com/api/user-expenses/";
-    public static String API_URL_ADVISER_PIC ="https://myfinance-mean.herokuapp.com/modules/users/client/img/profile/uploads/";
+    public static String API_URL_ADVISER_PIC ="https://myfinance-mean.herokuapp.com//api/userpicture/575ddcd6c20f2e2d3c1f9466";
+    public static String API_URL_CHAT ="https://myfinance-mean.herokuapp.com/chat/allmessages";
 
     List<Expense> expensesArray;
 
@@ -370,6 +378,97 @@ public class ModelCloudDB {
                 customer.setAdviserName(jobj.getString(user_display_name));
                 Model.instance().addCustomer(customer);
 
+                return "OK";
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+    public class SendMessage extends AsyncTask<MessageLocal, Void, String > {
+        JSONParser jsonParser = new JSONParser();
+
+        @Override
+        protected String doInBackground(MessageLocal... messageLocals) {
+
+            try {
+                JSONObject messageObj = new JSONObject();
+                messageObj.put(message_sender_id, messageLocals[0].getSenderId());
+                messageObj.put(message_recepient_id, messageLocals[0].getRecepeintId());
+                messageObj.put(message_content, messageLocals[0].getMessageContent());
+                messageObj.put(message_type, "message");
+
+                JSONObject jobj = jsonParser.makeHttpRequestUsingJobj(API_URL_CHAT, "PUT", messageObj);
+
+                MessageLocal message = new MessageLocal(jobj.getString(id),
+                        jobj.getString(message_sender_id),
+                        jobj.getString(message_recepient_id),
+                        jobj.getString(message_content),
+                        jobj.getString(message_created_date));
+
+                Model.instance().addMessage(message);
+
+
+//                associationObj.put(id, Model.instance().getCustomer().getId());
+//                associationObj.put(user_display_name, Model.instance().getCustomer().getDisplayName());
+//                associationObj.put("advisor", jsonObjects[0]);
+//                JSONObject jobj = jsonParser.makeHttpRequestUsingJobj(API_URL_USERS, "PUT", associationObj);
+//                JSONObject adviserObj = jobj.getJSONObject("advisor");
+//
+//                User.Customer customer = Model.instance().getCustomer();
+//                customer.setAdviserId(adviserObj.getString(id));
+//                customer.setAdviserName(jobj.getString(user_display_name));
+//                Model.instance().addCustomer(customer);
+
+                return "OK";
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+    public class GetAllMessages extends AsyncTask<Void, Void, String > {
+        JSONParser jsonParser = new JSONParser();
+        String customer = Model.instance().getCustomer().getId();
+        String adviser = Model.instance().getCustomer().getAdviserId();
+
+        @Override
+        protected String doInBackground(Void... Void) {
+
+            try {
+                JSONArray jArray = jsonParser.makeHttpRequestArray(API_URL_CHAT, "GET", null);
+
+                for (int i = 0; i < jArray.length(); i++) {
+                    JSONObject messageObj = jArray.getJSONObject(i);
+                    if(messageObj.has(message_sender_id) && messageObj.has(message_recepient_id)) {
+                        String senderId = messageObj.getString(message_sender_id);
+                        String recepientId = messageObj.getString(message_recepient_id);
+
+                        JSONObject senderJobj = new JSONObject(senderId);
+                        JSONObject recepientObg = new JSONObject(recepientId);
+
+                        if (senderId != null) {
+                            MessageLocal message = new MessageLocal(messageObj.getString(id),
+                                    senderJobj.getString(id),
+                                    recepientObg.getString(id),
+                                    messageObj.getString(message_content),
+                                    messageObj.getString(message_created_date));
+
+
+                            if ((message.getSenderId().equals(customer) && message.getRecepeintId().equals(adviser)) ||
+                                    (message.getSenderId().equals(adviser) && message.getRecepeintId().equals(customer))) {
+                                Model.instance().addMessage(message);
+                            }
+                        }
+                    }
+
+                }
                 return "OK";
 
             } catch (Exception e) {
