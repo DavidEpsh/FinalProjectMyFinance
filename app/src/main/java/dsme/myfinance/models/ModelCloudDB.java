@@ -285,7 +285,7 @@ public class ModelCloudDB {
 
                 if (jObj != null) {
                     Log.d("JSON result", jObj.toString());
-                    Model.instance().addExpense(convertToSingleExpense(jObj.toString()));
+                    Model.instance().updateOrAddExpense(convertToSingleExpense(jObj.toString()),false);
                     return "OK";
                 }
             } catch (Exception e) {

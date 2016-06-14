@@ -20,11 +20,13 @@ public class MymessageRecyclerViewAdapter extends RecyclerView.Adapter<Mymessage
     private List<MessageLocal> mValues;
     private final int[] colors;
     private String customerId;
+    private String adviserName;
 
-    public MymessageRecyclerViewAdapter(List<MessageLocal> items, int[] colors, String customerId) {
+    public MymessageRecyclerViewAdapter(List<MessageLocal> items, int[] colors, String customerId, String adviserName) {
         mValues = items;
         this.colors = colors;
         this.customerId = customerId;
+        this.adviserName = adviserName;
     }
 
     @Override
@@ -37,24 +39,25 @@ public class MymessageRecyclerViewAdapter extends RecyclerView.Adapter<Mymessage
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        GradientDrawable drawable = (GradientDrawable) holder.myProfilePicture.getDrawable();
-        drawable.setColor(colors[0]);
+//        GradientDrawable drawable = (GradientDrawable) holder.myProfilePicture.getDrawable();
+//        drawable.setColor(colors[0]);
         holder.mMessageContent.setText(mValues.get(position).getMessageContent());
 
-        if (holder.mItem.getSenderId().equals(customerId)){
-            if(holder.otherProfilePicture.getVisibility() == View.VISIBLE) {
-                holder.otherProfilePicture.setVisibility(View.INVISIBLE);
-                holder.mMessageContent.setGravity(Gravity.RIGHT | Gravity.CENTER);
-                holder.mMessageContent.setPadding(0, 0, 28, 0);
-            }
-        }else {
-            if(holder.myProfilePicture.getVisibility() == View.VISIBLE) {
-                holder.myProfilePicture.setVisibility(View.INVISIBLE);
-                holder.mMessageContent.setGravity(Gravity.LEFT | Gravity.CENTER);
-                holder.mMessageContent.setPadding(28, 0, 0, 0);
-                GradientDrawable drawableOther = (GradientDrawable) holder.otherProfilePicture.getDrawable();
-                drawableOther.setColor(colors[1]);
-            }
+        if (holder.mItem.getSenderId().equals(customerId)) {
+//            holder.otherProfilePicture.setVisibility(View.INVISIBLE);
+            holder.mMessageContent.setGravity(Gravity.RIGHT | Gravity.CENTER);
+            holder.mMessageContent.setPadding(0, 0, 8, 0);
+            holder.mMessageContent.setText(mValues.get(position).getMessageContent() + " :Me");
+
+
+        } else {
+//            holder.myProfilePicture.setVisibility(View.INVISIBLE);
+            holder.mMessageContent.setGravity(Gravity.LEFT | Gravity.CENTER);
+            holder.mMessageContent.setPadding(8, 0, 0, 0);
+//            GradientDrawable drawableOther = (GradientDrawable) holder.otherProfilePicture.getDrawable();
+//            drawableOther.setColor(colors[1]);
+            holder.mMessageContent.setText(adviserName + ": " + mValues.get(position).getMessageContent());
+
         }
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -73,15 +76,15 @@ public class MymessageRecyclerViewAdapter extends RecyclerView.Adapter<Mymessage
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mMessageContent;
-        public final ImageView myProfilePicture;
-        public final ImageView otherProfilePicture;
+//        public final ImageView myProfilePicture;
+//        public final ImageView otherProfilePicture;
         public MessageLocal mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            myProfilePicture = (ImageView) view.findViewById(R.id.myProfileImage);
-            otherProfilePicture = (ImageView) view.findViewById(R.id.otherProfileImage);
+//            myProfilePicture = (ImageView) view.findViewById(R.id.myProfileImage);
+//            otherProfilePicture = (ImageView) view.findViewById(R.id.otherProfileImage);
             mMessageContent = (TextView) view.findViewById(R.id.messageContentTextView);
         }
     }

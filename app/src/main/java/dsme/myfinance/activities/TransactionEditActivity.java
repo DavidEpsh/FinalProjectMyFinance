@@ -132,6 +132,7 @@ public class TransactionEditActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveButton.setClickable(false);
                 saveExpense();
             }
         });
@@ -273,9 +274,12 @@ public class TransactionEditActivity extends AppCompatActivity {
                                 }
                             } else {
                                 Toast.makeText(getApplicationContext(), "Couldn't add expense, please try again", Toast.LENGTH_LONG);
+                                saveButton.setClickable(true);
                             }
                         }
                     }.execute(mExpense);
+        }else{
+            saveButton.setClickable(true);
         }
     }
 

@@ -158,6 +158,7 @@ public class ExpenseSql {
             }
         }
 
+        cursor.close();
         return data;
     }
 
@@ -224,7 +225,7 @@ public class ExpenseSql {
                 } while (cursor.moveToNext());
             }
         }
-
+        cursor.close();
         return data;
     }
 
@@ -279,6 +280,7 @@ public class ExpenseSql {
             }
         }
 
+        cursor.close();
         return data;
     }
 
@@ -288,7 +290,7 @@ public class ExpenseSql {
 
         String query = "SELECT DISTINCT " + CATEGORY +
                 " FROM " + TABLE +
-                " WHERE " + IS_SAVED + " = " + " 1 ";
+                " WHERE " + IS_SAVED + " =" + " 1 ";
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
@@ -300,6 +302,7 @@ public class ExpenseSql {
             } while (cursor.moveToNext());
         }
 
+        cursor.close();
         return allCategories;
     }
 
@@ -315,8 +318,11 @@ public class ExpenseSql {
         cursor = db.rawQuery(query, null);
 
         if(cursor.moveToFirst()) {
-            return cursor.getFloat(0);
+            float sum = cursor.getFloat(0);
+            cursor.close();
+            return sum;
         }else {
+            cursor.close();
             return 0;
         }
     }
@@ -340,8 +346,11 @@ public class ExpenseSql {
         cursor = db.rawQuery(query, null);
 
         if(cursor.moveToFirst()) {
-            return cursor.getFloat(0);
+            float sum = cursor.getFloat(0);
+            cursor.close();
+            return sum;
         }else {
+            cursor.close();
             return 0;
         }
     }
@@ -374,6 +383,7 @@ public class ExpenseSql {
                     data.add(category);
                 } while (cursor.moveToNext());
             }
+            cursor.close();
             return data;
         }else{
             addCategory(dbHelper, "Travel");

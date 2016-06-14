@@ -32,6 +32,7 @@ public class ChatFragment extends Fragment {
     EditText newMessageText;
     String userId;
     String adviserId;
+    String adviserName;
     private Handler handler = new Handler();
 
     private Runnable runnable = new Runnable() {
@@ -80,7 +81,7 @@ public class ChatFragment extends Fragment {
         newMessageText = (EditText) mView.findViewById(R.id.etMessage);
         userId = Model.instance().getCustomer().getId();
         adviserId = Model.instance().getCustomer().getAdviserId();
-
+        adviserName = Model.instance().getCustomer().getAdviserName().split(" ")[0];
 
         handler.postDelayed(runnable, 100);
 
@@ -88,7 +89,7 @@ public class ChatFragment extends Fragment {
             Context context = mRecyclerView.getContext();
             mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
             int[] colors = context.getResources().getIntArray(R.array.preload_colors_small);
-            mRecyclerView.setAdapter(new MymessageRecyclerViewAdapter(Model.instance().getMessages(), colors, Model.instance().getCustomer().getId()));
+            mRecyclerView.setAdapter(new MymessageRecyclerViewAdapter(Model.instance().getMessages(), colors, Model.instance().getCustomer().getId(), adviserName));
 
         }
 

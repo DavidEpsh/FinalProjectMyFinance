@@ -73,6 +73,7 @@ public class UsersSql {
                 String adviserName = cursor.getString(id_adviserName);
                 String adviserId = cursor.getString(id_adviserId);
 
+                cursor.close();
                 return new User.Customer(userID, displayName, firstName, lastName, userName, userEmail, userPhone, sessionId,null, adviserName, adviserId);
             }
         }

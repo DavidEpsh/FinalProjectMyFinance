@@ -140,12 +140,12 @@
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/src/main/res/layout/item_log.xml"
     },
     {
-        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/design_navigation_menu.xml",
-        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/design/23.3.0/res/layout/design_navigation_menu.xml"
-    },
-    {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/activity_login_local.xml",
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/src/main/res/layout/activity_login_local.xml"
+    },
+    {
+        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/design_navigation_menu.xml",
+        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/design/23.3.0/res/layout/design_navigation_menu.xml"
     },
     {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/design_layout_snackbar_include.xml",
@@ -260,12 +260,12 @@
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/src/main/res/layout/item_message.xml"
     },
     {
-        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view.xml",
-        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/layout/abc_activity_chooser_view.xml"
-    },
-    {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/abc_expanded_menu_layout.xml",
         "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/layout/abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view.xml",
+        "source": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.3.0/res/layout/abc_activity_chooser_view.xml"
     },
     {
         "merged": "/Users/David/StudioProjects/FinalProjectMyFinance/app/build/intermediates/res/merged/debug/layout/fragment_advisor_list.xml",
